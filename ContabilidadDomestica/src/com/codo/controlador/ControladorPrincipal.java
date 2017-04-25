@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.codo.modelo.ModeloCD;
 import com.codo.modelo.pojos.Movimientos;
+import com.codo.vista.cuentas.VentanaAnadirCuenta;
 import com.codo.vista.cuentas.VentanaCuentas;
 import com.codo.vista.interfaces.InterfazPrincipal;
 
@@ -51,7 +52,9 @@ public class ControladorPrincipal implements ActionListener {
 		}
 		
 		if (evento.getActionCommand().equals(InterfazPrincipal.ANADIR_CUENTA)){
-			System.out.println("soy el boton añadir cuentas de la ventana cuentas");			
+			System.out.println("soy el boton añadir cuentas de la ventana cuentas");
+			VentanaAnadirCuenta ventanaAnadirCuenta = new VentanaAnadirCuenta();
+			ventanaAnadirCuenta.arranca();
 		}
 	}
 
