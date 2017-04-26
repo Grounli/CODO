@@ -26,7 +26,7 @@ public class ControladorGastos implements ActionListener {
 				modelo.crearMovimiento(vistaGastos.anadirGasto());	
 				System.out.println("Añadirrrr---------------");
 			}
-			
+
 		}
 		
 	}
