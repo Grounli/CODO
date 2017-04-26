@@ -1,6 +1,7 @@
 package com.codo.vista.cuentas;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.util.List;
 
 import javax.swing.GroupLayout;
@@ -15,7 +16,7 @@ import javax.swing.border.EmptyBorder;
 
 import com.codo.controlador.ControladorCuentas;
 import com.codo.modelo.pojos.Cuentas;
-import com.codo.modelo.pojos.Movimientos;
+import com.codo.vista.componentes.ModeloTablaCuentas;
 import com.codo.vista.interfaces.InterfazCuentas;
 
 public class VentanaCuentas extends JDialog implements InterfazCuentas {
@@ -24,9 +25,8 @@ public class VentanaCuentas extends JDialog implements InterfazCuentas {
 	private final JPanel contentPanel = new JPanel();
 	private JTable tablaCuentas;
 	private JButton btnAnadir;
-	private List<Cuentas> listaCuentas;
 
-	public VentanaCuentas(List<Cuentas> listaDeCuentas) {
+	public VentanaCuentas() {
 		setTitle("Cuentas");
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -35,24 +35,21 @@ public class VentanaCuentas extends JDialog implements InterfazCuentas {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		
-		//DESIGNAMOS LAS COLUMNAS
-				String[] columnas = { "ID", "Nombre", "Saldo", "Moneda", "Descripción"};
-				
-				//DESIGNAMOS EL TAMAÑO DEL ARRAY BASADO EN LA CANTIDAD DE CUENTAS QUE HAYAN EN LA LSITA
-				Object[][] datos = new Object[listaDeCuentas.size()][];
-				
-				int i = 0;
-				for (Cuentas cuenta : listaDeCuentas) {
-					
-					datos[i] = new Object[] {cuenta.getIdCuenta(),cuenta.getNombre(),cuenta.getSaldo(), cuenta.getMonedas().getNombre(),cuenta.getDescripcion()};
-					i = i + 1;
-				}
-				tablaCuentas = new JTable(datos, columnas);
-		
-		//TABLA CUENTAS
-		
-		JScrollPane scrollPane = new JScrollPane(tablaCuentas);
+		// CONSTRUCCION DE TABLA
+		tablaCuentas = new JTable();
+		tablaCuentas.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		tablaCuentas.setFillsViewportHeight(false);
+		tablaCuentas.setRowHeight(30);
+		Font f = new Font("Arial", Font.PLAIN, 20);
+		tablaCuentas.setFont(f);
 
+		JScrollPane panelDesplazamiento = new JScrollPane(tablaCuentas);
+		panelDesplazamiento.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		panelDesplazamiento.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		
+		
+		// BOTONES 
+		
 		btnAnadir = new JButton("Añadir");
 		btnAnadir.setActionCommand(BOTON_ANADIR_CUENTA);
 
@@ -62,6 +59,7 @@ public class VentanaCuentas extends JDialog implements InterfazCuentas {
 
 		JButton btnRefrescar = new JButton("Refrescar");
 		
+		// LAYOUT
 		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
 		gl_contentPanel.setHorizontalGroup(
 			gl_contentPanel.createParallelGroup(Alignment.LEADING)
@@ -69,7 +67,7 @@ public class VentanaCuentas extends JDialog implements InterfazCuentas {
 					.addContainerGap()
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
 						.addGroup(Alignment.TRAILING, gl_contentPanel.createSequentialGroup()
-							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)
+							.addComponent(panelDesplazamiento, GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
 								.addComponent(btnAnadir)
@@ -90,7 +88,7 @@ public class VentanaCuentas extends JDialog implements InterfazCuentas {
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnModificar))
 						.addGroup(gl_contentPanel.createSequentialGroup()
-							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE)
+							.addComponent(panelDesplazamiento, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnRefrescar)))
 					.addContainerGap(67, Short.MAX_VALUE))
@@ -111,9 +109,10 @@ public class VentanaCuentas extends JDialog implements InterfazCuentas {
 		setVisible(true);
 	}
 	
-	public void cargarCuentas (List<Cuentas> listaCuentas){
-		this.listaCuentas=listaCuentas;
-	}
-	
+    public void asignarDatosTablaCuentas(List<Cuentas> listaDeCuentas) {
+        ModeloTablaCuentas mtc = new ModeloTablaCuentas();
+        mtc.setDataSource(listaDeCuentas);
+        tablaCuentas.setModel(mtc);
+    }
 	
 }

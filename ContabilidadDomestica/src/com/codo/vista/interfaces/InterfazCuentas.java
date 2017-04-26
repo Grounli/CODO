@@ -1,9 +1,6 @@
 package com.codo.vista.interfaces;
 
-import java.util.List;
-
 import com.codo.controlador.ControladorCuentas;
-import com.codo.modelo.pojos.Cuentas;
 
 public interface InterfazCuentas extends InterfazComun {
 
@@ -14,6 +11,5 @@ public interface InterfazCuentas extends InterfazComun {
 
 	void asignarControlador(ControladorCuentas control);
 
-	void cargarCuentas(List<Cuentas> listaCuentas);
 	
 }

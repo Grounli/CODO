@@ -64,14 +64,12 @@ public class ControladorPrincipal implements ActionListener {
 		//PEDIR LAS LISTAS
 		List<Cuentas> listaDeCuentas = modelo.listaDeCuentas();
 		List<Etiquetas> listaDeEtiquetas = modelo.listaDeEtiquetas();
-		List<Monedas> listaDeMonedas = modelo.listaDeMonedas();
-		List<Movimientos> listaDeMovimientos = modelo.listaDeMovimientos();
 		List<Previsiones> listaDePrevisiones = modelo.listaDePrevisiones();
 		List<Tipos> listaDeTipos = modelo.listaDeTipos();
 		
 		// INICIALIZAR VISTAS
 		
-		vistaCuentas = new VentanaCuentas(listaDeCuentas);
+		vistaCuentas = new VentanaCuentas();
 		vistaEtiquetas = new VentanaEtiquetas(listaDeEtiquetas);
 		vistaGastos = new VentanaGastos(listaDeCuentas,listaDeEtiquetas,listaDeTipos);
 		vistaIngresos = new VentanaIngresos(listaDeCuentas,listaDeEtiquetas,listaDeTipos);
