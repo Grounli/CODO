@@ -28,68 +28,68 @@ public class VentanaTransferencias extends JDialog implements InterfazTransferen
 
 	public VentanaTransferencias(List<Cuentas> listaDeCuentas, List<Etiquetas> listaDeEtiqueta, List<Tipos> listaDeTipos) {
 		setTitle("Transferencias");
-		setBounds(100, 100, 450, 300);
-		setPreferredSize(new Dimension(450,300));
+		setBounds(100, 100, 450, 359);
+		setPreferredSize(new Dimension(500,500));
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		{
 			JLabel lblNewLabel = new JLabel("Cuenta origen");
-			lblNewLabel.setBounds(28, 11, 83, 32);
+			lblNewLabel.setBounds(75, 37, 95, 32);
 			contentPanel.add(lblNewLabel);
 		}
 		
 		JLabel lblCuentaDestino = new JLabel("Cuenta destino");
-		lblCuentaDestino.setBounds(28, 40, 83, 22);
+		lblCuentaDestino.setBounds(75, 80, 95, 22);
 		contentPanel.add(lblCuentaDestino);
 		
 		JLabel lblValor = new JLabel("Valor");
-		lblValor.setBounds(28, 101, 46, 14);
+		lblValor.setBounds(75, 149, 46, 14);
 		contentPanel.add(lblValor);
 		
 		JLabel lblFecha = new JLabel("Fecha");
-		lblFecha.setBounds(28, 126, 46, 14);
+		lblFecha.setBounds(75, 178, 46, 14);
 		contentPanel.add(lblFecha);
 		
 		JLabel lblComentario = new JLabel("Comentario");
-		lblComentario.setBounds(28, 151, 83, 22);
+		lblComentario.setBounds(75, 210, 83, 22);
 		contentPanel.add(lblComentario);
 		
 		JComboBox cuentaOrigen = new JComboBox();
-		cuentaOrigen.setBounds(130, 17, 83, 20);
+		cuentaOrigen.setBounds(200, 44, 83, 20);
 		for (Cuentas cuenta : listaDeCuentas) {
 			cuentaOrigen.addItem(cuenta);
 		}
 		contentPanel.add(cuentaOrigen);
 		
 		JComboBox cuentaDestino = new JComboBox();
-		cuentaDestino.setBounds(130, 41, 83, 20);
+		cuentaDestino.setBounds(200, 82, 83, 20);
 		for (Cuentas cuenta : listaDeCuentas) {
 			cuentaDestino.addItem(cuenta);
 		}
 		contentPanel.add(cuentaDestino);
 		
 		textField = new JTextField();
-		textField.setBounds(127, 98, 86, 20);
+		textField.setBounds(200, 146, 86, 20);
 		contentPanel.add(textField);
 		textField.setColumns(10);
 		
 		JDateChooser dateChooser = new JDateChooser();
-		dateChooser.setBounds(127, 126, 95, 20);
+		dateChooser.setBounds(200, 178, 95, 20);
 		contentPanel.add(dateChooser);
 		
 		textField_1 = new JTextField();
-		textField_1.setBounds(127, 152, 86, 20);
+		textField_1.setBounds(200, 211, 86, 20);
 		contentPanel.add(textField_1);
 		textField_1.setColumns(10);
 		
 		JLabel lblEtiquetas = new JLabel("Etiquetas");
-		lblEtiquetas.setBounds(28, 73, 46, 14);
+		lblEtiquetas.setBounds(75, 113, 46, 14);
 		contentPanel.add(lblEtiquetas);
 		
 		JComboBox comboBoxEtiquetas = new JComboBox();
-		comboBoxEtiquetas.setBounds(130, 72, 83, 20);
+		comboBoxEtiquetas.setBounds(200, 113, 83, 20);
 		for (Etiquetas etiquetas : listaDeEtiqueta) {
 			comboBoxEtiquetas.addItem(etiquetas);
 		}
@@ -99,7 +99,7 @@ public class VentanaTransferencias extends JDialog implements InterfazTransferen
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
+				JButton okButton = new JButton("Aceptar");
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
