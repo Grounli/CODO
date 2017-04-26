@@ -23,7 +23,7 @@ public class ControladorGastos implements ActionListener {
 	public void actionPerformed(ActionEvent evento) {
 		if (evento.getActionCommand().equals(InterfazGastos.BOTON_ANADIR_GASTO)){
 			modelo.crearMovimiento(vistaGastos.anadirGasto());	
-			System.out.println("Añadirrrr---------------");
+			System.out.println("Añadir gasto---------------");
 		}
 		
 	}
