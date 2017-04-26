@@ -49,12 +49,14 @@ public class Movimientos implements java.io.Serializable {
 	public Movimientos() {
 	}
 
-	public Movimientos(Cuentas cuentasByIdCuentaOrigen, Etiquetas etiquetas, Tipos tipos, double valor, Date fecha) {
+	
+	public Movimientos(Cuentas cuentasByIdCuentaOrigen, Etiquetas etiquetas, Tipos tipos, double valor, Date fecha, String descripcion) {
 		this.cuentasByIdCuentaOrigen = cuentasByIdCuentaOrigen;
 		this.etiquetas = etiquetas;
 		this.tipos = tipos;
 		this.valor = valor;
 		this.fecha = fecha;
+		this.descripcion=descripcion;
 	}
 
 	public Movimientos(Cuentas cuentasByIdCuentaDestino, Cuentas cuentasByIdCuentaOrigen, Etiquetas etiquetas,
