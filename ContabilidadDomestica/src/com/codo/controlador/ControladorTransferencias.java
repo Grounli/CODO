@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 
 import com.codo.modelo.ModeloCD;
 import com.codo.vista.interfaces.InterfazCuentas;
-import com.codo.vista.interfaces.InterfazGastos;
 import com.codo.vista.interfaces.InterfazTransferencias;
 
 public class ControladorTransferencias implements ActionListener{
@@ -19,12 +18,8 @@ public class ControladorTransferencias implements ActionListener{
 	}
 	
 	@Override
-	public void actionPerformed(ActionEvent evento) {
-		if (evento.getActionCommand().equals(InterfazTransferencias.BOTON_ANADIR_TRANSFERENCIA)){
-			modelo.crearMovimiento(vistaTransferencias.anadirTransferencia());	
-			System.out.println("Añadir Transferencia---------------");
-		}
-		
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
 		
 	}
 
