@@ -22,8 +22,10 @@ public class ControladorGastos implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent evento) {
 		if (evento.getActionCommand().equals(InterfazGastos.BOTON_ANADIR_GASTO)){
+			if(vistaGastos.comprobarCampos()){
 			modelo.crearMovimiento(vistaGastos.anadirGasto());	
 			System.out.println("Añadir gasto---------------");
+			}
 		}
 		
 	}

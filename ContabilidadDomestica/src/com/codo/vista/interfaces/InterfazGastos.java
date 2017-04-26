@@ -13,5 +13,7 @@ public interface InterfazGastos extends InterfazComun {
 	void asignarControlador(ControladorGastos control);
 	
 	public Movimientos anadirGasto(); 
+	public void limpiarCampos();
+	public boolean comprobarCampos();
 
 }
