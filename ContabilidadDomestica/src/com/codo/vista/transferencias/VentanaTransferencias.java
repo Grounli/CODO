@@ -6,8 +6,11 @@ import java.awt.FlowLayout;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import com.codo.controlador.ControladorTransferencias;
@@ -15,24 +18,23 @@ import com.codo.modelo.pojos.Cuentas;
 import com.codo.modelo.pojos.Etiquetas;
 import com.codo.modelo.pojos.Tipos;
 import com.codo.vista.interfaces.InterfazTransferencias;
-import javax.swing.JLabel;
-import javax.swing.JComboBox;
-import javax.swing.JTextField;
 import com.toedter.calendar.JDateChooser;
 
 public class VentanaTransferencias extends JDialog implements InterfazTransferencias {
 
-	private final JPanel contentPanel = new JPanel();
-	private JTextField textField;
 	private JTextField textField_1;
+	private JTextField textField;
+	private final JPanel contentPanel = new JPanel();
 
 	public VentanaTransferencias(List<Cuentas> listaDeCuentas, List<Etiquetas> listaDeEtiqueta, List<Tipos> listaDeTipos) {
 		setTitle("Transferencias");
 		setBounds(100, 100, 450, 359);
 		setPreferredSize(new Dimension(500,500));
 		getContentPane().setLayout(new BorderLayout());
+		contentPanel.setLayout(new FlowLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
+
 		contentPanel.setLayout(null);
 		{
 			JLabel lblNewLabel = new JLabel("Cuenta origen");
@@ -94,6 +96,7 @@ public class VentanaTransferencias extends JDialog implements InterfazTransferen
 			comboBoxEtiquetas.addItem(etiquetas);
 		}
 		contentPanel.add(comboBoxEtiquetas);
+		
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -124,4 +127,5 @@ public class VentanaTransferencias extends JDialog implements InterfazTransferen
 		setLocationRelativeTo(null);
 		setVisible(true);		
 	}
+
 }
