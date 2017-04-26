@@ -134,5 +134,10 @@ public class Cuentas implements java.io.Serializable {
 	public void setPrevisionesesForIdCuentaDestino(Set previsionesesForIdCuentaDestino) {
 		this.previsionesesForIdCuentaDestino = previsionesesForIdCuentaDestino;
 	}
+	
+	@Override
+	public String toString(){
+		return this.nombre;
+	}
 
 }

@@ -1,70 +1,67 @@
 package com.codo.vista.cuentas;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.util.List;
-
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import com.codo.controlador.ControladorPrincipal;
-import com.codo.modelo.pojos.Movimientos;
-import com.codo.vista.interfaces.InterfazPrincipal;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import java.awt.Dialog.ModalityType;
+import javax.swing.border.EmptyBorder;
 
-public class VentanaCuentas extends JDialog implements InterfazPrincipal {
+import com.codo.controlador.ControladorCuentas;
+import com.codo.modelo.pojos.Cuentas;
+import com.codo.modelo.pojos.Movimientos;
+import com.codo.vista.interfaces.InterfazCuentas;
+
+public class VentanaCuentas extends JDialog implements InterfazCuentas {
 
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JTable tablaCuentas;
 	private JButton btnAnadir;
+	private List<Cuentas> listaCuentas;
 
-	public VentanaCuentas(List<Movimientos> movimientos) {
+	public VentanaCuentas(List<Cuentas> listaDeCuentas) {
+		setTitle("Cuentas");
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-
-		Object[][] datos = new Object[movimientos.size()][];
-		String[] columnas = { "ID", "Cuenta Origen", "Cuenta Destino", "Tipo", "Etiqueta", "valor", "Fecha",
-				"Descripcion" };
-		int i = 0;
-		for (Movimientos m : movimientos) {
-			System.out.println(m.getCuentasByIdCuentaDestino());
-			datos[i] = new Object[] { m.getIdMovimiento(), 
-					m.getCuentasByIdCuentaOrigen().getNombre(),
-					m.getCuentasByIdCuentaDestino(), 
-					m.getTipos().getNombre(), 
-					m.getEtiquetas().getNombre(),
-					m.getValor(),
-					m.getFecha(),
-					m.getDescripcion() };
-			i = i + 1;
-		}
-
-		tablaCuentas = new JTable(datos, columnas);
-
 		setBounds(100, 100, 526, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
-
+		
+		//DESIGNAMOS LAS COLUMNAS
+				String[] columnas = { "ID", "Nombre", "Saldo", "Moneda", "Descripción"};
+				
+				//DESIGNAMOS EL TAMAÑO DEL ARRAY BASADO EN LA CANTIDAD DE CUENTAS QUE HAYAN EN LA LSITA
+				Object[][] datos = new Object[listaDeCuentas.size()][];
+				
+				int i = 0;
+				for (Cuentas cuenta : listaDeCuentas) {
+					
+					datos[i] = new Object[] {cuenta.getIdCuenta(),cuenta.getNombre(),cuenta.getSaldo(), cuenta.getMonedas().getNombre(),cuenta.getDescripcion()};
+					i = i + 1;
+				}
+				tablaCuentas = new JTable(datos, columnas);
+		
+		//TABLA CUENTAS
+		
 		JScrollPane scrollPane = new JScrollPane(tablaCuentas);
 
 		btnAnadir = new JButton("Añadir");
-		btnAnadir.setActionCommand(ANADIR_CUENTA);
+		btnAnadir.setActionCommand(BOTON_ANADIR_CUENTA);
 
 		JButton btnBorrar = new JButton("Borrar");
 
 		JButton btnModificar = new JButton("Modificar");
 
 		JButton btnRefrescar = new JButton("Refrescar");
+		
 		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
 		gl_contentPanel.setHorizontalGroup(
 			gl_contentPanel.createParallelGroup(Alignment.LEADING)
@@ -102,16 +99,21 @@ public class VentanaCuentas extends JDialog implements InterfazPrincipal {
 	}
 
 	@Override
-	public void asignarControlador(ControladorPrincipal control) {
+	public void asignarControlador(ControladorCuentas control) {
 		btnAnadir.addActionListener(control);
 		
 	}
 
 	@Override
-	public void arranca() {
+	public void iniciar() {
 		pack();
 		setLocationRelativeTo(null);
 		setVisible(true);
-		
 	}
+	
+	public void cargarCuentas (List<Cuentas> listaCuentas){
+		this.listaCuentas=listaCuentas;
+	}
+	
+	
 }

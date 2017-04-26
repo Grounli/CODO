@@ -87,4 +87,9 @@ public class Etiquetas implements java.io.Serializable {
 		this.movimientoses = movimientoses;
 	}
 	
+	@Override
+	public String toString(){
+		return this.nombre;
+	}
+	
 }

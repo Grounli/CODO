@@ -62,4 +62,9 @@ public class Monedas implements java.io.Serializable {
 		this.cuentases = cuentases;
 	}
 
+	@Override
+	public String toString(){
+		return this.nombre;
+	}
+	
 }

@@ -5,93 +5,138 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 import com.codo.modelo.ModeloCD;
+import com.codo.modelo.pojos.Cuentas;
+import com.codo.modelo.pojos.Etiquetas;
+import com.codo.modelo.pojos.Monedas;
 import com.codo.modelo.pojos.Movimientos;
-import com.codo.vista.cuentas.VentanaAnadirCuenta;
+import com.codo.modelo.pojos.Previsiones;
+import com.codo.modelo.pojos.Tipos;
+import com.codo.vista.VentanaSobre;
 import com.codo.vista.cuentas.VentanaCuentas;
+import com.codo.vista.etiquetas.VentanaEtiquetas;
+import com.codo.vista.gastos.VentanaGastos;
+import com.codo.vista.ingresos.VentanaIngresos;
+import com.codo.vista.interfaces.InterfazCuentas;
+import com.codo.vista.interfaces.InterfazEtiquetas;
+import com.codo.vista.interfaces.InterfazGastos;
+import com.codo.vista.interfaces.InterfazIngresos;
+import com.codo.vista.interfaces.InterfazMovimientos;
+import com.codo.vista.interfaces.InterfazPrevisiones;
 import com.codo.vista.interfaces.InterfazPrincipal;
+import com.codo.vista.interfaces.InterfazTransferencias;
+import com.codo.vista.movimientos.VentanaMovimientos;
+import com.codo.vista.previsiones.VentanaPrevisiones;
+import com.codo.vista.transferencias.VentanaTransferencias;
 
 public class ControladorPrincipal implements ActionListener {
 
 	private InterfazPrincipal vista;
 	private ModeloCD modelo;
-
+	
+	//CONTROLADORES
+	
+	ControladorCuentas controladorCuentas;
+	ControladorEtiquetas controladorEtiquetas;
+	ControladorGastos controladorGastos;
+	ControladorIngresos controladorIngresos;
+	ControladorMovimientos controladorMovimientos;
+	ControladorPrevisiones controladorPrevisiones;
+	ControladorTransferencias controladorTransferencias;
+	
+	//VISTAS
+	
+	InterfazCuentas vistaCuentas;
+	InterfazEtiquetas vistaEtiquetas;
+	InterfazGastos vistaGastos;
+	InterfazIngresos vistaIngresos;
+	InterfazMovimientos vistaMovimientos;
+	InterfazPrevisiones vistaPrevisiones;
+	InterfazTransferencias vistaTransferencias;
+	
+	//LISTAS
+	
+	
+	
 	public ControladorPrincipal(InterfazPrincipal vista, ModeloCD modelo) {
 		this.vista = vista;
 		this.modelo = modelo;
-		//INICIALIZAR INTERFACES
 		
-		//INICIALIZAR CONTROLADORES
+		//PEDIR LAS LISTAS
+		List<Cuentas> listaDeCuentas = modelo.listaDeCuentas();
+		List<Etiquetas> listaDeEtiquetas = modelo.listaDeEtiquetas();
+		List<Monedas> listaDeMonedas = modelo.listaDeMonedas();
+		List<Movimientos> listaDeMovimientos = modelo.listaDeMovimientos();
+		List<Previsiones> listaDePrevisiones = modelo.listaDePrevisiones();
+		List<Tipos> listaDeTipos = modelo.listaDeTipos();
+		
+		// INICIALIZAR VISTAS
+		
+		vistaCuentas = new VentanaCuentas(listaDeCuentas);
+		vistaEtiquetas = new VentanaEtiquetas(listaDeEtiquetas);
+		vistaGastos = new VentanaGastos(listaDeCuentas,listaDeEtiquetas,listaDeTipos);
+		vistaIngresos = new VentanaIngresos(listaDeCuentas,listaDeEtiquetas,listaDeTipos);
+		vistaMovimientos = new VentanaMovimientos(listaDeCuentas,listaDeEtiquetas,listaDeTipos);
+		vistaPrevisiones = new VentanaPrevisiones(listaDePrevisiones);
+		vistaTransferencias = new VentanaTransferencias(listaDeCuentas,listaDeEtiquetas, listaDeTipos);
+		
+		// INICIALIZAR CONTROLADORES
+		
+		controladorCuentas = new ControladorCuentas(vistaCuentas, modelo);
+		controladorEtiquetas = new ControladorEtiquetas(vistaEtiquetas, modelo);
+		controladorGastos = new ControladorGastos(vistaGastos, modelo);
+		controladorIngresos = new ControladorIngresos(vistaIngresos, modelo);
+		controladorMovimientos = new ControladorMovimientos(vistaMovimientos, modelo);
+		controladorPrevisiones = new ControladorPrevisiones(vistaPrevisiones, modelo);
+		controladorTransferencias = new ControladorTransferencias(vistaTransferencias, modelo);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent evento) {
-		controlMenu(evento);
-		controlCuentas(evento);
-		controlMovimientos(evento);
-		controlPrevisiones(evento);
-		controlIngresos(evento);
-		controlGastos(evento);
-		controlTransferencias(evento);
-		controlEtiquetas(evento);
-	}
-
-	public void controlMenu(ActionEvent evento) {
-		if (evento.getActionCommand().equals(InterfazPrincipal.VENTANA_SOBRE)) {
-			System.out.println("hola, soy el boton sobre");
+		
+		// ACCIONES DE LA BARRA DE MENU DE VENTANA PRINCIPAL
+		
+		if (evento.getActionCommand().equals(InterfazPrincipal.BOTON_SOBRE)) {
+			VentanaSobre ventanaSobre = new VentanaSobre();
+			ventanaSobre.iniciar();
 		}
-	}
 
-	public void controlCuentas(ActionEvent evento) {
-		if (evento.getActionCommand().equals(InterfazPrincipal.VENTANA_CUENTAS)) {
-			System.out.println("hola, soy el boton cuentas");
-			List<Movimientos> movimientos = modelo.leerMovimientos();
-			
-			VentanaCuentas ventanaCuentas = new VentanaCuentas(movimientos);
-			ventanaCuentas.asignarControlador(this);
-			ventanaCuentas.arranca();
+		if (evento.getActionCommand().equals(InterfazPrincipal.BOTON_ETIQUETAS)) {
+			vistaEtiquetas.asignarControlador(controladorEtiquetas);
+			vistaEtiquetas.iniciar();
 		}
 		
-		if (evento.getActionCommand().equals(InterfazPrincipal.ANADIR_CUENTA)){
-			System.out.println("soy el boton añadir cuentas de la ventana cuentas");
-			VentanaAnadirCuenta ventanaAnadirCuenta = new VentanaAnadirCuenta();
-			ventanaAnadirCuenta.arranca();
-		}
-	}
+		// ------------------ BOTONES DE VENTANA PRINCIPAL ------------------ //
+		
+		if (evento.getActionCommand().equals(InterfazPrincipal.BOTON_CUENTAS)) {
 
-	public void controlMovimientos(ActionEvent evento) {
-		if (evento.getActionCommand().equals(InterfazPrincipal.VENTANA_MOVIMIENTOS)) {
-			System.out.println("hola, soy el boton movimientos");
+			//LLAMAR A LA VENTANA CUENTAS
+			vistaCuentas.asignarControlador(controladorCuentas);
+			vistaCuentas.iniciar();	
 		}
 
-	}
-
-	public void controlPrevisiones(ActionEvent evento) {
-		if (evento.getActionCommand().equals(InterfazPrincipal.VENTANA_PREVISIONES)) {
-			System.out.println("hola, soy el boton previsiones");
+		if (evento.getActionCommand().equals(InterfazPrincipal.BOTON_MOVIMIENTOS)) {
+			vistaMovimientos.asignarControlador(controladorMovimientos);
+			vistaMovimientos.iniciar();
 		}
-	}
 
-	public void controlIngresos(ActionEvent evento) {
-		if (evento.getActionCommand().equals(InterfazPrincipal.VENTANA_INGRESOS)) {
-			System.out.println("hola, soy el boton ingresos");
+		if (evento.getActionCommand().equals(InterfazPrincipal.BOTON_PREVISIONES)) {
+			vistaPrevisiones.asignarControlador(controladorPrevisiones);
+			vistaPrevisiones.iniciar();
+			}
+
+		if (evento.getActionCommand().equals(InterfazPrincipal.BOTON_INGRESOS)) {
+			vistaIngresos.asignarControlador(controladorIngresos);
+			vistaIngresos.iniciar();
 		}
-	}
 
-	public void controlGastos(ActionEvent evento) {
-		if (evento.getActionCommand().equals(InterfazPrincipal.VENTANA_GASTOS)) {
-			System.out.println("hola, soy el boton gastos");
+		if (evento.getActionCommand().equals(InterfazPrincipal.BOTON_GASTOS)) {
+			vistaGastos.asignarControlador(controladorGastos);
+			vistaGastos.iniciar();
 		}
-	}
 
-	public void controlTransferencias(ActionEvent evento) {
-		if (evento.getActionCommand().equals(InterfazPrincipal.VENTANA_TRANSFERENCIAS)) {
-			System.out.println("hola, soy el boton transferencias");
-		}
-	}
-
-	public void controlEtiquetas(ActionEvent evento) {
-		if (evento.getActionCommand().equals(InterfazPrincipal.VENTANA_ETIQUETAS)) {
-			System.out.println("hola, soy el boton etiquetas");
+		if (evento.getActionCommand().equals(InterfazPrincipal.BOTON_TRANSFERENCIAS)) {
+			vistaTransferencias.asignarControlador(controladorTransferencias);
+			vistaTransferencias.iniciar();
 		}
 	}
 

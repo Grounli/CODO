@@ -25,116 +25,116 @@ public class ModeloCD {
 	CuentasDAO cuentas = new CuentasDAO(EM_FACTORY);
 	EtiquetasDAO etiquetas = new EtiquetasDAO(EM_FACTORY);
 	MonedasDAO monedas = new MonedasDAO(EM_FACTORY);
-	MovimientosDAO movimientos = new MovimientosDAO (EM_FACTORY);
-	PrevisionesDAO previsiones = new PrevisionesDAO (EM_FACTORY);
-	TiposDAO tipos = new TiposDAO (EM_FACTORY);
+	MovimientosDAO movimientos = new MovimientosDAO(EM_FACTORY);
+	PrevisionesDAO previsiones = new PrevisionesDAO(EM_FACTORY);
+	TiposDAO tipos = new TiposDAO(EM_FACTORY);
 
-	//CUENTAS
-	
-	public void crearCuenta (Cuentas cuenta){
+	// --------- CUENTAS --------- //
+
+	public void crearCuenta(Cuentas cuenta) {
 		cuentas.crear(cuenta);
 	}
-	
-	public void actualizarCuenta (Cuentas cuenta){
+
+	public void actualizarCuenta(Cuentas cuenta) {
 		cuentas.actualizar(cuenta);
 	}
-	
-	public void borrarCuenta (Cuentas cuenta){
+
+	public void borrarCuenta(Cuentas cuenta) {
 		cuentas.borrar(cuenta);
 	}
-		
-	public List<Cuentas> leerCuentas (){
+
+	public List<Cuentas> listaDeCuentas() {
 		return cuentas.leerCuentas();
 	}
-	
-	//ETIQUETAS
-	
-	public void crearEtiqueta (Etiquetas etiqueta){
+
+	// --------- ETIQUETAS --------- //
+
+	public void crearEtiqueta(Etiquetas etiqueta) {
 		etiquetas.crear(etiqueta);
 	}
-	
-	public void actualizarEtiqueta (Etiquetas etiqueta){
+
+	public void actualizarEtiqueta(Etiquetas etiqueta) {
 		etiquetas.actualizar(etiqueta);
 	}
-	
-	public void borrarEtiqueta (Etiquetas etiqueta){
+
+	public void borrarEtiqueta(Etiquetas etiqueta) {
 		etiquetas.borrar(etiqueta);
 	}
-		
-	public List<Etiquetas> leerEtiquetas (){
+
+	public List<Etiquetas> listaDeEtiquetas() {
 		return etiquetas.leerEtiquetas();
 	}
-	
-	//MONEDAS
-	
-	public void crearMoneda (Monedas moneda){
+
+	// --------- MONEDAS --------- //
+
+	public void crearMoneda(Monedas moneda) {
 		monedas.crear(moneda);
 	}
-	
-	public void actualizarMoneda (Monedas moneda){
+
+	public void actualizarMoneda(Monedas moneda) {
 		monedas.actualizar(moneda);
 	}
-	
-	public void borrarMoneda (Monedas moneda){
+
+	public void borrarMoneda(Monedas moneda) {
 		monedas.borrar(moneda);
 	}
-		
-	public List<Monedas> leerMonedas (){
+
+	public List<Monedas> listaDeMonedas() {
 		return monedas.leerMonedas();
 	}
-	
-	//MOVIMIENTOS
-	
-	public void crearMovimiento (Movimientos movimiento){
+
+	// --------- MOVIMIENTOS --------- //
+
+	public void crearMovimiento(Movimientos movimiento) {
 		movimientos.crear(movimiento);
 	}
-	
-	public void actualizarMovimiento (Movimientos movimiento){
+
+	public void actualizarMovimiento(Movimientos movimiento) {
 		movimientos.actualizar(movimiento);
 	}
-	
-	public void borrarMovimiento (Movimientos movimiento){
+
+	public void borrarMovimiento(Movimientos movimiento) {
 		movimientos.borrar(movimiento);
 	}
-		
-	public List<Movimientos> leerMovimientos (){
+
+	public List<Movimientos> listaDeMovimientos() {
 		return movimientos.leerMovimientos();
 	}
-	
-	//PREVISIONES
-	
-	public void crearPrevision (Previsiones prevision){
+
+	// --------- PREVISIONES --------- //
+
+	public void crearPrevision(Previsiones prevision) {
 		previsiones.crear(prevision);
 	}
-	
-	public void actualizarPrevision (Previsiones prevision){
+
+	public void actualizarPrevision(Previsiones prevision) {
 		previsiones.actualizar(prevision);
 	}
-	
-	public void borrarPrevision (Previsiones prevision){
+
+	public void borrarPrevision(Previsiones prevision) {
 		previsiones.borrar(prevision);
 	}
-		
-	public List<Previsiones> leerPrevisiones (){
+
+	public List<Previsiones> listaDePrevisiones() {
 		return previsiones.leerPrevisiones();
 	}
-	
-	//TIPOS
-	
-	public void crearTipo (Tipos tipo){
+
+	// --------- TIPOS --------- //
+
+	public void crearTipo(Tipos tipo) {
 		tipos.crear(tipo);
 	}
-	
-	public void actualizarTipo (Tipos tipo){
+
+	public void actualizarTipo(Tipos tipo) {
 		tipos.actualizar(tipo);
 	}
-	
-	public void borrarTipo (Tipos tipo){
+
+	public void borrarTipo(Tipos tipo) {
 		tipos.borrar(tipo);
 	}
-		
-	public List<Tipos> leerTipos (Tipos tipo){
+
+	public List<Tipos> listaDeTipos() {
 		return tipos.leerTipos();
 	}
-	
+
 }

@@ -82,4 +82,9 @@ public class Tipos implements java.io.Serializable {
 		this.previsioneses = previsioneses;
 	}
 
+	@Override
+	public String toString(){
+		return this.nombre;
+	}
+	
 }
