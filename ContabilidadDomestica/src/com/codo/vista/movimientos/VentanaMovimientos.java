@@ -14,6 +14,8 @@ import com.codo.modelo.pojos.Cuentas;
 import com.codo.modelo.pojos.Etiquetas;
 import com.codo.modelo.pojos.Tipos;
 import com.codo.vista.interfaces.InterfazMovimientos;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class VentanaMovimientos extends JDialog implements InterfazMovimientos{
 
@@ -21,7 +23,7 @@ public class VentanaMovimientos extends JDialog implements InterfazMovimientos{
 
 	public VentanaMovimientos(List<Cuentas> listaDeCuentas, List<Etiquetas> listaDeEtiqueta, List<Tipos> listaDeTipos) {
 		setTitle("Movimientos");
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 408, 258);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setLayout(new FlowLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -32,6 +34,10 @@ public class VentanaMovimientos extends JDialog implements InterfazMovimientos{
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("OK");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+					}
+				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
