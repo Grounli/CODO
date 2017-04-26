@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import com.codo.modelo.ModeloCD;
 import com.codo.vista.interfaces.InterfazCuentas;
+import com.codo.vista.interfaces.InterfazGastos;
 import com.codo.vista.interfaces.InterfazIngresos;
 
 public class ControladorIngresos implements ActionListener {
@@ -18,9 +19,11 @@ public class ControladorIngresos implements ActionListener {
 	}
 	
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
+	public void actionPerformed(ActionEvent evento) {
+		if (evento.getActionCommand().equals(InterfazIngresos.BOTON_ANADIR_INGRESO)){
+			modelo.crearMovimiento(vistaIngresos.anadirIngreso());	
+			System.out.println("Añadir ingreso---------------");
+		}
 	}
 
 }
