@@ -22,11 +22,16 @@ public class ControladorTransferencias implements ActionListener{
 	public void actionPerformed(ActionEvent evento) {
 		if (evento.getActionCommand().equals(InterfazTransferencias.BOTON_ANADIR_TRANSFERENCIA)){
 			
-			modelo.crearMovimiento(vistaTransferencias.anadirTransferencia());	
-			System.out.println("Transferencia---------------");
+			if(vistaTransferencias.comprobarCampos()){
+				modelo.crearMovimiento(vistaTransferencias.anadirTransferencia());	
+				System.out.println("----TRANSFERENCIA AÑADIDA A LA BD----");
+			}
+			
 			
 		}
-		
+		if (evento.getActionCommand().equals(InterfazTransferencias.BOTON_CANCELAR_TRANSFERENCIA)){
+			vistaTransferencias.cerrarVentana();
+		}
 	}
 
 }
