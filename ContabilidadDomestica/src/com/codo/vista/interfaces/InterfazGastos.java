@@ -9,11 +9,13 @@ import com.codo.modelo.pojos.Tipos;
 public interface InterfazGastos extends InterfazComun {
 	
 	final String BOTON_ANADIR_GASTO = "Añadir Gasto";
+	final String BOTON_CANCELAR_GASTO = "Cancelar";
 
 	void asignarControlador(ControladorGastos control);
 	
 	public Movimientos anadirGasto(); 
 	public void limpiarCampos();
 	public boolean comprobarCampos();
+	public void cerrarVentana();
 
 }

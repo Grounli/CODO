@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import com.codo.modelo.ModeloCD;
+import com.codo.vista.gastos.VentanaGastos;
 import com.codo.vista.interfaces.InterfazCuentas;
 import com.codo.vista.interfaces.InterfazGastos;
 
@@ -24,10 +25,15 @@ public class ControladorGastos implements ActionListener {
 		if (evento.getActionCommand().equals(InterfazGastos.BOTON_ANADIR_GASTO)){
 			if(vistaGastos.comprobarCampos()){
 			modelo.crearMovimiento(vistaGastos.anadirGasto());	
-			System.out.println("Añadir gasto---------------");
+			System.out.println("----GASTO AÑADIDO EN LA BD----");
 			}
+			
 		}
+		if (evento.getActionCommand().equals(InterfazGastos.BOTON_CANCELAR_GASTO)){
 		
+			vistaGastos.cerrarVentana();
+			
+		}
 	}
 
 }
