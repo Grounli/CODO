@@ -159,7 +159,7 @@ public class VentanaIngresos extends JDialog implements InterfazIngresos {
 		Date fecha = dateChooser.getDate();
 		String comentario = textFieldComentario.getText();
 		Movimientos movimiento = new Movimientos(cuenta, etiqueta, listaDeTipos.get(0), valor, fecha, comentario);
-
+		this.limpiarCampos();
 		return movimiento;
 	}
 	

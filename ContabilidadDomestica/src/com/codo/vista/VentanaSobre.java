@@ -9,34 +9,30 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import com.codo.vista.interfaces.InterfazComun;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+import java.awt.Dimension;
 
 public class VentanaSobre extends JDialog implements InterfazComun{
 
 	private final JPanel contentPanel = new JPanel();
 
 	public VentanaSobre() {
+		setPreferredSize(new Dimension(540, 505));
+		setResizable(false);
 		setTitle("Sobre");
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 535, 452);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setLayout(new FlowLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		contentPanel.setLayout(null);
 		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				JButton okButton = new JButton("OK");
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-			}
-			{
-				JButton cancelButton = new JButton("Cancel");
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
-			}
+			JLabel lblNewLabel = new JLabel("");
+			lblNewLabel.setIcon(new ImageIcon("Informacion.png"));
+			lblNewLabel.setBounds(0, 0, 532, 465);
+			contentPanel.add(lblNewLabel);
 		}
+
 	}
 
 	@Override
