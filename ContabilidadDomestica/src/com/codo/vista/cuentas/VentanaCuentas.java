@@ -1,17 +1,15 @@
 package com.codo.vista.cuentas;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.util.List;
 
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
 import com.codo.controlador.ControladorCuentas;
@@ -22,84 +20,81 @@ import com.codo.vista.interfaces.InterfazCuentas;
 public class VentanaCuentas extends JDialog implements InterfazCuentas {
 
 	private static final long serialVersionUID = 1L;
+	private static final int POSICION_HORIZONTAL = 100;
+	private static final int POSICION_VERTICAL = 100;
+	private static final int ANCHURA_MAXIMA = 450;
+	private static final int ALTURA_MAXIMA = 300;
 	private final JPanel contentPanel = new JPanel();
 	private JTable tablaCuentas;
+	private JScrollPane panelDesplazamiento;
 	private JButton btnAnadir;
+	private JButton btnBorrar;
+	private JButton btnModificar;
 
 	public VentanaCuentas() {
 		setTitle("Cuentas");
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 526, 300);
+		setBounds(POSICION_HORIZONTAL, POSICION_VERTICAL, ANCHURA_MAXIMA, ALTURA_MAXIMA);
+		setPreferredSize(new Dimension(ANCHURA_MAXIMA, ALTURA_MAXIMA));
 		getContentPane().setLayout(new BorderLayout());
+		contentPanel.setLayout(null);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		
+
 		// CONSTRUCCION DE TABLA
 		tablaCuentas = new JTable();
 		tablaCuentas.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		tablaCuentas.setFillsViewportHeight(false);
 		tablaCuentas.setRowHeight(30);
-		Font f = new Font("Arial", Font.PLAIN, 20);
+		Font f = new Font("Time New Roman", Font.PLAIN, 14);
 		tablaCuentas.setFont(f);
 
-		JScrollPane panelDesplazamiento = new JScrollPane(tablaCuentas);
+		panelDesplazamiento = new JScrollPane(tablaCuentas);
+		panelDesplazamiento.setSize(414, 202);
+		panelDesplazamiento.setLocation(10, 10);
 		panelDesplazamiento.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		panelDesplazamiento.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		
-		
-		// BOTONES 
-		
+		contentPanel.add(panelDesplazamiento);
+
+		// BOTONES
+
 		btnAnadir = new JButton("Añadir");
+		btnAnadir.setSize(89, 23);
+		btnAnadir.setLocation(77, 223);
 		btnAnadir.setActionCommand(BOTON_ANADIR_CUENTA);
+		contentPanel.add(btnAnadir);
 
-		JButton btnBorrar = new JButton("Borrar");
+		btnBorrar = new JButton("Borrar");
+		btnBorrar.setSize(89, 23);
+		btnBorrar.setLocation(176, 223);
+		btnBorrar.setActionCommand(BOTON_BORRAR_CUENTA);
+		contentPanel.add(btnBorrar);
 
-		JButton btnModificar = new JButton("Modificar");
-
-		JButton btnRefrescar = new JButton("Refrescar");
-		
-		// LAYOUT
-		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
-		gl_contentPanel.setHorizontalGroup(
-			gl_contentPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-						.addGroup(Alignment.TRAILING, gl_contentPanel.createSequentialGroup()
-							.addComponent(panelDesplazamiento, GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-								.addComponent(btnAnadir)
-								.addComponent(btnBorrar)
-								.addComponent(btnModificar)))
-						.addComponent(btnRefrescar))
-					.addContainerGap())
-		);
-		gl_contentPanel.setVerticalGroup(
-			gl_contentPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addGap(20)
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPanel.createSequentialGroup()
-							.addComponent(btnAnadir)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnBorrar)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnModificar))
-						.addGroup(gl_contentPanel.createSequentialGroup()
-							.addComponent(panelDesplazamiento, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnRefrescar)))
-					.addContainerGap(67, Short.MAX_VALUE))
-		);
-		contentPanel.setLayout(gl_contentPanel);
+		btnModificar = new JButton("Modificar");
+		btnModificar.setSize(89, 23);
+		btnModificar.setLocation(275, 223);
+		btnModificar.setActionCommand(BOTON_MODIFICAR_CUENTA);
+		contentPanel.add(btnModificar);
 	}
 
 	@Override
 	public void asignarControlador(ControladorCuentas control) {
 		btnAnadir.addActionListener(control);
-		
+		btnBorrar.addActionListener(control);
+		btnModificar.addActionListener(control);
+	}
+
+	@Override
+	public void asignarDatosTablaCuentas(List<Cuentas> listaDeCuentas) {
+		ModeloTablaCuentas mtc = new ModeloTablaCuentas();
+		mtc.asignarListaDeCuentas(listaDeCuentas);
+		tablaCuentas.setModel(mtc);
+	}
+
+	@Override
+	public JTable obtenerTablaCuentas() {
+		return this.tablaCuentas;
 	}
 
 	@Override
@@ -108,11 +103,4 @@ public class VentanaCuentas extends JDialog implements InterfazCuentas {
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}
-	
-    public void asignarDatosTablaCuentas(List<Cuentas> listaDeCuentas) {
-        ModeloTablaCuentas mtc = new ModeloTablaCuentas();
-        mtc.setDataSource(listaDeCuentas);
-        tablaCuentas.setModel(mtc);
-    }
-	
 }

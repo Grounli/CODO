@@ -22,7 +22,6 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import com.codo.controlador.ControladorIngresos;
-import com.codo.controlador.ControladorPrincipal;
 import com.codo.modelo.pojos.Cuentas;
 import com.codo.modelo.pojos.Etiquetas;
 import com.codo.modelo.pojos.Movimientos;
@@ -30,20 +29,22 @@ import com.codo.modelo.pojos.Tipos;
 import com.codo.vista.interfaces.InterfazIngresos;
 import com.toedter.calendar.JDateChooser;
 
-public class VentanaIngresos extends JDialog implements InterfazIngresos{
+public class VentanaIngresos extends JDialog implements InterfazIngresos {
 
+	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textFieldValor;
 	private JTextField textFieldComentario;
-	private JComboBox comboBoxCuenta;
-	private JComboBox comboBoxEtiquetas;
+	private JComboBox<Cuentas> comboBoxCuenta;
+	private JComboBox<Etiquetas> comboBoxEtiquetas;
 	private JDateChooser dateChooser;
 	private JButton okButton;
 	private JButton cancelButton;
 	private List<Tipos> listaDeTipos;
-	
-	
+
 	public VentanaIngresos(List<Cuentas> listaDeCuentas, List<Etiquetas> listaDeEtiqueta, List<Tipos> listaDeTipos) {
+		this.listaDeTipos = listaDeTipos;
+
 		setTitle("Ingresos");
 		
 		setBackground(Color.LIGHT_GRAY);
@@ -136,8 +137,6 @@ public class VentanaIngresos extends JDialog implements InterfazIngresos{
 		}
 	}
 
-	
-
 	@Override
 	public void iniciar() {
 		pack();
@@ -150,7 +149,6 @@ public class VentanaIngresos extends JDialog implements InterfazIngresos{
 		
 		okButton.addActionListener(control);
 		cancelButton.addActionListener(control);
-		
 	}
 
 	@Override
