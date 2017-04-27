@@ -58,7 +58,7 @@ public class CuentasDAO {
 		try {
 			transaction = manager.getTransaction();
 			transaction.begin();
-			manager.remove(cuenta);
+			manager.remove(manager.merge(cuenta));
 			transaction.commit();
 		} catch (Exception ex) {
 			if (transaction != null) {
