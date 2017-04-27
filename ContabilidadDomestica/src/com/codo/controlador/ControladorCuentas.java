@@ -50,6 +50,7 @@ public class ControladorCuentas implements ActionListener {
 			List<Monedas> listaDeMonedas = modelo.listaDeMonedas();
 			vistaModificarCuenta = new VentanaModificarCuenta(listaDeMonedas);
 			vistaModificarCuenta.asignarControlador(this);
+			vistaModificarCuenta.rellenarCampos(vistaCuentas.obtenerTablaCuentas());
 			vistaModificarCuenta.iniciar();
 		}
 		
@@ -69,8 +70,10 @@ public class ControladorCuentas implements ActionListener {
 		
 		// ---------------- VENTANA BORRAR CUENTA ---------------- //
 		
-		if (evento.getActionCommand().equals(InterfazVentanaBorrarCuenta.BOTON_ACEPTAR_BORRAR_CUENTA)) {
-			
+		if (evento.getActionCommand().equals(InterfazCuentas.BOTON_BORRAR_CUENTA)) {
+			System.out.println("Borrar-----------------"+ (vistaCuentas.obtenerTablaCuentas()));
+
+			modelo.borrarCuenta((vistaCuentas.obtenerTablaCuentas()));
 		}
 		
 		if (evento.getActionCommand().equals(InterfazVentanaBorrarCuenta.BOTON_CANCELAR_BORRAR_CUENTA)) {
@@ -80,10 +83,11 @@ public class ControladorCuentas implements ActionListener {
 		// ---------------- VENTANA MODIFICAR CUENTA ---------------- //
 		if (evento.getActionCommand().equals(InterfazVentanaModificarCuenta.BOTON_CONFIRMAR_MODIFICAR_CUENTA)) {
 			
+			modelo.actualizarCuenta(vistaModificarCuenta.actualizarCuentas(vistaCuentas.obtenerTablaCuentas()));
 		}
 		
 		if (evento.getActionCommand().equals(InterfazVentanaModificarCuenta.BOTON_REGRESAR_MODIFICAR_CUENTA)) {
-			
+			vistaModificarCuenta.dispose();
 		}
 
 	}

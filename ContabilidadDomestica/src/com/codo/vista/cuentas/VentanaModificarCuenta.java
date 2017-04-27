@@ -16,6 +16,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import com.codo.controlador.ControladorCuentas;
+import com.codo.modelo.pojos.Cuentas;
 import com.codo.modelo.pojos.Monedas;
 import com.codo.vista.interfaces.InterfazVentanaModificarCuenta;
 
@@ -35,7 +36,7 @@ public class VentanaModificarCuenta extends JDialog implements InterfazVentanaMo
 	private JButton btnRegresar;
 
 	public VentanaModificarCuenta(List<Monedas> listaDeMonedas) {
-		setTitle("Cuentas - Añadir");
+		setTitle("Cuentas - Modificar");
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(POSICION_HORIZONTAL, POSICION_VERTICAL, ANCHURA_MAXIMA, ALTURA_MAXIMA);
@@ -101,7 +102,7 @@ public class VentanaModificarCuenta extends JDialog implements InterfazVentanaMo
 			getRootPane().setDefaultButton(btnConfirmar);
 		}
 		{
-			btnRegresar = new JButton("Regresar");
+			btnRegresar = new JButton("Cancelar");
 			btnRegresar.setActionCommand(BOTON_REGRESAR_MODIFICAR_CUENTA);
 			buttonPane.add(btnRegresar);
 		}
@@ -112,13 +113,20 @@ public class VentanaModificarCuenta extends JDialog implements InterfazVentanaMo
 		btnConfirmar.addActionListener(control);
 		btnRegresar.addActionListener(control);
 	}
-	
+
 	@Override
-	public void rellenarCampos(JTable tablaCuentas){
-		if(tablaCuentas.getSelectedRow()!=-1){
-			int row=tablaCuentas.getSelectedRow();
-			//this.campoNombre.setText(tablaCuentas.getValueAt(row, 1));
-		}
+	public void rellenarCampos(Cuentas cuenta) {
+		this.campoNombre.setText(cuenta.getNombre());
+		this.campoSaldo.setText(String.valueOf(cuenta.getSaldo()));
+		this.campoDescripcion.setText(cuenta.getDescripcion());
+	}
+
+	public Cuentas actualizarCuentas(Cuentas cuenta) {
+		cuenta.setNombre(campoNombre.getText());
+		cuenta.setSaldo(Double.valueOf(campoSaldo.getText()));
+		cuenta.setMonedas((Monedas) cajaMoneda.getSelectedItem());
+		cuenta.setDescripcion(campoDescripcion.getText());
+		return cuenta;
 	}
 
 	@Override
@@ -127,4 +135,6 @@ public class VentanaModificarCuenta extends JDialog implements InterfazVentanaMo
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}
+
+	
 }
