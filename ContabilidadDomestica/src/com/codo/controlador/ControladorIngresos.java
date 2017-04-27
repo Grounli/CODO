@@ -21,8 +21,16 @@ public class ControladorIngresos implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent evento) {
 		if (evento.getActionCommand().equals(InterfazIngresos.BOTON_ANADIR_INGRESO)){
+			if(vistaIngresos.comprobarCampos()){
 			modelo.crearMovimiento(vistaIngresos.anadirIngreso());	
-			System.out.println("Añadir ingreso---------------");
+			System.out.println("----INGRESO AÑADIDO EN LA BD----");
+			}
+			
+		}
+		if (evento.getActionCommand().equals(InterfazIngresos.BOTON_CANCELAR_INGRESO)){
+		
+			vistaIngresos.cerrarVentana();
+			
 		}
 	}
 
