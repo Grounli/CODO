@@ -199,7 +199,7 @@ public class VentanaTransferencias extends JDialog implements InterfazTransferen
 	
 	@Override
 	public void cerrarVentana(){
-		dispose();
+		this.dispose();
 	}
 	
 }

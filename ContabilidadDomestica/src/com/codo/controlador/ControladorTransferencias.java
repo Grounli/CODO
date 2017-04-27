@@ -30,6 +30,7 @@ public class ControladorTransferencias implements ActionListener{
 			
 		}
 		if (evento.getActionCommand().equals(InterfazTransferencias.BOTON_CANCELAR_TRANSFERENCIA)){
+			
 			vistaTransferencias.cerrarVentana();
 		}
 	}
