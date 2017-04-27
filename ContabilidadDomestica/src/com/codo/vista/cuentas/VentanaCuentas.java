@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
 import com.codo.controlador.ControladorCuentas;
 import com.codo.modelo.pojos.Cuentas;
@@ -30,6 +31,7 @@ public class VentanaCuentas extends JDialog implements InterfazCuentas {
 	private JButton btnAnadir;
 	private JButton btnBorrar;
 	private JButton btnModificar;
+	private ModeloTablaCuentas mtc;
 
 	public VentanaCuentas() {
 		setTitle("Cuentas");
@@ -87,16 +89,19 @@ public class VentanaCuentas extends JDialog implements InterfazCuentas {
 
 	@Override
 	public void asignarDatosTablaCuentas(List<Cuentas> listaDeCuentas) {
-		ModeloTablaCuentas mtc = new ModeloTablaCuentas();
+		mtc = new ModeloTablaCuentas();
 		mtc.asignarListaDeCuentas(listaDeCuentas);
 		tablaCuentas.setModel(mtc);
 	}
 
 	@Override
-	public JTable obtenerTablaCuentas() {
-		return this.tablaCuentas;
-	}
+	public Cuentas obtenerTablaCuentas() {
 
+		return mtc.obtenerObjeto(tablaCuentas.getSelectedRow());
+
+	}
+	
+	
 	@Override
 	public void iniciar() {
 		pack();

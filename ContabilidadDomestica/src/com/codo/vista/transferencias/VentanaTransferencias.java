@@ -138,7 +138,7 @@ public class VentanaTransferencias extends JDialog implements InterfazTransferen
 			}
 			{
 				cancelButton = new JButton("Cancelar");
-				cancelButton.setActionCommand("Cancel");
+				cancelButton.setActionCommand(BOTON_CANCELAR_TRANSFERENCIA);
 				buttonPane.add(cancelButton);
 			}
 		}

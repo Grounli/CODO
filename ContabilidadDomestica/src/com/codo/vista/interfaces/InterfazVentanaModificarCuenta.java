@@ -1,8 +1,7 @@
 package com.codo.vista.interfaces;
 
-import javax.swing.JTable;
-
 import com.codo.controlador.ControladorCuentas;
+import com.codo.modelo.pojos.Cuentas;
 
 public interface InterfazVentanaModificarCuenta extends InterfazComun {
 
@@ -11,5 +10,11 @@ public interface InterfazVentanaModificarCuenta extends InterfazComun {
 
 	void asignarControlador(ControladorCuentas control);
 
-	void rellenarCampos(JTable tablaCuentas);
+	void rellenarCampos(Cuentas objetoSeleccionado);
+
+	public Cuentas actualizarCuentas(Cuentas cuenta);
+
+	void dispose();
+
+	
 }

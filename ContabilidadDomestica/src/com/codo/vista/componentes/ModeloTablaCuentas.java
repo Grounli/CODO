@@ -59,4 +59,18 @@ public class ModeloTablaCuentas extends DefaultTableModel {
 		}
 		return null;
 	}
+
+	public Cuentas obtenerObjeto(int indiceDeFila) {
+		if (indiceDeFila <= getRowCount()) {
+			Cuentas cuenta = listaDeCuentas.get(indiceDeFila);
+
+			if (cuenta != null) {
+
+				return cuenta;
+			}
+		}
+
+		return null;
+	}
+
 }
