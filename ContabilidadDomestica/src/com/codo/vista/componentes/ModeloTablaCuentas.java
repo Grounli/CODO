@@ -9,15 +9,14 @@ import com.codo.modelo.pojos.Cuentas;
 public class ModeloTablaCuentas extends DefaultTableModel {
 
 	private static final long serialVersionUID = 1L;
-
-	private List<Cuentas> listaDeCuentas = null;
 	private String[] columnas = { "ID", "Nombre", "Saldo", "Moneda", "Descripción" };
+	private List<Cuentas> listaDeCuentas = null;
 
 	public ModeloTablaCuentas() {
-        this.setColumnIdentifiers(columnas);
-    }
+		this.setColumnIdentifiers(columnas);
+	}
 
-	public void setDataSource(List<Cuentas> listaDeCuentas) {
+	public void asignarListaDeCuentas(List<Cuentas> listaDeCuentas) {
 		this.listaDeCuentas = listaDeCuentas;
 	}
 
@@ -60,5 +59,4 @@ public class ModeloTablaCuentas extends DefaultTableModel {
 		}
 		return null;
 	}
-
 }

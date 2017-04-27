@@ -14,9 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import com.codo.controlador.ControladorGastos;
 import com.codo.controlador.ControladorIngresos;
-import com.codo.controlador.ControladorPrincipal;
 import com.codo.modelo.pojos.Cuentas;
 import com.codo.modelo.pojos.Etiquetas;
 import com.codo.modelo.pojos.Movimientos;
@@ -24,24 +22,23 @@ import com.codo.modelo.pojos.Tipos;
 import com.codo.vista.interfaces.InterfazIngresos;
 import com.toedter.calendar.JDateChooser;
 
-public class VentanaIngresos extends JDialog implements InterfazIngresos{
+public class VentanaIngresos extends JDialog implements InterfazIngresos {
 
+	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textFieldValor;
 	private JTextField textFieldComentario;
-	private JComboBox comboBoxCuenta;
-	private JComboBox comboBoxEtiquetas;
+	private JComboBox<Cuentas> comboBoxCuenta;
+	private JComboBox<Etiquetas> comboBoxEtiquetas;
 	private JDateChooser dateChooser;
 	private JButton okButton;
 	private List<Tipos> listaDeTipos;
-	
-	
+
 	public VentanaIngresos(List<Cuentas> listaDeCuentas, List<Etiquetas> listaDeEtiqueta, List<Tipos> listaDeTipos) {
+		this.listaDeTipos = listaDeTipos;
+
 		setTitle("Ingresos");
-this.listaDeTipos=listaDeTipos;
-		
 		setPreferredSize(new Dimension(500, 500));
-		setTitle("Gastos");
 		setBounds(100, 100, 450, 359);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -113,8 +110,6 @@ this.listaDeTipos=listaDeTipos;
 		}
 	}
 
-	
-
 	@Override
 	public void iniciar() {
 		pack();
@@ -125,7 +120,6 @@ this.listaDeTipos=listaDeTipos;
 	@Override
 	public void asignarControlador(ControladorIngresos control) {
 		okButton.addActionListener(control);
-		
 	}
 
 	@Override

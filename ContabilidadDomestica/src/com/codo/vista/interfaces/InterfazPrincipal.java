@@ -3,7 +3,7 @@ package com.codo.vista.interfaces;
 import com.codo.controlador.ControladorPrincipal;
 
 public interface InterfazPrincipal extends InterfazComun {
-	
+
 	final String BOTON_CUENTAS = "abrir ventana cuentas";
 	final String BOTON_MOVIMIENTOS = "abrir ventana movimientos";
 	final String BOTON_PREVISIONES = "abrir ventana previsiones";
@@ -13,6 +13,5 @@ public interface InterfazPrincipal extends InterfazComun {
 	final String BOTON_ETIQUETAS = "abrir ventana etiquetas";
 	final String BOTON_SOBRE = "abrir ventana sobre";
 
-	void asignarControlador (ControladorPrincipal control);
-	
+	void asignarControlador(ControladorPrincipal control);
 }

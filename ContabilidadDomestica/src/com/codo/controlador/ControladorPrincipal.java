@@ -7,8 +7,6 @@ import java.util.List;
 import com.codo.modelo.ModeloCD;
 import com.codo.modelo.pojos.Cuentas;
 import com.codo.modelo.pojos.Etiquetas;
-import com.codo.modelo.pojos.Monedas;
-import com.codo.modelo.pojos.Movimientos;
 import com.codo.modelo.pojos.Previsiones;
 import com.codo.modelo.pojos.Tipos;
 import com.codo.vista.VentanaSobre;
@@ -32,110 +30,127 @@ public class ControladorPrincipal implements ActionListener {
 
 	private InterfazPrincipal vista;
 	private ModeloCD modelo;
-	
-	//CONTROLADORES
-	
-	ControladorCuentas controladorCuentas;
-	ControladorEtiquetas controladorEtiquetas;
-	ControladorGastos controladorGastos;
-	ControladorIngresos controladorIngresos;
-	ControladorMovimientos controladorMovimientos;
-	ControladorPrevisiones controladorPrevisiones;
-	ControladorTransferencias controladorTransferencias;
-	
-	//VISTAS
-	
-	InterfazCuentas vistaCuentas;
-	InterfazEtiquetas vistaEtiquetas;
-	InterfazGastos vistaGastos;
-	InterfazIngresos vistaIngresos;
-	InterfazMovimientos vistaMovimientos;
-	InterfazPrevisiones vistaPrevisiones;
-	InterfazTransferencias vistaTransferencias;
-	
-	//LISTAS
-	
-	
-	
+
 	public ControladorPrincipal(InterfazPrincipal vista, ModeloCD modelo) {
 		this.vista = vista;
 		this.modelo = modelo;
-		
-		//PEDIR LAS LISTAS
-		List<Cuentas> listaDeCuentas = modelo.listaDeCuentas();
-		List<Etiquetas> listaDeEtiquetas = modelo.listaDeEtiquetas();
-		List<Previsiones> listaDePrevisiones = modelo.listaDePrevisiones();
-		List<Tipos> listaDeTipos = modelo.listaDeTipos();
-		
-		// INICIALIZAR VISTAS
-		
-		vistaCuentas = new VentanaCuentas();
-		vistaEtiquetas = new VentanaEtiquetas(listaDeEtiquetas);
-		vistaGastos = new VentanaGastos(listaDeCuentas,listaDeEtiquetas,listaDeTipos);
-		vistaIngresos = new VentanaIngresos(listaDeCuentas,listaDeEtiquetas,listaDeTipos);
-		vistaMovimientos = new VentanaMovimientos(listaDeCuentas,listaDeEtiquetas,listaDeTipos);
-		vistaPrevisiones = new VentanaPrevisiones(listaDePrevisiones);
-		vistaTransferencias = new VentanaTransferencias(listaDeCuentas,listaDeEtiquetas, listaDeTipos);
-		
-		// INICIALIZAR CONTROLADORES
-		
-		controladorCuentas = new ControladorCuentas(vistaCuentas, modelo);
-		controladorEtiquetas = new ControladorEtiquetas(vistaEtiquetas, modelo);
-		controladorGastos = new ControladorGastos(vistaGastos, modelo);
-		controladorIngresos = new ControladorIngresos(vistaIngresos, modelo);
-		controladorMovimientos = new ControladorMovimientos(vistaMovimientos, modelo);
-		controladorPrevisiones = new ControladorPrevisiones(vistaPrevisiones, modelo);
-		controladorTransferencias = new ControladorTransferencias(vistaTransferencias, modelo);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent evento) {
-		
-		// ACCIONES DE LA BARRA DE MENU DE VENTANA PRINCIPAL
-		
+
+		// ------- ACCIONES DE LA BARRA DE MENU DE VENTANA PRINCIPAL ------- //
+
 		if (evento.getActionCommand().equals(InterfazPrincipal.BOTON_SOBRE)) {
-			VentanaSobre ventanaSobre = new VentanaSobre();
-			ventanaSobre.iniciar();
+			// GENERAMOS LA VISTA DE SOBRE
+			VentanaSobre vistaSobre = new VentanaSobre();
+			// INICIAMOS LA VISTA DE SOBRE
+			vistaSobre.iniciar();
 		}
 
 		if (evento.getActionCommand().equals(InterfazPrincipal.BOTON_ETIQUETAS)) {
-			vistaEtiquetas.asignarControlador(controladorEtiquetas);
+			// GENERAMOS LAS LISTAS NECESARIAS
+			List<Etiquetas> listaDeEtiquetas = modelo.listaDeEtiquetas();
+			// GENERAMOS LA VISTA DE ETIQUETAS
+			InterfazEtiquetas vistaEtiquetas = new VentanaEtiquetas(listaDeEtiquetas);
+			// GENERAMOS EL CONTROLADOR DE ETIQUETAS
+			ControladorEtiquetas controladorEtiquetas = new ControladorEtiquetas(vistaEtiquetas, modelo);
+			// CONFIGURAMOS LA VISTA DE ETIQUETAS
+			vistaEtiquetas.asignarControlador(controladorEtiquetas);			
+			// INICIAMOS LA VISTA DE ETIQUETAS
 			vistaEtiquetas.iniciar();
 		}
-		
-		// ------------------ BOTONES DE VENTANA PRINCIPAL ------------------ //
-		
-		if (evento.getActionCommand().equals(InterfazPrincipal.BOTON_CUENTAS)) {
 
-			//LLAMAR A LA VENTANA CUENTAS
+		// ------------------ BOTONES DE VENTANA PRINCIPAL ------------------ //
+
+		if (evento.getActionCommand().equals(InterfazPrincipal.BOTON_CUENTAS)) {
+			// GENERAMOS LAS LISTAS NECESARIAS
+			List<Cuentas> listaDeCuentas = modelo.listaDeCuentas();
+			// GENERAMOS LA VISTA DE CUENTAS
+			InterfazCuentas vistaCuentas = new VentanaCuentas();
+			// GENERAMOS EL CONTROLADOR DE CUENTAS
+			ControladorCuentas controladorCuentas = new ControladorCuentas(vistaCuentas, modelo);
+			// CONFIGURAMOS LA VISTA DE CUENTAS
 			vistaCuentas.asignarControlador(controladorCuentas);
-			vistaCuentas.iniciar();	
+			vistaCuentas.asignarDatosTablaCuentas(listaDeCuentas);
+			// INICIAMOS LA VISTA DE CUENTAS
+			vistaCuentas.iniciar();
 		}
 
 		if (evento.getActionCommand().equals(InterfazPrincipal.BOTON_MOVIMIENTOS)) {
+			// GENERAMOS LAS LISTAS NECESARIAS
+			List<Cuentas> listaDeCuentas = modelo.listaDeCuentas();
+			List<Etiquetas> listaDeEtiquetas = modelo.listaDeEtiquetas();
+			List<Tipos> listaDeTipos = modelo.listaDeTipos();
+			// GENERAMOS LA VISTA DE MOVIMIENTOS
+			InterfazMovimientos vistaMovimientos = new VentanaMovimientos(listaDeCuentas, listaDeEtiquetas,
+					listaDeTipos);
+			// GENERAMOS EL CONTROLADOR DE MOVIMIENTOS
+			ControladorMovimientos controladorMovimientos = new ControladorMovimientos(vistaMovimientos, modelo);
+			// CONFIGURAMOS LA VISTA DE MOVIMIENTOS
 			vistaMovimientos.asignarControlador(controladorMovimientos);
+			// INICIAMOS LA VISTA DE MOVIMIENTOS
 			vistaMovimientos.iniciar();
 		}
 
 		if (evento.getActionCommand().equals(InterfazPrincipal.BOTON_PREVISIONES)) {
+			// GENERAMOS LAS LISTAS NECESARIAS
+			List<Previsiones> listaDePrevisiones = modelo.listaDePrevisiones();
+			// GENERAMOS LA VISTA DE PREVISIONES
+			InterfazPrevisiones vistaPrevisiones = new VentanaPrevisiones(listaDePrevisiones);
+			// GENERAMOS EL CONTROLADOR DE PREVISIONES
+			ControladorPrevisiones controladorPrevisiones = new ControladorPrevisiones(vistaPrevisiones, modelo);
+			// CONFIGURAMOS LA VISTA DE PREVISIONES
 			vistaPrevisiones.asignarControlador(controladorPrevisiones);
+			// INICIAMOS LA VISTA DE PREVISIONES
 			vistaPrevisiones.iniciar();
-			}
+		}
 
 		if (evento.getActionCommand().equals(InterfazPrincipal.BOTON_INGRESOS)) {
+			// GENERAMOS LAS LISTAS NECESARIAS
+			List<Cuentas> listaDeCuentas = modelo.listaDeCuentas();
+			List<Etiquetas> listaDeEtiquetas = modelo.listaDeEtiquetas();
+			List<Tipos> listaDeTipos = modelo.listaDeTipos();
+			// GENERAMOS LA VISTA DE INGRESOS
+			InterfazIngresos vistaIngresos = new VentanaIngresos(listaDeCuentas, listaDeEtiquetas, listaDeTipos);
+			// GENERAMOS EL CONTROLADOR DE INGRESOS
+			ControladorIngresos controladorIngresos = new ControladorIngresos(vistaIngresos, modelo);
+			// CONFIGURAMOS LA VISTA DE INGRESOS
 			vistaIngresos.asignarControlador(controladorIngresos);
+			// INICIAMOS LA VISTA DE INGRESOS
 			vistaIngresos.iniciar();
 		}
 
 		if (evento.getActionCommand().equals(InterfazPrincipal.BOTON_GASTOS)) {
+			// GENERAMOS LAS LISTAS NECESARIAS
+			List<Cuentas> listaDeCuentas = modelo.listaDeCuentas();
+			List<Etiquetas> listaDeEtiquetas = modelo.listaDeEtiquetas();
+			List<Tipos> listaDeTipos = modelo.listaDeTipos();
+			// GENERAMOS LA VISTA DE GASTOS
+			InterfazGastos vistaGastos = new VentanaGastos(listaDeCuentas, listaDeEtiquetas, listaDeTipos);
+			// GENERAMOS EL CONTROLADOR DE GASTOS
+			ControladorGastos controladorGastos = new ControladorGastos(vistaGastos, modelo);
+			// CONFIGURAMOS LA VISTA DE GASTOS
 			vistaGastos.asignarControlador(controladorGastos);
+			// INICIAMOS LA VISTA DE GASTOS
 			vistaGastos.iniciar();
 		}
 
 		if (evento.getActionCommand().equals(InterfazPrincipal.BOTON_TRANSFERENCIAS)) {
+			// GENERAMOS LAS LISTAS NECESARIAS
+			List<Cuentas> listaDeCuentas = modelo.listaDeCuentas();
+			List<Etiquetas> listaDeEtiquetas = modelo.listaDeEtiquetas();
+			List<Tipos> listaDeTipos = modelo.listaDeTipos();
+			// GENERAMOS LA VISTA DE TRANSFERENCIAS
+			InterfazTransferencias vistaTransferencias = new VentanaTransferencias(listaDeCuentas, listaDeEtiquetas,
+					listaDeTipos);
+			// GENERAMOS EL CONTROLADOR DE TRANSFERENCIAS
+			ControladorTransferencias controladorTransferencias = new ControladorTransferencias(vistaTransferencias,
+					modelo);
+			// CONFIGURAMOS LA VISTA DE TRANSFERENCIAS
 			vistaTransferencias.asignarControlador(controladorTransferencias);
+			// INICIAMOS LA VISTA DE TRANSFERENCIAS
 			vistaTransferencias.iniciar();
 		}
 	}
-
 }
