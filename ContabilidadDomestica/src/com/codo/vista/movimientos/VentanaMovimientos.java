@@ -208,4 +208,15 @@ public class VentanaMovimientos extends JDialog implements InterfazMovimientos {
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}
+
+	@Override
+	public String obtenerFiltro() {
+		String query=null;
+
+		
+		
+		
+		
+		return query;
+	}
 }
