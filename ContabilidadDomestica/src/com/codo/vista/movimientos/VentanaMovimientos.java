@@ -52,6 +52,8 @@ public class VentanaMovimientos extends JDialog implements InterfazMovimientos {
 	private JButton btnRevertir;
 
 	public VentanaMovimientos(List<Cuentas> listaDeCuentas, List<Etiquetas> listaDeEtiquetas, List<Tipos> listaDeTipos) {
+		setMaximumSize(new Dimension(400, 400));
+		setMinimumSize(new Dimension(400,400));
 		setResizable(false);
 		setTitle("Movimientos");
 		setModalityType(ModalityType.APPLICATION_MODAL);
@@ -205,7 +207,8 @@ public class VentanaMovimientos extends JDialog implements InterfazMovimientos {
 	@Override
 	public void iniciar() {
 		pack();
-		setLocationRelativeTo(null);
+		//setLocationRelativeTo(null);
+		setLocation(400, 200);
 		setVisible(true);
 	}
 }

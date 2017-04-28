@@ -46,6 +46,8 @@ public class VentanaTransferencias extends JDialog implements InterfazTransferen
 			List<Tipos> listaDeTipos) {
 		this.listaDeTipos=listaDeTipos;
 		
+		setMaximumSize(new Dimension(400, 400));
+		setMinimumSize(new Dimension(400,400));
 		setTitle(" PanelTransferencias");
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		setBounds(100, 100, 400, 400);

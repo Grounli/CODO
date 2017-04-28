@@ -48,6 +48,8 @@ public class VentanaGastos extends JDialog implements InterfazGastos {
 	public VentanaGastos(List<Cuentas> listaDeCuentas, List<Etiquetas> listaDeEtiqueta, List<Tipos> listaDeTipos) {
 		setBackground(Color.LIGHT_GRAY);
 		
+		setMaximumSize(new Dimension(400, 400));
+		setMinimumSize(new Dimension(400,400));
 		this.listaDeTipos=listaDeTipos;
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		setPreferredSize(new Dimension(400, 400));

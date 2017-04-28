@@ -73,6 +73,8 @@ public class ControladorCuentas implements ActionListener {
 		// ---------------- VENTANA AÑADIR CUENTA ---------------- //
 
 		if (evento.getActionCommand().equals(InterfazVentanaAnadirCuenta.BOTON_CONFIRMAR_ANADIR_CUENTA)) {
+			if (vistaAnadirCuenta.comprobarCampos()){
+				
 			Cuentas cuenta = vistaAnadirCuenta.leerCamposAnadirCuenta();
 			modelo.crearCuenta(cuenta);
 			List<Cuentas> listaDeCuentas = modelo.listaDeCuentas();
@@ -80,6 +82,7 @@ public class ControladorCuentas implements ActionListener {
 			JOptionPane.showMessageDialog(null, "Cuenta Añadida Exitosamente", "Aviso",
 					JOptionPane.INFORMATION_MESSAGE);
 			vistaAnadirCuenta.dispose();
+			}
 		}
 
 		if (evento.getActionCommand().equals(InterfazVentanaAnadirCuenta.BOTON_REGRESAR_ANADIR_CUENTA)) {

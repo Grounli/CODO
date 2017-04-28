@@ -51,7 +51,8 @@ public class VentanaEtiquetas extends JDialog implements InterfazEtiquetas {
 	@Override
 	public void iniciar() {
 		pack();
-		setLocationRelativeTo(null);
+		//setLocationRelativeTo(null);
+		setLocation(400, 200);
 		setVisible(true);
 		
 	}

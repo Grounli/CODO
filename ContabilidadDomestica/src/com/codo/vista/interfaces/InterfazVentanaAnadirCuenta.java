@@ -13,4 +13,7 @@ public interface InterfazVentanaAnadirCuenta extends InterfazComun {
 	Cuentas leerCamposAnadirCuenta();
 
 	void dispose();
+	public void limpiarCampos();
+	public boolean comprobarCampos();
+	public void cerrarVentana();
 }
