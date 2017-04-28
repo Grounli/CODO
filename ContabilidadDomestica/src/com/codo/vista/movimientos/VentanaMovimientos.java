@@ -1,66 +1,211 @@
 package com.codo.vista.movimientos;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.util.List;
 
-import javax.swing.JButton;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 
 import com.codo.controlador.ControladorMovimientos;
 import com.codo.modelo.pojos.Cuentas;
 import com.codo.modelo.pojos.Etiquetas;
+import com.codo.modelo.pojos.Movimientos;
 import com.codo.modelo.pojos.Tipos;
+import com.codo.vista.componentes.ModeloTablaMovimientos;
 import com.codo.vista.interfaces.InterfazMovimientos;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JComboBox;
+import com.toedter.calendar.JDateChooser;
+import javax.swing.JButton;
 
-public class VentanaMovimientos extends JDialog implements InterfazMovimientos{
+public class VentanaMovimientos extends JDialog implements InterfazMovimientos {
 
-	private final JPanel contentPanel = new JPanel();
+	private static final long serialVersionUID = 1L;
+	private static final int POSICION_HORIZONTAL = 100;
+	private static final int POSICION_VERTICAL = 100;
+	private static final int ANCHURA_MAXIMA = 500;
+	private static final int ALTURA_MAXIMA = 400;
+	private final JPanel contentPane = new JPanel();
+	private JTable tablaMovimientos;
+	private JScrollPane panelDesplazamiento;
+	private ModeloTablaMovimientos mtm;
+	private JLabel lblFiltros;
+	private JLabel lblCuentas;
+	private JLabel lblTipos;
+	private JLabel lblEtiquetas;
+	private JLabel lblFechaDesde;
+	private JLabel lblFechaHasta;
+	private JComboBox<Cuentas> cajaCuentas;
+	private JComboBox<Tipos> cajaTipos;
+	private JComboBox<Etiquetas> cajaEtiquetas;
+	private JDateChooser fechaDesde;
+	private JDateChooser fechaHasta;
+	private JButton btnConsultar;
+	private JButton btnRevertir;
 
-	public VentanaMovimientos(List<Cuentas> listaDeCuentas, List<Etiquetas> listaDeEtiqueta, List<Tipos> listaDeTipos) {
+	public VentanaMovimientos(List<Cuentas> listaDeCuentas, List<Etiquetas> listaDeEtiquetas, List<Tipos> listaDeTipos) {
+		setResizable(false);
 		setTitle("Movimientos");
-		setBounds(100, 100, 408, 258);
+		setModalityType(ModalityType.APPLICATION_MODAL);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		setBounds(POSICION_HORIZONTAL, POSICION_VERTICAL, ANCHURA_MAXIMA, ALTURA_MAXIMA);
+		setPreferredSize(new Dimension(ANCHURA_MAXIMA, ALTURA_MAXIMA));
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setLayout(new FlowLayout());
-		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				JButton okButton = new JButton("OK");
-				okButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-					}
-				});
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-			}
-			{
-				JButton cancelButton = new JButton("Cancel");
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
-			}
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		getContentPane().add(contentPane, BorderLayout.CENTER);
+
+		// CONSTRUCCION DE TABLA
+		tablaMovimientos = new JTable();
+		tablaMovimientos.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		tablaMovimientos.setFillsViewportHeight(false);
+		tablaMovimientos.setRowHeight(30);
+		Font f = new Font("Time New Roman", Font.PLAIN, 12);
+		tablaMovimientos.setFont(f);
+
+		panelDesplazamiento = new JScrollPane(tablaMovimientos);
+		panelDesplazamiento.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		panelDesplazamiento.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		
+		// LABELS
+		lblFiltros = new JLabel("Filtros:");
+		lblCuentas = new JLabel("Cuentas:");
+		lblTipos = new JLabel("Tipos:");
+		lblEtiquetas = new JLabel("Etiquetas:");
+		lblFechaDesde = new JLabel("Fecha Desde:");
+		lblFechaHasta = new JLabel("Fecha Hasta:");
+		
+		// COMBOBOXS
+		cajaCuentas = new JComboBox();
+		for (Cuentas cuenta : listaDeCuentas) {
+			cajaCuentas.addItem(cuenta);
 		}
+		
+		cajaTipos = new JComboBox();
+		for (Tipos tipo : listaDeTipos) {
+			cajaTipos.addItem(tipo);
+		}
+		
+		cajaEtiquetas = new JComboBox();
+		for (Etiquetas etiqueta : listaDeEtiquetas) {
+			cajaEtiquetas.addItem(etiqueta);
+		}
+		
+		// CALENDARIOS
+		JDateChooser fechaDesde = new JDateChooser();
+		JDateChooser fechaHasta = new JDateChooser();
+		
+		// BOTONES
+		btnConsultar = new JButton("Consultar");
+		btnConsultar.setActionCommand(BOTON_CONSULTAR_MOVIMIENTOS);
+		
+		btnRevertir = new JButton("Revertir");
+		btnRevertir.setActionCommand(BOTON_REVERTIR_MOVIMIENTO);
+		// CONFIGURACION GRUPLAYOUT (AUTOGENERADO)
+		GroupLayout gl_contentPane = new GroupLayout(contentPane);
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addContainerGap()
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addComponent(panelDesplazamiento, GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+										.addComponent(lblTipos)
+										.addComponent(lblEtiquetas)
+										.addComponent(lblCuentas)
+										.addComponent(lblFiltros))
+									.addGap(4)
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+										.addComponent(cajaEtiquetas, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(cajaTipos, Alignment.TRAILING, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(cajaCuentas, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE))
+									.addPreferredGap(ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+										.addComponent(lblFechaDesde)
+										.addComponent(lblFechaHasta))
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+										.addComponent(fechaHasta, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(fechaDesde, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+									.addGap(17))))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(119)
+							.addComponent(btnConsultar)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnRevertir)))
+					.addContainerGap())
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(panelDesplazamiento, GroupLayout.PREFERRED_SIZE, 167, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(lblFiltros)
+					.addGap(11)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblCuentas)
+								.addComponent(cajaCuentas, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGap(18)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblTipos)
+								.addComponent(cajaTipos, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGap(18)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblEtiquetas)
+								.addComponent(cajaEtiquetas, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblFechaDesde)
+								.addComponent(fechaDesde, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGap(18)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblFechaHasta)
+								.addComponent(fechaHasta, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
+					.addPreferredGap(ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnConsultar)
+						.addComponent(btnRevertir))
+					.addContainerGap())
+		);
+		contentPane.setLayout(gl_contentPane);
+
 	}
 
 	@Override
 	public void asignarControlador(ControladorMovimientos control) {
-		// TODO Auto-generated method stub
-		
+		btnConsultar.addActionListener(control);
+		btnRevertir.addActionListener(control);
 	}
 
+	@Override
+	public Movimientos obtenerMovimientoSeleccionado (){
+		return mtm.obtenerObjeto(tablaMovimientos.getSelectedRow());
+	}
+
+	@Override
+	public void asignarDatosTablaMovimientos(List<Movimientos> listaDeMovimientos) {
+		mtm = new ModeloTablaMovimientos();
+		mtm.asignarListaDeCuentas(listaDeMovimientos);
+		tablaMovimientos.setModel(mtm);
+	}
+	
 	@Override
 	public void iniciar() {
 		pack();
 		setLocationRelativeTo(null);
-		setVisible(true);		
+		setVisible(true);
 	}
-
 }

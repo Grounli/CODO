@@ -95,12 +95,9 @@ public class VentanaCuentas extends JDialog implements InterfazCuentas {
 	}
 
 	@Override
-	public Cuentas obtenerTablaCuentas() {
-
+	public Cuentas obtenerCuentaSeleccionada() {
 		return mtc.obtenerObjeto(tablaCuentas.getSelectedRow());
-
 	}
-	
 	
 	@Override
 	public void iniciar() {

@@ -9,7 +9,7 @@ import com.codo.modelo.pojos.Cuentas;
 public class ModeloTablaCuentas extends DefaultTableModel {
 
 	private static final long serialVersionUID = 1L;
-	private String[] columnas = { "ID", "Nombre", "Saldo", "Moneda", "Descripción" };
+	private String[] columnas = {"Nombre", "Saldo", "Moneda", "Descripción" };
 	private List<Cuentas> listaDeCuentas = null;
 
 	public ModeloTablaCuentas() {
@@ -45,14 +45,12 @@ public class ModeloTablaCuentas extends DefaultTableModel {
 			if (cuenta != null) {
 				switch (indiceDeColumna) {
 				case 0:
-					return cuenta.getIdCuenta();
-				case 1:
 					return cuenta.getNombre();
-				case 2:
+				case 1:
 					return cuenta.getSaldo();
-				case 3:
+				case 2:
 					return cuenta.getMonedas();
-				case 4:
+				case 3:
 					return cuenta.getDescripcion();
 				}
 			}
@@ -61,12 +59,14 @@ public class ModeloTablaCuentas extends DefaultTableModel {
 	}
 
 	public Cuentas obtenerObjeto(int indiceDeFila) {
-		if (indiceDeFila <= getRowCount()) {
-			Cuentas cuenta = listaDeCuentas.get(indiceDeFila);
+		if (indiceDeFila != -1) {
+			if (indiceDeFila <= getRowCount()) {
+				Cuentas cuenta = listaDeCuentas.get(indiceDeFila);
 
-			if (cuenta != null) {
+				if (cuenta != null) {
 
-				return cuenta;
+					return cuenta;
+				}
 			}
 		}
 

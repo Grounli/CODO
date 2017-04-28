@@ -1,4 +1,4 @@
-package com.codo.vista.cuentas;
+package com.codo.vista.previsiones;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -8,15 +8,11 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import com.codo.controlador.ControladorCuentas;
-import com.codo.vista.interfaces.InterfazVentanaBorrarCuenta;
+public class VentanaEjecutarPrevision extends JDialog {
 
-public class VentanaBorrarCuenta extends JDialog implements InterfazVentanaBorrarCuenta {
-
-	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 
-	public VentanaBorrarCuenta() {
+	public VentanaEjecutarPrevision() {
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setLayout(new FlowLayout());
@@ -38,18 +34,6 @@ public class VentanaBorrarCuenta extends JDialog implements InterfazVentanaBorra
 				buttonPane.add(cancelButton);
 			}
 		}
-	}
-
-	@Override
-	public void iniciar() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void asignarControlador(ControladorCuentas control) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }
