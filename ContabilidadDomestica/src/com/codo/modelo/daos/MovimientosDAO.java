@@ -58,7 +58,7 @@ public class MovimientosDAO {
 		try {
 			transaction = manager.getTransaction();
 			transaction.begin();
-			manager.remove(movimiento);
+			manager.remove(manager.merge(movimiento));
 			transaction.commit();
 		} catch (Exception ex) {
 			if (transaction != null) {

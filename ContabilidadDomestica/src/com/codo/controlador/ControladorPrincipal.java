@@ -7,6 +7,7 @@ import java.util.List;
 import com.codo.modelo.ModeloCD;
 import com.codo.modelo.pojos.Cuentas;
 import com.codo.modelo.pojos.Etiquetas;
+import com.codo.modelo.pojos.Movimientos;
 import com.codo.modelo.pojos.Previsiones;
 import com.codo.modelo.pojos.Tipos;
 import com.codo.vista.VentanaSobre;
@@ -80,6 +81,7 @@ public class ControladorPrincipal implements ActionListener {
 		if (evento.getActionCommand().equals(InterfazPrincipal.BOTON_MOVIMIENTOS)) {
 			// GENERAMOS LAS LISTAS NECESARIAS
 			List<Cuentas> listaDeCuentas = modelo.listaDeCuentas();
+			List<Movimientos> listaDeMovimientos = modelo.listaDeMovimientos();
 			List<Etiquetas> listaDeEtiquetas = modelo.listaDeEtiquetas();
 			List<Tipos> listaDeTipos = modelo.listaDeTipos();
 			// GENERAMOS LA VISTA DE MOVIMIENTOS
@@ -89,6 +91,7 @@ public class ControladorPrincipal implements ActionListener {
 			ControladorMovimientos controladorMovimientos = new ControladorMovimientos(vistaMovimientos, modelo);
 			// CONFIGURAMOS LA VISTA DE MOVIMIENTOS
 			vistaMovimientos.asignarControlador(controladorMovimientos);
+			vistaMovimientos.asignarDatosTablaMovimientos(listaDeMovimientos);
 			// INICIAMOS LA VISTA DE MOVIMIENTOS
 			vistaMovimientos.iniciar();
 		}

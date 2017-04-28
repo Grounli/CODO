@@ -17,5 +17,5 @@ public interface InterfazCuentas extends InterfazComun {
 
 	void asignarDatosTablaCuentas(List<Cuentas> listaDeCuentas);
 
-	 Cuentas obtenerTablaCuentas();
+	Cuentas obtenerCuentaSeleccionada();
 }
