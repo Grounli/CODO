@@ -3,7 +3,10 @@ package com.codo.vista.movimientos;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -12,6 +15,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
 
 import com.codo.controlador.ControladorMovimientos;
 import com.codo.modelo.pojos.Cuentas;
@@ -51,7 +57,8 @@ public class VentanaMovimientos extends JDialog implements InterfazMovimientos {
 	private JButton btnConsultar;
 	private JButton btnRevertir;
 
-	public VentanaMovimientos(List<Cuentas> listaDeCuentas, List<Etiquetas> listaDeEtiquetas, List<Tipos> listaDeTipos) {
+	public VentanaMovimientos(List<Cuentas> listaDeCuentas, List<Etiquetas> listaDeEtiquetas,
+			List<Tipos> listaDeTipos) {
 		setMaximumSize(new Dimension(400, 400));
 		setMinimumSize(new Dimension(400,400));
 		setResizable(false);
@@ -75,7 +82,7 @@ public class VentanaMovimientos extends JDialog implements InterfazMovimientos {
 		panelDesplazamiento = new JScrollPane(tablaMovimientos);
 		panelDesplazamiento.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		panelDesplazamiento.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		
+
 		// LABELS
 		lblFiltros = new JLabel("Filtros:");
 		lblCuentas = new JLabel("Cuentas:");
@@ -83,105 +90,108 @@ public class VentanaMovimientos extends JDialog implements InterfazMovimientos {
 		lblEtiquetas = new JLabel("Etiquetas:");
 		lblFechaDesde = new JLabel("Fecha Desde:");
 		lblFechaHasta = new JLabel("Fecha Hasta:");
-		
+
 		// COMBOBOXS
 		cajaCuentas = new JComboBox();
 		for (Cuentas cuenta : listaDeCuentas) {
 			cajaCuentas.addItem(cuenta);
 		}
-		
+
 		cajaTipos = new JComboBox();
 		for (Tipos tipo : listaDeTipos) {
 			cajaTipos.addItem(tipo);
 		}
-		
+
 		cajaEtiquetas = new JComboBox();
 		for (Etiquetas etiqueta : listaDeEtiquetas) {
 			cajaEtiquetas.addItem(etiqueta);
 		}
-		
+
 		// CALENDARIOS
-		JDateChooser fechaDesde = new JDateChooser();
-		JDateChooser fechaHasta = new JDateChooser();
-		
+		fechaDesde = new JDateChooser();
+
+		fechaHasta = new JDateChooser();
+
 		// BOTONES
 		btnConsultar = new JButton("Consultar");
 		btnConsultar.setActionCommand(BOTON_CONSULTAR_MOVIMIENTOS);
-		
+
 		btnRevertir = new JButton("Revertir");
 		btnRevertir.setActionCommand(BOTON_REVERTIR_MOVIMIENTO);
 		// CONFIGURACION GRUPLAYOUT (AUTOGENERADO)
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+		gl_contentPane
+				.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup().addGroup(gl_contentPane
+								.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_contentPane.createSequentialGroup().addContainerGap()
+										.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+												.addComponent(
+														panelDesplazamiento, GroupLayout.DEFAULT_SIZE, 414,
+														Short.MAX_VALUE)
+												.addGroup(gl_contentPane
+														.createSequentialGroup()
+														.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+																.addComponent(lblTipos)
+																.addComponent(lblEtiquetas).addComponent(lblCuentas)
+																.addComponent(lblFiltros))
+														.addGap(4)
+														.addGroup(gl_contentPane
+																.createParallelGroup(Alignment.LEADING, false)
+																.addComponent(cajaEtiquetas, 0,
+																		GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+																.addComponent(cajaTipos, Alignment.TRAILING, 0,
+																		GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+																.addComponent(cajaCuentas, Alignment.TRAILING,
+																		GroupLayout.PREFERRED_SIZE, 120,
+																		GroupLayout.PREFERRED_SIZE))
+														.addPreferredGap(ComponentPlacement.RELATED, 59,
+																Short.MAX_VALUE)
+														.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+																.addComponent(lblFechaDesde)
+																.addComponent(lblFechaHasta))
+														.addPreferredGap(ComponentPlacement.RELATED)
+														.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+																.addComponent(fechaHasta, GroupLayout.PREFERRED_SIZE,
+																		GroupLayout.DEFAULT_SIZE,
+																		GroupLayout.PREFERRED_SIZE)
+																.addComponent(fechaDesde, GroupLayout.PREFERRED_SIZE,
+																		GroupLayout.DEFAULT_SIZE,
+																		GroupLayout.PREFERRED_SIZE))
+														.addGap(17))))
+								.addGroup(gl_contentPane.createSequentialGroup().addGap(119).addComponent(btnConsultar)
+										.addPreferredGap(ComponentPlacement.RELATED).addComponent(btnRevertir)))
+								.addContainerGap()));
+		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addGroup(gl_contentPane
+				.createSequentialGroup().addContainerGap()
+				.addComponent(panelDesplazamiento, GroupLayout.PREFERRED_SIZE, 167, GroupLayout.PREFERRED_SIZE)
+				.addPreferredGap(ComponentPlacement.RELATED).addComponent(lblFiltros).addGap(11)
+				.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addContainerGap()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(panelDesplazamiento, GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-										.addComponent(lblTipos)
-										.addComponent(lblEtiquetas)
-										.addComponent(lblCuentas)
-										.addComponent(lblFiltros))
-									.addGap(4)
-									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-										.addComponent(cajaEtiquetas, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-										.addComponent(cajaTipos, Alignment.TRAILING, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-										.addComponent(cajaCuentas, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE))
-									.addPreferredGap(ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
-									.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-										.addComponent(lblFechaDesde)
-										.addComponent(lblFechaHasta))
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-										.addComponent(fechaHasta, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(fechaDesde, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-									.addGap(17))))
+								.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+										.addComponent(lblCuentas).addComponent(cajaCuentas, GroupLayout.PREFERRED_SIZE,
+												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addGap(18)
+								.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+										.addComponent(lblTipos).addComponent(cajaTipos, GroupLayout.PREFERRED_SIZE,
+												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addGap(18)
+								.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+										.addComponent(lblEtiquetas).addComponent(cajaEtiquetas,
+												GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(119)
-							.addComponent(btnConsultar)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnRevertir)))
-					.addContainerGap())
-		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(panelDesplazamiento, GroupLayout.PREFERRED_SIZE, 167, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(lblFiltros)
-					.addGap(11)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblCuentas)
-								.addComponent(cajaCuentas, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(18)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblTipos)
-								.addComponent(cajaTipos, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(18)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblEtiquetas)
-								.addComponent(cajaEtiquetas, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblFechaDesde)
-								.addComponent(fechaDesde, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(18)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblFechaHasta)
-								.addComponent(fechaHasta, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
-					.addPreferredGap(ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnConsultar)
-						.addComponent(btnRevertir))
-					.addContainerGap())
-		);
+								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblFechaDesde).addComponent(fechaDesde,
+												GroupLayout.PREFERRED_SIZE,
+												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addGap(18)
+								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblFechaHasta).addComponent(fechaHasta,
+												GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+												GroupLayout.PREFERRED_SIZE))))
+				.addPreferredGap(ComponentPlacement.RELATED, 22, Short.MAX_VALUE).addGroup(gl_contentPane
+						.createParallelGroup(Alignment.BASELINE).addComponent(btnConsultar).addComponent(btnRevertir))
+				.addContainerGap()));
 		contentPane.setLayout(gl_contentPane);
 
 	}
@@ -193,7 +203,7 @@ public class VentanaMovimientos extends JDialog implements InterfazMovimientos {
 	}
 
 	@Override
-	public Movimientos obtenerMovimientoSeleccionado (){
+	public Movimientos obtenerMovimientoSeleccionado() {
 		return mtm.obtenerObjeto(tablaMovimientos.getSelectedRow());
 	}
 
@@ -203,7 +213,7 @@ public class VentanaMovimientos extends JDialog implements InterfazMovimientos {
 		mtm.asignarListaDeCuentas(listaDeMovimientos);
 		tablaMovimientos.setModel(mtm);
 	}
-	
+
 	@Override
 	public void iniciar() {
 		pack();
@@ -211,4 +221,23 @@ public class VentanaMovimientos extends JDialog implements InterfazMovimientos {
 		setLocation(400, 200);
 		setVisible(true);
 	}
+
+	@Override
+	public String obtenerFiltro() {
+
+		SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+		String fechaInicio = formatoFecha.format(fechaDesde.getDate());
+		String fechaFin = formatoFecha.format(fechaHasta.getDate());
+		String sentenciaSQL = "SELECT s FROM Movimientos s where  ";
+		sentenciaSQL = sentenciaSQL + "(idCuentaOrigen=" + ((Cuentas) cajaCuentas.getSelectedItem()).getIdCuenta()
+				+ " OR idCuentaDestino=" + ((Cuentas) cajaCuentas.getSelectedItem()).getIdCuenta()+ ")";
+		sentenciaSQL = sentenciaSQL + " AND idTipo=" + ((Tipos) cajaTipos.getSelectedItem()).getIdTipo();
+		sentenciaSQL = sentenciaSQL + " AND idEtiqueta=" + ((Etiquetas) cajaEtiquetas.getSelectedItem()).getIdEtiqueta();
+		sentenciaSQL = sentenciaSQL + " AND fecha BETWEEN '" + fechaInicio + "' AND '" + fechaFin+"'";
+
+		return sentenciaSQL;
+	}
+ 
+
+
 }

@@ -15,5 +15,6 @@ public interface InterfazMovimientos extends InterfazComun {
 	void asignarDatosTablaMovimientos(List<Movimientos> listaDeMovimientos);
 
 	Movimientos obtenerMovimientoSeleccionado();
+	String obtenerFiltro();
 
 }
