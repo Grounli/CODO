@@ -101,6 +101,12 @@ public class ModeloCD {
 		return movimientos.leerMovimientos();
 	}
 
+	public List<Movimientos> listaDeMovimientosFiltros(String sentenciaSQL) {
+		return movimientos.leerMovimientosFiltro (sentenciaSQL);
+	}
+	
+	
+	
 	// --------- PREVISIONES --------- //
 
 	public void crearPrevision(Previsiones prevision) {

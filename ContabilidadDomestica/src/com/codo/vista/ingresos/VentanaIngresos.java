@@ -46,6 +46,8 @@ public class VentanaIngresos extends JDialog implements InterfazIngresos {
 	public VentanaIngresos(List<Cuentas> listaDeCuentas, List<Etiquetas> listaDeEtiqueta, List<Tipos> listaDeTipos) {
 		this.listaDeTipos = listaDeTipos;
 		
+		setMaximumSize(new Dimension(400, 400));
+		setMinimumSize(new Dimension(400,400));
 		setTitle("Ingresos");
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		setBackground(Color.LIGHT_GRAY);

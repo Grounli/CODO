@@ -3,12 +3,17 @@ package com.codo.vista.cuentas;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -30,9 +35,12 @@ public class VentanaAnadirCuenta extends JDialog implements InterfazVentanaAnadi
 	private static final int ANCHURA_MAXIMA = 450;
 	private static final int ALTURA_MAXIMA = 300;
 	private final JPanel contentPanel = new JPanel();
-	private JTextField campoNombre;
-	private JTextField campoSaldo;
-	private JTextField campoDescripcion;
+	private JFormattedTextField campoNombre;
+	private JFormattedTextField campoSaldo;
+	private JFormattedTextField campoDescripcion;
+	//private JTextField campoNombre;
+	//private JTextField campoSaldo;
+	//private JTextField campoDescripcion;
 	private JComboBox<Monedas> cajaMoneda;
 	private JButton btnConfirmar;
 	private JButton btnRegresar;
@@ -59,18 +67,21 @@ public class VentanaAnadirCuenta extends JDialog implements InterfazVentanaAnadi
 
 		// CAMPOS PARA AÑADIR
 
-		campoNombre = new JTextField();
+		campoNombre = new JFormattedTextField();
 		campoNombre.setColumns(10);
-
-		campoSaldo = new JTextField();
+		
+		NumberFormat formatValor = new DecimalFormat("#0.00");
+		campoSaldo = new JFormattedTextField(formatValor);
+		
 		campoSaldo.setColumns(10);
+		
 
 		cajaMoneda = new JComboBox();
 		for (Monedas moneda : listaDeMonedas) {
 			cajaMoneda.addItem(moneda);
 		}
 
-		campoDescripcion = new JTextField();
+		campoDescripcion = new JFormattedTextField();
 		campoDescripcion.setColumns(10);
 		
 		// LAYOUT
@@ -124,13 +135,13 @@ public class VentanaAnadirCuenta extends JDialog implements InterfazVentanaAnadi
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		getContentPane().add(buttonPane, BorderLayout.SOUTH);
 		{
-			btnConfirmar = new JButton("Confirmar");
+			btnConfirmar = new JButton("Aceptar");
 			btnConfirmar.setActionCommand(BOTON_CONFIRMAR_ANADIR_CUENTA);
 			buttonPane.add(btnConfirmar);
 			getRootPane().setDefaultButton(btnConfirmar);
 		}
 		{
-			btnRegresar = new JButton("Regresar");
+			btnRegresar = new JButton("Cancelar");
 			btnRegresar.setActionCommand(BOTON_REGRESAR_ANADIR_CUENTA);
 			buttonPane.add(btnRegresar);
 		}
@@ -155,7 +166,54 @@ public class VentanaAnadirCuenta extends JDialog implements InterfazVentanaAnadi
 	@Override
 	public void iniciar() {
 		pack();
-		setLocationRelativeTo(null);
+		//setLocationRelativeTo(null);
+		setLocation(400, 200);
 		setVisible(true);
 	}
+		
+	public void limpiarCampos(){
+		campoNombre.setText("");
+		campoSaldo.setText("");
+		
+		campoDescripcion.setText("");
+		JOptionPane.showMessageDialog(null,"Ingreso realizado correctamente","Ingreso realizado",JOptionPane.INFORMATION_MESSAGE);
+		
+	}
+	public boolean comprobarCampos(){
+		
+	
+		
+		if(campoNombre.getText().isEmpty()&&campoSaldo.getText().isEmpty()&&campoDescripcion.getText().isEmpty()){
+			JOptionPane.showMessageDialog(null,"El valor del nombre, el saldo y la descripcion no son correctos.","Error campos",JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		
+		if (campoNombre.getText().isEmpty()){ 
+			System.out.println(campoNombre.getText());
+			JOptionPane.showMessageDialog(null,"El valor del nombre no es correcto.","Error campos",JOptionPane.ERROR_MESSAGE);
+			return false;
+			}
+		if (campoSaldo.getText().isEmpty()){ 
+			System.out.println(campoSaldo.getText());
+			JOptionPane.showMessageDialog(null,"El valor del saldo no es correcto.","Error campos",JOptionPane.ERROR_MESSAGE);
+			return false;
+			}
+		if (campoDescripcion.getText().isEmpty()){ 
+			System.out.println(campoDescripcion.getText());
+			JOptionPane.showMessageDialog(null,"El valor de la descripcion no es correcto.","Error campos",JOptionPane.ERROR_MESSAGE);
+			return false;
+			}
+		
+		
+		
+		
+		
+		else return true;
+	}
+	
+	
+	public void cerrarVentana(){
+		this.dispose();
+	}
+	
 }
