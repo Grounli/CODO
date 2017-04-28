@@ -2,6 +2,7 @@ package com.codo.vista;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Dialog.ModalityType;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -18,6 +19,7 @@ public class VentanaSobre extends JDialog implements InterfazComun{
 	private final JPanel contentPanel = new JPanel();
 
 	public VentanaSobre() {
+		setModalityType(ModalityType.APPLICATION_MODAL);
 		setPreferredSize(new Dimension(540, 505));
 		setResizable(false);
 		setTitle("Sobre");
@@ -38,7 +40,8 @@ public class VentanaSobre extends JDialog implements InterfazComun{
 	@Override
 	public void iniciar() {
 		pack();
-		setLocationRelativeTo(null);
+		//setLocationRelativeTo(null);
+		setLocation(400, 200);
 		setVisible(true);
 	}
 

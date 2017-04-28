@@ -105,7 +105,8 @@ public class VentanaCuentas extends JDialog implements InterfazCuentas {
 	@Override
 	public void iniciar() {
 		pack();
-		setLocationRelativeTo(null);
+		//setLocationRelativeTo(null);
+		setLocation(400, 200);
 		setVisible(true);
 	}
 }
