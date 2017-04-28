@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.SystemColor;
+import java.awt.Dialog.ModalityType;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Date;
@@ -30,7 +31,7 @@ import com.codo.vista.interfaces.InterfazIngresos;
 import com.toedter.calendar.JDateChooser;
 
 public class VentanaIngresos extends JDialog implements InterfazIngresos {
-
+	
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textFieldValor;
@@ -44,9 +45,9 @@ public class VentanaIngresos extends JDialog implements InterfazIngresos {
 
 	public VentanaIngresos(List<Cuentas> listaDeCuentas, List<Etiquetas> listaDeEtiqueta, List<Tipos> listaDeTipos) {
 		this.listaDeTipos = listaDeTipos;
-
-		setTitle("Ingresos");
 		
+		setTitle("Ingresos");
+		setModalityType(ModalityType.APPLICATION_MODAL);
 		setBackground(Color.LIGHT_GRAY);
 		this.listaDeTipos=listaDeTipos;
 		setPreferredSize(new Dimension(400, 400));
@@ -140,7 +141,8 @@ public class VentanaIngresos extends JDialog implements InterfazIngresos {
 	@Override
 	public void iniciar() {
 		pack();
-		setLocationRelativeTo(null);
+		//setLocationRelativeTo(null);
+		setLocation(400, 200);
 		setVisible(true);
 	}
 

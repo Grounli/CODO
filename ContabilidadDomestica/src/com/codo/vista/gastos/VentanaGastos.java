@@ -30,6 +30,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.SystemColor;
+import java.awt.Dialog.ModalityType;
 
 public class VentanaGastos extends JDialog implements InterfazGastos {
 
@@ -48,7 +49,7 @@ public class VentanaGastos extends JDialog implements InterfazGastos {
 		setBackground(Color.LIGHT_GRAY);
 		
 		this.listaDeTipos=listaDeTipos;
-		
+		setModalityType(ModalityType.APPLICATION_MODAL);
 		setPreferredSize(new Dimension(400, 400));
 		setTitle("Panel Gastos");
 		setBounds(100, 100, 400, 400);
@@ -200,7 +201,8 @@ public class VentanaGastos extends JDialog implements InterfazGastos {
 	@Override
 	public void iniciar() {
 		pack();
-		setLocationRelativeTo(null);
+		//setLocationRelativeTo(null);
+		setLocation(400, 200);
 		setVisible(true);
 	}
 }

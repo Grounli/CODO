@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Dialog.ModalityType;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Date;
@@ -46,6 +47,7 @@ public class VentanaTransferencias extends JDialog implements InterfazTransferen
 		this.listaDeTipos=listaDeTipos;
 		
 		setTitle(" PanelTransferencias");
+		setModalityType(ModalityType.APPLICATION_MODAL);
 		setBounds(100, 100, 400, 400);
 		setPreferredSize(new Dimension(400, 400));
 		getContentPane().setLayout(new BorderLayout());
@@ -153,7 +155,8 @@ public class VentanaTransferencias extends JDialog implements InterfazTransferen
 	@Override
 	public void iniciar() {
 		pack();
-		setLocationRelativeTo(null);
+		//setLocationRelativeTo(null);
+		setLocation(400, 200);
 		setVisible(true);
 	}
 
@@ -199,7 +202,7 @@ public class VentanaTransferencias extends JDialog implements InterfazTransferen
 	
 	@Override
 	public void cerrarVentana(){
-		dispose();
+		this.dispose();
 	}
 	
 }

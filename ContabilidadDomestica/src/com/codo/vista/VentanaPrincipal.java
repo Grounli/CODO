@@ -1,6 +1,7 @@
 package com.codo.vista;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -14,11 +15,20 @@ import java.awt.GridBagLayout;
 import javax.swing.JButton;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.FlowLayout;
+import javax.swing.BoxLayout;
+import javax.swing.GroupLayout;
+import javax.swing.ImageIcon;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.SwingConstants;
+import java.awt.Component;
+import java.awt.Dimension;
 
 public class VentanaPrincipal extends JFrame implements InterfazPrincipal {
 
 	private static final long serialVersionUID = 1L;
-
+	private final JPanel contentPanel = new JPanel();
 	private JPanel contentPane;
 
 	private JButton btnCuentas;
@@ -33,11 +43,14 @@ public class VentanaPrincipal extends JFrame implements InterfazPrincipal {
 	private JMenuItem menuSobre;
 	private JMenu menuAnadir;
 	private JMenuItem menuEtiquetas;
+	private JLabel lblNewLabel;
 
 	public VentanaPrincipal() {
+		
 		super("Codo - Tu Contabilidad Doméstica");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 500, 300);
+		setBounds(100, 100, 457, 279);
+		setPreferredSize(new Dimension(200,300));;
 
 		barraMenu = new JMenuBar();
 		setJMenuBar(barraMenu);
@@ -58,59 +71,71 @@ public class VentanaPrincipal extends JFrame implements InterfazPrincipal {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-		gbl_contentPane.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0 };
-		gbl_contentPane.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
-		gbl_contentPane.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
-		contentPane.setLayout(gbl_contentPane);
+		
+				btnPrevisiones = new JButton("Previsiones");
+				btnPrevisiones.setActionCommand(BOTON_PREVISIONES);
 
 		btnCuentas = new JButton("Cuentas");
 		btnCuentas.setActionCommand(BOTON_CUENTAS);
-		GridBagConstraints gbc_btnCuentas = new GridBagConstraints();
-		gbc_btnCuentas.insets = new Insets(0, 0, 5, 5);
-		gbc_btnCuentas.gridx = 1;
-		gbc_btnCuentas.gridy = 2;
-		contentPane.add(btnCuentas, gbc_btnCuentas);
-
-		btnMovimientos = new JButton("Movimientos");
-		btnMovimientos.setActionCommand(BOTON_MOVIMIENTOS);
-		GridBagConstraints gbc_btnMovimientos = new GridBagConstraints();
-		gbc_btnMovimientos.insets = new Insets(0, 0, 5, 5);
-		gbc_btnMovimientos.gridx = 4;
-		gbc_btnMovimientos.gridy = 2;
-		contentPane.add(btnMovimientos, gbc_btnMovimientos);
-
-		btnPrevisiones = new JButton("Previsiones");
-		btnPrevisiones.setActionCommand(BOTON_PREVISIONES);
-		GridBagConstraints gbc_btnPrevisiones = new GridBagConstraints();
-		gbc_btnPrevisiones.insets = new Insets(0, 0, 5, 0);
-		gbc_btnPrevisiones.gridx = 7;
-		gbc_btnPrevisiones.gridy = 2;
-		contentPane.add(btnPrevisiones, gbc_btnPrevisiones);
+		
+				btnMovimientos = new JButton("Movimientos");
+				btnMovimientos.setActionCommand(BOTON_MOVIMIENTOS);
 
 		btnIngresos = new JButton("Ingresos");
 		btnIngresos.setActionCommand(BOTON_INGRESOS);
-		GridBagConstraints gbc_btnIngresos = new GridBagConstraints();
-		gbc_btnIngresos.insets = new Insets(0, 0, 0, 5);
-		gbc_btnIngresos.gridx = 1;
-		gbc_btnIngresos.gridy = 5;
-		contentPane.add(btnIngresos, gbc_btnIngresos);
 
 		btnGastos = new JButton("Gastos");
 		btnGastos.setActionCommand(BOTON_GASTOS);
-		GridBagConstraints gbc_btnGastos = new GridBagConstraints();
-		gbc_btnGastos.insets = new Insets(0, 0, 0, 5);
-		gbc_btnGastos.gridx = 4;
-		gbc_btnGastos.gridy = 5;
-		contentPane.add(btnGastos, gbc_btnGastos);
 
 		btnTransferencias = new JButton("Transferencias");
 		btnTransferencias.setActionCommand(BOTON_TRANSFERENCIAS);
-		GridBagConstraints gbc_btnTransferencias = new GridBagConstraints();
-		gbc_btnTransferencias.gridx = 7;
-		gbc_btnTransferencias.gridy = 5;
-		contentPane.add(btnTransferencias, gbc_btnTransferencias);
+		
+		JPanel panel = new JPanel();
+		GroupLayout gl_contentPane = new GroupLayout(contentPane);
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(btnCuentas, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(btnPrevisiones, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
+						.addComponent(btnIngresos, GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+						.addComponent(btnTransferencias, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(btnGastos, GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+						.addComponent(btnMovimientos, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addGap(77)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 183, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(126, Short.MAX_VALUE))
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(panel, GroupLayout.PREFERRED_SIZE, 157, GroupLayout.PREFERRED_SIZE))
+						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+							.addComponent(btnPrevisiones)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(btnCuentas)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnMovimientos)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(btnIngresos)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnGastos)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnTransferencias)))
+					.addContainerGap(52, Short.MAX_VALUE))
+		);
+		panel.setLayout(null);
+		
+		lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon("Informacion.png"));
+		lblNewLabel.setBounds(0, 0, 183, 157);
+		panel.add(lblNewLabel);
+		contentPane.setLayout(gl_contentPane);
+		
+		
 	}
 
 	@Override
@@ -128,8 +153,8 @@ public class VentanaPrincipal extends JFrame implements InterfazPrincipal {
 	@Override
 	public void iniciar() {
 		pack();
-		setLocationRelativeTo(null);
+		//setLocationRelativeTo(null);
+		setLocation(200, 200);
 		setVisible(true);
 	}
-
 }
