@@ -2,10 +2,12 @@ package com.codo.controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
 import com.codo.modelo.ModeloCD;
+import com.codo.modelo.pojos.Movimientos;
 import com.codo.vista.interfaces.InterfazMovimientos;
 
 public class ControladorMovimientos implements ActionListener {
@@ -21,7 +23,17 @@ public class ControladorMovimientos implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent evento) {
 		if (evento.getActionCommand().equals(InterfazMovimientos.BOTON_CONSULTAR_MOVIMIENTOS)) {
-
+			
+			System.out.println(vistaMovimientos.obtenerFiltro());
+			
+			List<Movimientos> prueba=modelo.listaDeMovimientosFiltros(vistaMovimientos.obtenerFiltro());
+			
+			for (Movimientos movimientos : prueba) {
+				System.out.println(movimientos+"   -----------------");
+			}
+			
+			vistaMovimientos.asignarDatosTablaMovimientos(modelo.listaDeMovimientosFiltros(vistaMovimientos.obtenerFiltro()));
+			
 		}
 
 		if (evento.getActionCommand().equals(InterfazMovimientos.BOTON_REVERTIR_MOVIMIENTO)) {
