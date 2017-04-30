@@ -58,7 +58,7 @@ public class TiposDAO {
 		try {
 			transaction = manager.getTransaction();
 			transaction.begin();
-			manager.remove(tipo);
+			manager.remove(manager.merge(tipo));
 			transaction.commit();
 		} catch (Exception ex) {
 			if (transaction != null) {

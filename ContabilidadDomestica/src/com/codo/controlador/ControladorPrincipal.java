@@ -15,14 +15,14 @@ import com.codo.vista.cuentas.VentanaCuentas;
 import com.codo.vista.etiquetas.VentanaEtiquetas;
 import com.codo.vista.gastos.VentanaGastos;
 import com.codo.vista.ingresos.VentanaIngresos;
-import com.codo.vista.interfaces.InterfazCuentas;
-import com.codo.vista.interfaces.InterfazEtiquetas;
-import com.codo.vista.interfaces.InterfazGastos;
-import com.codo.vista.interfaces.InterfazIngresos;
-import com.codo.vista.interfaces.InterfazMovimientos;
-import com.codo.vista.interfaces.InterfazPrevisiones;
 import com.codo.vista.interfaces.InterfazPrincipal;
-import com.codo.vista.interfaces.InterfazTransferencias;
+import com.codo.vista.interfaces.cuentas.InterfazCuentas;
+import com.codo.vista.interfaces.etiquetas.InterfazEtiquetas;
+import com.codo.vista.interfaces.gastos.InterfazGastos;
+import com.codo.vista.interfaces.ingresos.InterfazIngresos;
+import com.codo.vista.interfaces.movimientos.InterfazMovimientos;
+import com.codo.vista.interfaces.previsiones.InterfazPrevisiones;
+import com.codo.vista.interfaces.transferencias.InterfazTransferencias;
 import com.codo.vista.movimientos.VentanaMovimientos;
 import com.codo.vista.previsiones.VentanaPrevisiones;
 import com.codo.vista.transferencias.VentanaTransferencias;
@@ -57,7 +57,7 @@ public class ControladorPrincipal implements ActionListener {
 			// GENERAMOS EL CONTROLADOR DE ETIQUETAS
 			ControladorEtiquetas controladorEtiquetas = new ControladorEtiquetas(vistaEtiquetas, modelo);
 			// CONFIGURAMOS LA VISTA DE ETIQUETAS
-			vistaEtiquetas.asignarControlador(controladorEtiquetas);			
+			vistaEtiquetas.asignarControlador(controladorEtiquetas);
 			// INICIAMOS LA VISTA DE ETIQUETAS
 			vistaEtiquetas.iniciar();
 		}
@@ -78,14 +78,62 @@ public class ControladorPrincipal implements ActionListener {
 			vistaCuentas.iniciar();
 		}
 
+		if (evento.getActionCommand().equals(InterfazPrincipal.BOTON_INGRESOS)) {
+			// GENERAMOS LAS LISTAS NECESARIAS
+			List<Cuentas> listaDeCuentas = modelo.listaDeCuentas();
+			List<Etiquetas> listaDeEtiquetasDeIngresos = modelo.listaDeEtiquetasDeIngresos();
+			List<Tipos> listaDeTipos = modelo.listaDeTipos();
+			// GENERAMOS LA VISTA DE INGRESOS
+			InterfazIngresos vistaIngresos = new VentanaIngresos(listaDeCuentas, listaDeEtiquetasDeIngresos,
+					listaDeTipos);
+			// GENERAMOS EL CONTROLADOR DE INGRESOS
+			ControladorIngresos controladorIngresos = new ControladorIngresos(vistaIngresos, modelo);
+			// CONFIGURAMOS LA VISTA DE INGRESOS
+			vistaIngresos.asignarControlador(controladorIngresos);
+			// INICIAMOS LA VISTA DE INGRESOS
+			vistaIngresos.iniciar();
+		}
+
+		if (evento.getActionCommand().equals(InterfazPrincipal.BOTON_GASTOS)) {
+			// GENERAMOS LAS LISTAS NECESARIAS
+			List<Cuentas> listaDeCuentas = modelo.listaDeCuentas();
+			List<Etiquetas> listaDeEtiquetasDeGastos = modelo.listaDeEtiquetasDeGastos();
+			List<Tipos> listaDeTipos = modelo.listaDeTipos();
+			// GENERAMOS LA VISTA DE GASTOS
+			InterfazGastos vistaGastos = new VentanaGastos(listaDeCuentas, listaDeEtiquetasDeGastos, listaDeTipos);
+			// GENERAMOS EL CONTROLADOR DE GASTOS
+			ControladorGastos controladorGastos = new ControladorGastos(vistaGastos, modelo);
+			// CONFIGURAMOS LA VISTA DE GASTOS
+			vistaGastos.asignarControlador(controladorGastos);
+			// INICIAMOS LA VISTA DE GASTOS
+			vistaGastos.iniciar();
+		}
+
+		if (evento.getActionCommand().equals(InterfazPrincipal.BOTON_TRANSFERENCIAS)) {
+			// GENERAMOS LAS LISTAS NECESARIAS
+			List<Cuentas> listaDeCuentas = modelo.listaDeCuentas();
+			List<Etiquetas> listaDeEtiquetasDeTransferencias = modelo.listaDeEtiquetasDeTransferencias();
+			List<Tipos> listaDeTipos = modelo.listaDeTipos();
+			// GENERAMOS LA VISTA DE TRANSFERENCIAS
+			InterfazTransferencias vistaTransferencias = new VentanaTransferencias(listaDeCuentas,
+					listaDeEtiquetasDeTransferencias, listaDeTipos);
+			// GENERAMOS EL CONTROLADOR DE TRANSFERENCIAS
+			ControladorTransferencias controladorTransferencias = new ControladorTransferencias(vistaTransferencias,
+					modelo);
+			// CONFIGURAMOS LA VISTA DE TRANSFERENCIAS
+			vistaTransferencias.asignarControlador(controladorTransferencias);
+			// INICIAMOS LA VISTA DE TRANSFERENCIAS
+			vistaTransferencias.iniciar();
+		}
+
 		if (evento.getActionCommand().equals(InterfazPrincipal.BOTON_MOVIMIENTOS)) {
 			// GENERAMOS LAS LISTAS NECESARIAS
 			List<Cuentas> listaDeCuentas = modelo.listaDeCuentas();
 			List<Movimientos> listaDeMovimientos = modelo.listaDeMovimientos();
-			List<Etiquetas> listaDeEtiquetas = modelo.listaDeEtiquetas();
+			List<Etiquetas> listaDeEtiquetasDeIngresos = modelo.listaDeEtiquetasDeIngresos();
 			List<Tipos> listaDeTipos = modelo.listaDeTipos();
 			// GENERAMOS LA VISTA DE MOVIMIENTOS
-			InterfazMovimientos vistaMovimientos = new VentanaMovimientos(listaDeCuentas, listaDeEtiquetas,
+			InterfazMovimientos vistaMovimientos = new VentanaMovimientos(listaDeCuentas, listaDeEtiquetasDeIngresos,
 					listaDeTipos);
 			// GENERAMOS EL CONTROLADOR DE MOVIMIENTOS
 			ControladorMovimientos controladorMovimientos = new ControladorMovimientos(vistaMovimientos, modelo);
@@ -100,60 +148,14 @@ public class ControladorPrincipal implements ActionListener {
 			// GENERAMOS LAS LISTAS NECESARIAS
 			List<Previsiones> listaDePrevisiones = modelo.listaDePrevisiones();
 			// GENERAMOS LA VISTA DE PREVISIONES
-			InterfazPrevisiones vistaPrevisiones = new VentanaPrevisiones(listaDePrevisiones);
+			InterfazPrevisiones vistaPrevisiones = new VentanaPrevisiones();
 			// GENERAMOS EL CONTROLADOR DE PREVISIONES
 			ControladorPrevisiones controladorPrevisiones = new ControladorPrevisiones(vistaPrevisiones, modelo);
 			// CONFIGURAMOS LA VISTA DE PREVISIONES
 			vistaPrevisiones.asignarControlador(controladorPrevisiones);
+			vistaPrevisiones.asignarDatosTablaPrevisiones(listaDePrevisiones);
 			// INICIAMOS LA VISTA DE PREVISIONES
 			vistaPrevisiones.iniciar();
-		}
-
-		if (evento.getActionCommand().equals(InterfazPrincipal.BOTON_INGRESOS)) {
-			// GENERAMOS LAS LISTAS NECESARIAS
-			List<Cuentas> listaDeCuentas = modelo.listaDeCuentas();
-			List<Etiquetas> listaDeEtiquetas = modelo.listaDeEtiquetas();
-			List<Tipos> listaDeTipos = modelo.listaDeTipos();
-			// GENERAMOS LA VISTA DE INGRESOS
-			InterfazIngresos vistaIngresos = new VentanaIngresos(listaDeCuentas, listaDeEtiquetas, listaDeTipos);
-			// GENERAMOS EL CONTROLADOR DE INGRESOS
-			ControladorIngresos controladorIngresos = new ControladorIngresos(vistaIngresos, modelo);
-			// CONFIGURAMOS LA VISTA DE INGRESOS
-			vistaIngresos.asignarControlador(controladorIngresos);
-			// INICIAMOS LA VISTA DE INGRESOS
-			vistaIngresos.iniciar();
-		}
-
-		if (evento.getActionCommand().equals(InterfazPrincipal.BOTON_GASTOS)) {
-			// GENERAMOS LAS LISTAS NECESARIAS
-			List<Cuentas> listaDeCuentas = modelo.listaDeCuentas();
-			List<Etiquetas> listaDeEtiquetas = modelo.listaDeEtiquetas();
-			List<Tipos> listaDeTipos = modelo.listaDeTipos();
-			// GENERAMOS LA VISTA DE GASTOS
-			InterfazGastos vistaGastos = new VentanaGastos(listaDeCuentas, listaDeEtiquetas, listaDeTipos);
-			// GENERAMOS EL CONTROLADOR DE GASTOS
-			ControladorGastos controladorGastos = new ControladorGastos(vistaGastos, modelo);
-			// CONFIGURAMOS LA VISTA DE GASTOS
-			vistaGastos.asignarControlador(controladorGastos);
-			// INICIAMOS LA VISTA DE GASTOS
-			vistaGastos.iniciar();
-		}
-
-		if (evento.getActionCommand().equals(InterfazPrincipal.BOTON_TRANSFERENCIAS)) {
-			// GENERAMOS LAS LISTAS NECESARIAS
-			List<Cuentas> listaDeCuentas = modelo.listaDeCuentas();
-			List<Etiquetas> listaDeEtiquetas = modelo.listaDeEtiquetas();
-			List<Tipos> listaDeTipos = modelo.listaDeTipos();
-			// GENERAMOS LA VISTA DE TRANSFERENCIAS
-			InterfazTransferencias vistaTransferencias = new VentanaTransferencias(listaDeCuentas, listaDeEtiquetas,
-					listaDeTipos);
-			// GENERAMOS EL CONTROLADOR DE TRANSFERENCIAS
-			ControladorTransferencias controladorTransferencias = new ControladorTransferencias(vistaTransferencias,
-					modelo);
-			// CONFIGURAMOS LA VISTA DE TRANSFERENCIAS
-			vistaTransferencias.asignarControlador(controladorTransferencias);
-			// INICIAMOS LA VISTA DE TRANSFERENCIAS
-			vistaTransferencias.iniciar();
 		}
 	}
 }

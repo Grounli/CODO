@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
 import com.codo.controlador.ControladorCuentas;
 import com.codo.modelo.pojos.Cuentas;
 import com.codo.vista.componentes.ModeloTablaCuentas;
-import com.codo.vista.interfaces.InterfazCuentas;
+import com.codo.vista.interfaces.cuentas.InterfazCuentas;
 
 public class VentanaCuentas extends JDialog implements InterfazCuentas {
 

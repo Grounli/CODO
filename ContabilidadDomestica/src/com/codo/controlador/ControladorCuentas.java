@@ -11,9 +11,9 @@ import com.codo.modelo.pojos.Cuentas;
 import com.codo.modelo.pojos.Monedas;
 import com.codo.vista.cuentas.VentanaAnadirCuenta;
 import com.codo.vista.cuentas.VentanaModificarCuenta;
-import com.codo.vista.interfaces.InterfazCuentas;
-import com.codo.vista.interfaces.InterfazVentanaAnadirCuenta;
-import com.codo.vista.interfaces.InterfazVentanaModificarCuenta;
+import com.codo.vista.interfaces.cuentas.InterfazCuentas;
+import com.codo.vista.interfaces.cuentas.InterfazVentanaAnadirCuenta;
+import com.codo.vista.interfaces.cuentas.InterfazVentanaModificarCuenta;
 
 public class ControladorCuentas implements ActionListener {
 
@@ -73,15 +73,15 @@ public class ControladorCuentas implements ActionListener {
 		// ---------------- VENTANA AÑADIR CUENTA ---------------- //
 
 		if (evento.getActionCommand().equals(InterfazVentanaAnadirCuenta.BOTON_CONFIRMAR_ANADIR_CUENTA)) {
-			if (vistaAnadirCuenta.comprobarCampos()){
-				
-			Cuentas cuenta = vistaAnadirCuenta.leerCamposAnadirCuenta();
-			modelo.crearCuenta(cuenta);
-			List<Cuentas> listaDeCuentas = modelo.listaDeCuentas();
-			vistaCuentas.asignarDatosTablaCuentas(listaDeCuentas);
-			JOptionPane.showMessageDialog(null, "Cuenta Añadida Exitosamente", "Aviso",
-					JOptionPane.INFORMATION_MESSAGE);
-			vistaAnadirCuenta.dispose();
+			if (vistaAnadirCuenta.comprobarCampos()) {
+
+				Cuentas cuenta = vistaAnadirCuenta.leerCamposAnadirCuenta();
+				modelo.crearCuenta(cuenta);
+				List<Cuentas> listaDeCuentas = modelo.listaDeCuentas();
+				vistaCuentas.asignarDatosTablaCuentas(listaDeCuentas);
+				JOptionPane.showMessageDialog(null, "Cuenta Añadida Exitosamente", "Aviso",
+						JOptionPane.INFORMATION_MESSAGE);
+				vistaAnadirCuenta.dispose();
 			}
 		}
 

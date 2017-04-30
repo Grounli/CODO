@@ -7,8 +7,9 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import com.codo.modelo.ModeloCD;
+import com.codo.modelo.pojos.Etiquetas;
 import com.codo.modelo.pojos.Movimientos;
-import com.codo.vista.interfaces.InterfazMovimientos;
+import com.codo.vista.interfaces.movimientos.InterfazMovimientos;
 
 public class ControladorMovimientos implements ActionListener {
 
@@ -23,17 +24,18 @@ public class ControladorMovimientos implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent evento) {
 		if (evento.getActionCommand().equals(InterfazMovimientos.BOTON_CONSULTAR_MOVIMIENTOS)) {
-			
+
 			System.out.println(vistaMovimientos.obtenerFiltro());
-			
-			List<Movimientos> prueba=modelo.listaDeMovimientosFiltros(vistaMovimientos.obtenerFiltro());
-			
+
+			List<Movimientos> prueba = modelo.listaDeMovimientosFiltros(vistaMovimientos.obtenerFiltro());
+
 			for (Movimientos movimientos : prueba) {
-				System.out.println(movimientos+"   -----------------");
+				System.out.println(movimientos + "   -----------------");
 			}
-			
-			vistaMovimientos.asignarDatosTablaMovimientos(modelo.listaDeMovimientosFiltros(vistaMovimientos.obtenerFiltro()));
-			
+
+			vistaMovimientos
+					.asignarDatosTablaMovimientos(modelo.listaDeMovimientosFiltros(vistaMovimientos.obtenerFiltro()));
+
 		}
 
 		if (evento.getActionCommand().equals(InterfazMovimientos.BOTON_REVERTIR_MOVIMIENTO)) {
@@ -50,6 +52,27 @@ public class ControladorMovimientos implements ActionListener {
 					JOptionPane.showMessageDialog(null, "Movimiento Revertido Exitosamente", "Aviso",
 							JOptionPane.INFORMATION_MESSAGE);
 				}
+			}
+		}
+
+		if (evento.getActionCommand().equals(InterfazMovimientos.BOTON_SALIR_MOVIMIENTOS)) {
+			vistaMovimientos.dispose();
+		}
+
+		// --------------- ACCIONES ADICIONALES --------------- //
+
+		if (evento.getActionCommand().equals(InterfazMovimientos.ACCION_CAJA_TIPO_MOVIMIENTOS)) {
+			String seleccion = vistaMovimientos.itemSeleccionadoCajaTipo();
+			System.out.println(seleccion);
+			if (seleccion.equals("Ingreso")) {
+				List<Etiquetas> lista = modelo.listaDeEtiquetasDeIngresos();
+				vistaMovimientos.refrescarCajaEtiquetas(lista);
+			} else if (seleccion.equals("Gasto")) {
+				List<Etiquetas> lista = modelo.listaDeEtiquetasDeGastos();
+				vistaMovimientos.refrescarCajaEtiquetas(lista);
+			} else if (seleccion.equals("Transferencia")) {
+				List<Etiquetas> lista = modelo.listaDeEtiquetasDeTransferencias();
+				vistaMovimientos.refrescarCajaEtiquetas(lista);
 			}
 		}
 	}

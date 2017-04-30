@@ -58,7 +58,7 @@ public class MonedasDAO {
 		try {
 			transaction = manager.getTransaction();
 			transaction.begin();
-			manager.remove(moneda);
+			manager.remove(manager.merge(moneda));
 			transaction.commit();
 		} catch (Exception ex) {
 			if (transaction != null) {

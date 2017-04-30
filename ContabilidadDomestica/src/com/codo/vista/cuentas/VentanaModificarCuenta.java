@@ -18,7 +18,8 @@ import javax.swing.border.EmptyBorder;
 import com.codo.controlador.ControladorCuentas;
 import com.codo.modelo.pojos.Cuentas;
 import com.codo.modelo.pojos.Monedas;
-import com.codo.vista.interfaces.InterfazVentanaModificarCuenta;
+import com.codo.vista.interfaces.cuentas.InterfazVentanaModificarCuenta;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;

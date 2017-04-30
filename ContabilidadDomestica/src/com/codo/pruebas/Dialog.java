@@ -1,4 +1,4 @@
-package com.codo.vista.previsiones;
+package com.codo.pruebas;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -8,11 +8,27 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-public class VentanaEjecutarPrevision extends JDialog {
+public class Dialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 
-	public VentanaEjecutarPrevision() {
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		try {
+			Dialog dialog = new Dialog();
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Create the dialog.
+	 */
+	public Dialog() {
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setLayout(new FlowLayout());

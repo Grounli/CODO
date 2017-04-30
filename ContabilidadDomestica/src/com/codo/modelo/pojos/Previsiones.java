@@ -34,7 +34,7 @@ public class Previsiones implements java.io.Serializable {
 	private Etiquetas etiquetas;
 	
 	@OneToMany(targetEntity=Tipos.class)
-	@Column(name="idTipo", nullable = false)
+	@Column(name="idTipo", nullable = true)
 	private Tipos tipos;
 	
 	@Column(name="valor", nullable = false)

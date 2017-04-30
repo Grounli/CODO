@@ -58,7 +58,7 @@ public class EtiquetasDAO {
 		try {
 			transaction = manager.getTransaction();
 			transaction.begin();
-			manager.remove(etiqueta);
+			manager.remove(manager.merge(etiqueta));
 			transaction.commit();
 		} catch (Exception ex) {
 			if (transaction != null) {
@@ -91,4 +91,24 @@ public class EtiquetasDAO {
 		return lst;
 	}
 	
+	public List<Etiquetas> leerEtiquetasFiltro (String sentenciaSQL) {
+		EntityManager manager = EM_FACTORY.createEntityManager();
+		EntityTransaction transaction = null;
+		List<Etiquetas> lst = null;
+		try {
+			transaction = manager.getTransaction();
+			transaction.begin();
+			String qry = sentenciaSQL;
+			lst = manager.createQuery(qry, Etiquetas.class).getResultList();
+			transaction.commit();
+		} catch (Exception ex) {
+			if (transaction != null) {
+				transaction.rollback();
+			}
+			ex.printStackTrace();
+		} finally {
+			manager.close();
+		}
+		return lst;
+	}
 }

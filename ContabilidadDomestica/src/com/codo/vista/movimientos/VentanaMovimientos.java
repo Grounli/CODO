@@ -1,23 +1,24 @@
 package com.codo.vista.movimientos;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-
-import org.hibernate.Criteria;
-import org.hibernate.criterion.Restrictions;
 
 import com.codo.controlador.ControladorMovimientos;
 import com.codo.modelo.pojos.Cuentas;
@@ -25,21 +26,21 @@ import com.codo.modelo.pojos.Etiquetas;
 import com.codo.modelo.pojos.Movimientos;
 import com.codo.modelo.pojos.Tipos;
 import com.codo.vista.componentes.ModeloTablaMovimientos;
-import com.codo.vista.interfaces.InterfazMovimientos;
-import javax.swing.JLabel;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JComboBox;
+import com.codo.vista.interfaces.movimientos.InterfazMovimientos;
 import com.toedter.calendar.JDateChooser;
-import javax.swing.JButton;
 
 public class VentanaMovimientos extends JDialog implements InterfazMovimientos {
 
 	private static final long serialVersionUID = 1L;
-	private static final int POSICION_HORIZONTAL = 100;
-	private static final int POSICION_VERTICAL = 100;
-	private static final int ANCHURA_MAXIMA = 500;
-	private static final int ALTURA_MAXIMA = 400;
-	private final JPanel contentPane = new JPanel();
+	private static final int SET_LOCATION_X = 400;
+	private static final int SET_LOCATION_Y = 200;
+	private static final int ANCHURA_MINIMA_VENTANA = 500;
+	private static final int ALTURA_MINIMA_VENTANA = 450;
+	private final JPanel contentPanel = new JPanel();
+	private JPanel panelCentral;
+	private JPanel panelComponentes;
+	private JPanel panelFunciones;
+	private JPanel buttonPane;
 	private JTable tablaMovimientos;
 	private JScrollPane panelDesplazamiento;
 	private ModeloTablaMovimientos mtm;
@@ -56,20 +57,33 @@ public class VentanaMovimientos extends JDialog implements InterfazMovimientos {
 	private JDateChooser fechaHasta;
 	private JButton btnConsultar;
 	private JButton btnRevertir;
+	private JButton btnSalir;
+	private JPanel paneLblCampos;
+	private JPanel paneCampos;
+	private JPanel paneLblFechas;
+	private JPanel paneFechas;
 
-	public VentanaMovimientos(List<Cuentas> listaDeCuentas, List<Etiquetas> listaDeEtiquetas,
+	public VentanaMovimientos(List<Cuentas> listaDeCuentas, List<Etiquetas> listaDeEtiquetasDeIngresos,
 			List<Tipos> listaDeTipos) {
-		setMaximumSize(new Dimension(400, 400));
-		setMinimumSize(new Dimension(400,400));
-		setResizable(false);
+
+		// CONFIGURACIÓN BASICA DE LA VENTANA
 		setTitle("Movimientos");
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setBounds(POSICION_HORIZONTAL, POSICION_VERTICAL, ANCHURA_MAXIMA, ALTURA_MAXIMA);
-		setPreferredSize(new Dimension(ANCHURA_MAXIMA, ALTURA_MAXIMA));
-		getContentPane().setLayout(new BorderLayout());
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPane, BorderLayout.CENTER);
+		setPreferredSize(new Dimension(ANCHURA_MINIMA_VENTANA, ALTURA_MINIMA_VENTANA));
+		setMinimumSize(new Dimension(ANCHURA_MINIMA_VENTANA, ALTURA_MINIMA_VENTANA));
+		setResizable(false);
+		getContentPane().setLayout(new BorderLayout(0, 0));
+
+		// CONFIGURACION DE CONTENTPANEL
+		contentPanel.setLayout(new BorderLayout(0, 0));
+		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		getContentPane().add(contentPanel);
+		
+		// CONFIGURACIÓN DE PANELCENTRAL
+		panelCentral = new JPanel();
+		panelCentral.setLayout(new BorderLayout(0, 0));
+		contentPanel.add(panelCentral, BorderLayout.CENTER);
 
 		// CONSTRUCCION DE TABLA
 		tablaMovimientos = new JTable();
@@ -80,126 +94,134 @@ public class VentanaMovimientos extends JDialog implements InterfazMovimientos {
 		tablaMovimientos.setFont(f);
 
 		panelDesplazamiento = new JScrollPane(tablaMovimientos);
+		panelDesplazamiento.setBounds(15, 16, 464, 167);
 		panelDesplazamiento.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		panelDesplazamiento.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		panelCentral.add(panelDesplazamiento, BorderLayout.CENTER);
+		
+		{
+			// CONFIGURACIÓN DE PANELCOMPONENTES
+			panelComponentes = new JPanel();
+			panelComponentes.setPreferredSize(new Dimension(10, 150));
+			panelCentral.add(panelComponentes, BorderLayout.SOUTH);
+			panelComponentes.setLayout(null);
+			
+			paneLblCampos = new JPanel();
+			paneLblCampos.setBounds(10, 32, 81, 94);
+			panelComponentes.add(paneLblCampos);
+			paneLblCampos.setLayout(new GridLayout(0, 1, 0, 5));
+			
+			paneCampos = new JPanel();
+			paneCampos.setBounds(101, 32, 128, 94);
+			panelComponentes.add(paneCampos);
+			paneCampos.setLayout(new GridLayout(0, 1, 0, 5));
+			
+			paneLblFechas = new JPanel();
+			paneLblFechas.setBounds(257, 32, 81, 53);
+			panelComponentes.add(paneLblFechas);
+			paneLblFechas.setLayout(new GridLayout(0, 1, 0, 5));
+			
+			paneFechas = new JPanel();
+			paneFechas.setBounds(348, 32, 104, 53);
+			panelComponentes.add(paneFechas);
+			paneFechas.setLayout(new GridLayout(0, 1, 0, 5));
+		}
+		{
+			// CONFIGURACIÓN DE PANELFUNCIONES
+			panelFunciones = new JPanel();
+			panelFunciones.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
+			contentPanel.add(panelFunciones, BorderLayout.SOUTH);
+
+		}
 
 		// LABELS
 		lblFiltros = new JLabel("Filtros:");
+		lblFiltros.setHorizontalTextPosition(SwingConstants.RIGHT);
+		lblFiltros.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblFiltros.setAlignmentX(Component.CENTER_ALIGNMENT);
+		lblFiltros.setBounds(10, 11, 81, 14);
+		panelComponentes.add(lblFiltros);
+		
 		lblCuentas = new JLabel("Cuentas:");
+		lblCuentas.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblCuentas.setHorizontalTextPosition(SwingConstants.RIGHT);
+		paneLblCampos.add(lblCuentas);
+
 		lblTipos = new JLabel("Tipos:");
+		lblTipos.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblTipos.setHorizontalTextPosition(SwingConstants.RIGHT);
+		paneLblCampos.add(lblTipos);
+		
 		lblEtiquetas = new JLabel("Etiquetas:");
+		lblEtiquetas.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblEtiquetas.setHorizontalTextPosition(SwingConstants.RIGHT);
+		paneLblCampos.add(lblEtiquetas);
+
 		lblFechaDesde = new JLabel("Fecha Desde:");
+		lblFechaDesde.setHorizontalTextPosition(SwingConstants.RIGHT);
+		lblFechaDesde.setHorizontalAlignment(SwingConstants.RIGHT);
+		paneLblFechas.add(lblFechaDesde);
+
 		lblFechaHasta = new JLabel("Fecha Hasta:");
+		lblFechaHasta.setHorizontalTextPosition(SwingConstants.RIGHT);
+		lblFechaHasta.setHorizontalAlignment(SwingConstants.RIGHT);
+		paneLblFechas.add(lblFechaHasta);
 
 		// COMBOBOXS
-		cajaCuentas = new JComboBox();
+		cajaCuentas = new JComboBox<Cuentas>();
 		for (Cuentas cuenta : listaDeCuentas) {
 			cajaCuentas.addItem(cuenta);
 		}
+		paneCampos.add(cajaCuentas);
 
-		cajaTipos = new JComboBox();
+		cajaTipos = new JComboBox<Tipos>();
+		cajaTipos.setActionCommand(ACCION_CAJA_TIPO_MOVIMIENTOS);
 		for (Tipos tipo : listaDeTipos) {
 			cajaTipos.addItem(tipo);
 		}
+		paneCampos.add(cajaTipos);
 
-		cajaEtiquetas = new JComboBox();
-		for (Etiquetas etiqueta : listaDeEtiquetas) {
+		cajaEtiquetas = new JComboBox<Etiquetas>();
+		for (Etiquetas etiqueta : listaDeEtiquetasDeIngresos) {
 			cajaEtiquetas.addItem(etiqueta);
 		}
+		paneCampos.add(cajaEtiquetas);
 
 		// CALENDARIOS
 		fechaDesde = new JDateChooser();
+		paneFechas.add(fechaDesde);
 
 		fechaHasta = new JDateChooser();
+		paneFechas.add(fechaHasta);
 
 		// BOTONES
 		btnConsultar = new JButton("Consultar");
 		btnConsultar.setActionCommand(BOTON_CONSULTAR_MOVIMIENTOS);
+		panelFunciones.add(btnConsultar);
+		
 
 		btnRevertir = new JButton("Revertir");
 		btnRevertir.setActionCommand(BOTON_REVERTIR_MOVIMIENTO);
-		// CONFIGURACION GRUPLAYOUT (AUTOGENERADO)
-		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane
-				.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup().addGroup(gl_contentPane
-								.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_contentPane.createSequentialGroup().addContainerGap()
-										.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-												.addComponent(
-														panelDesplazamiento, GroupLayout.DEFAULT_SIZE, 414,
-														Short.MAX_VALUE)
-												.addGroup(gl_contentPane
-														.createSequentialGroup()
-														.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-																.addComponent(lblTipos)
-																.addComponent(lblEtiquetas).addComponent(lblCuentas)
-																.addComponent(lblFiltros))
-														.addGap(4)
-														.addGroup(gl_contentPane
-																.createParallelGroup(Alignment.LEADING, false)
-																.addComponent(cajaEtiquetas, 0,
-																		GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-																.addComponent(cajaTipos, Alignment.TRAILING, 0,
-																		GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-																.addComponent(cajaCuentas, Alignment.TRAILING,
-																		GroupLayout.PREFERRED_SIZE, 120,
-																		GroupLayout.PREFERRED_SIZE))
-														.addPreferredGap(ComponentPlacement.RELATED, 59,
-																Short.MAX_VALUE)
-														.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-																.addComponent(lblFechaDesde)
-																.addComponent(lblFechaHasta))
-														.addPreferredGap(ComponentPlacement.RELATED)
-														.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-																.addComponent(fechaHasta, GroupLayout.PREFERRED_SIZE,
-																		GroupLayout.DEFAULT_SIZE,
-																		GroupLayout.PREFERRED_SIZE)
-																.addComponent(fechaDesde, GroupLayout.PREFERRED_SIZE,
-																		GroupLayout.DEFAULT_SIZE,
-																		GroupLayout.PREFERRED_SIZE))
-														.addGap(17))))
-								.addGroup(gl_contentPane.createSequentialGroup().addGap(119).addComponent(btnConsultar)
-										.addPreferredGap(ComponentPlacement.RELATED).addComponent(btnRevertir)))
-								.addContainerGap()));
-		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addGroup(gl_contentPane
-				.createSequentialGroup().addContainerGap()
-				.addComponent(panelDesplazamiento, GroupLayout.PREFERRED_SIZE, 167, GroupLayout.PREFERRED_SIZE)
-				.addPreferredGap(ComponentPlacement.RELATED).addComponent(lblFiltros).addGap(11)
-				.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-								.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-										.addComponent(lblCuentas).addComponent(cajaCuentas, GroupLayout.PREFERRED_SIZE,
-												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-								.addGap(18)
-								.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-										.addComponent(lblTipos).addComponent(cajaTipos, GroupLayout.PREFERRED_SIZE,
-												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-								.addGap(18)
-								.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-										.addComponent(lblEtiquetas).addComponent(cajaEtiquetas,
-												GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-						.addGroup(gl_contentPane.createSequentialGroup()
-								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-										.addComponent(lblFechaDesde).addComponent(fechaDesde,
-												GroupLayout.PREFERRED_SIZE,
-												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-								.addGap(18)
-								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-										.addComponent(lblFechaHasta).addComponent(fechaHasta,
-												GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-												GroupLayout.PREFERRED_SIZE))))
-				.addPreferredGap(ComponentPlacement.RELATED, 22, Short.MAX_VALUE).addGroup(gl_contentPane
-						.createParallelGroup(Alignment.BASELINE).addComponent(btnConsultar).addComponent(btnRevertir))
-				.addContainerGap()));
-		contentPane.setLayout(gl_contentPane);
+		panelFunciones.add(btnRevertir);
 
+		{
+			buttonPane = new JPanel();
+			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			{
+				btnSalir = new JButton("Salir");
+				btnSalir.setActionCommand(BOTON_SALIR_MOVIMIENTOS);
+				buttonPane.add(btnSalir);
+			}
+		}
 	}
 
 	@Override
 	public void asignarControlador(ControladorMovimientos control) {
 		btnConsultar.addActionListener(control);
 		btnRevertir.addActionListener(control);
+		btnSalir.addActionListener(control);
+		cajaTipos.addActionListener(control);
 	}
 
 	@Override
@@ -215,14 +237,6 @@ public class VentanaMovimientos extends JDialog implements InterfazMovimientos {
 	}
 
 	@Override
-	public void iniciar() {
-		pack();
-		//setLocationRelativeTo(null);
-		setLocation(400, 200);
-		setVisible(true);
-	}
-
-	@Override
 	public String obtenerFiltro() {
 
 		SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
@@ -230,14 +244,32 @@ public class VentanaMovimientos extends JDialog implements InterfazMovimientos {
 		String fechaFin = formatoFecha.format(fechaHasta.getDate());
 		String sentenciaSQL = "SELECT s FROM Movimientos s where  ";
 		sentenciaSQL = sentenciaSQL + "(idCuentaOrigen=" + ((Cuentas) cajaCuentas.getSelectedItem()).getIdCuenta()
-				+ " OR idCuentaDestino=" + ((Cuentas) cajaCuentas.getSelectedItem()).getIdCuenta()+ ")";
+				+ " OR idCuentaDestino=" + ((Cuentas) cajaCuentas.getSelectedItem()).getIdCuenta() + ")";
 		sentenciaSQL = sentenciaSQL + " AND idTipo=" + ((Tipos) cajaTipos.getSelectedItem()).getIdTipo();
-		sentenciaSQL = sentenciaSQL + " AND idEtiqueta=" + ((Etiquetas) cajaEtiquetas.getSelectedItem()).getIdEtiqueta();
-		sentenciaSQL = sentenciaSQL + " AND fecha BETWEEN '" + fechaInicio + "' AND '" + fechaFin+"'";
+		sentenciaSQL = sentenciaSQL + " AND idEtiqueta="
+				+ ((Etiquetas) cajaEtiquetas.getSelectedItem()).getIdEtiqueta();
+		sentenciaSQL = sentenciaSQL + " AND fecha BETWEEN '" + fechaInicio + "' AND '" + fechaFin + "'";
 
 		return sentenciaSQL;
 	}
- 
 
+	@Override
+	public void refrescarCajaEtiquetas(List<Etiquetas> lista) {
+		cajaEtiquetas.removeAllItems();
+		for (Etiquetas etiqueta : lista) {
+			cajaEtiquetas.addItem(etiqueta);
+		}
+	}
 
+	@Override
+	public String itemSeleccionadoCajaTipo() {
+		return this.cajaTipos.getSelectedItem().toString();
+	}
+
+	@Override
+	public void iniciar() {
+		pack();
+		setLocation(SET_LOCATION_X, SET_LOCATION_Y);
+		setVisible(true);
+	}
 }

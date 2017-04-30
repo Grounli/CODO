@@ -1,24 +1,26 @@
-package com.codo.vista.etiquetas;
+package com.codo.vista.previsiones;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import com.codo.controlador.ControladorEtiquetas;
-import com.codo.modelo.pojos.Etiquetas;
-import com.codo.vista.interfaces.etiquetas.InterfazEtiquetas;
+import com.codo.controlador.ControladorPrevisiones;
+import com.codo.vista.interfaces.previsiones.InterfazPrevisiones;
+import com.codo.vista.interfaces.previsiones.InterfazVentanaVerPrevision;
 
-public class VentanaEtiquetas extends JDialog implements InterfazEtiquetas {
+public class VentanaVerPrevision extends JDialog implements InterfazVentanaVerPrevision{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 
-	public VentanaEtiquetas(List<Etiquetas> listaDeEtiquetas) {
-		setTitle("Etiquetas");
+	public VentanaVerPrevision() {
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setLayout(new FlowLayout());
@@ -43,17 +45,14 @@ public class VentanaEtiquetas extends JDialog implements InterfazEtiquetas {
 	}
 
 	@Override
-	public void asignarControlador(ControladorEtiquetas control) {
+	public void asignarControlador(ControladorPrevisiones control) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void iniciar() {
-		pack();
-		//setLocationRelativeTo(null);
-		setLocation(400, 200);
-		setVisible(true);
+	public void iniciar(InterfazPrevisiones vistaPrevision) {
+		// TODO Auto-generated method stub
 		
 	}
 

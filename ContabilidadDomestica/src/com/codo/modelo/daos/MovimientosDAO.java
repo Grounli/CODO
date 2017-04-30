@@ -2,12 +2,9 @@ package com.codo.modelo.daos;
 
 import java.util.List;
 
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-
-import org.hibernate.Criteria;
-import org.hibernate.criterion.Restrictions;
 
 import com.codo.modelo.pojos.Movimientos;
 
@@ -102,7 +99,6 @@ public class MovimientosDAO {
 		try {
 			transaction = manager.getTransaction();
 			transaction.begin();
-
 			String qry = sentenciaSQL;
 			lst = manager.createQuery(qry, Movimientos.class).getResultList();
 			transaction.commit();

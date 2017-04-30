@@ -5,16 +5,19 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Dialog.ModalityType;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Date;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFormattedTextField;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import com.codo.controlador.ControladorTransferencias;
@@ -22,32 +25,32 @@ import com.codo.modelo.pojos.Cuentas;
 import com.codo.modelo.pojos.Etiquetas;
 import com.codo.modelo.pojos.Movimientos;
 import com.codo.modelo.pojos.Tipos;
-import com.codo.vista.interfaces.InterfazTransferencias;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JComboBox;
-import javax.swing.JTextField;
+import com.codo.vista.interfaces.transferencias.InterfazTransferencias;
 import com.toedter.calendar.JDateChooser;
 
 public class VentanaTransferencias extends JDialog implements InterfazTransferencias {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JFormattedTextField textFieldValor;
 	private JTextField textFieldComentario;
-	private JComboBox comboBoxCuentaOrigen;
-	private JComboBox comboBoxCuentaDestino;
+	private JComboBox<Cuentas> comboBoxCuentaOrigen;
+	private JComboBox<Cuentas> comboBoxCuentaDestino;
 	private JDateChooser dateChooser;
-	private JComboBox comboBoxEtiquetas;
+	private JComboBox<Etiquetas> comboBoxEtiquetas;
 	private JButton okButton;
 	private List<Tipos> listaDeTipos;
 	private JButton cancelButton;
 
-	public VentanaTransferencias(List<Cuentas> listaDeCuentas, List<Etiquetas> listaDeEtiqueta,
+	public VentanaTransferencias(List<Cuentas> listaDeCuentas, List<Etiquetas> listaDeEtiquetaDeTransferencias,
 			List<Tipos> listaDeTipos) {
-		this.listaDeTipos=listaDeTipos;
-		
+		this.listaDeTipos = listaDeTipos;
+
 		setMaximumSize(new Dimension(400, 400));
-		setMinimumSize(new Dimension(400,400));
+		setMinimumSize(new Dimension(400, 400));
 		setTitle(" PanelTransferencias");
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		setBounds(100, 100, 400, 400);
@@ -83,20 +86,20 @@ public class VentanaTransferencias extends JDialog implements InterfazTransferen
 		lblComentario.setBounds(71, 237, 92, 22);
 		contentPanel.add(lblComentario);
 
-		comboBoxCuentaOrigen = new JComboBox();
+		comboBoxCuentaOrigen = new JComboBox<Cuentas>();
 		comboBoxCuentaOrigen.setBounds(200, 76, 83, 20);
 		for (Cuentas cuenta : listaDeCuentas) {
 			comboBoxCuentaOrigen.addItem(cuenta);
 		}
 		contentPanel.add(comboBoxCuentaOrigen);
 
-		comboBoxCuentaDestino = new JComboBox();
+		comboBoxCuentaDestino = new JComboBox<Cuentas>();
 		comboBoxCuentaDestino.setBounds(200, 108, 83, 20);
 		for (Cuentas cuenta : listaDeCuentas) {
 			comboBoxCuentaDestino.addItem(cuenta);
 		}
 		contentPanel.add(comboBoxCuentaDestino);
-		
+
 		NumberFormat formatValor = new DecimalFormat("#0.00");
 		textFieldValor = new JFormattedTextField(formatValor);
 		textFieldValor.setBounds(197, 176, 86, 20);
@@ -117,16 +120,16 @@ public class VentanaTransferencias extends JDialog implements InterfazTransferen
 		lblEtiquetas.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblEtiquetas.setBounds(71, 145, 92, 14);
 		contentPanel.add(lblEtiquetas);
-		
+
 		JLabel lblVentanaDeTransferencias = new JLabel("Ventana de transferencias:");
 		lblVentanaDeTransferencias.setForeground(Color.BLUE);
 		lblVentanaDeTransferencias.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblVentanaDeTransferencias.setBounds(85, 36, 230, 29);
 		contentPanel.add(lblVentanaDeTransferencias);
 
-		comboBoxEtiquetas = new JComboBox();
+		comboBoxEtiquetas = new JComboBox<Etiquetas>();
 		comboBoxEtiquetas.setBounds(200, 145, 83, 20);
-		for (Etiquetas etiquetas : listaDeEtiqueta) {
+		for (Etiquetas etiquetas : listaDeEtiquetaDeTransferencias) {
 			comboBoxEtiquetas.addItem(etiquetas);
 		}
 		contentPanel.add(comboBoxEtiquetas);
@@ -155,14 +158,6 @@ public class VentanaTransferencias extends JDialog implements InterfazTransferen
 	}
 
 	@Override
-	public void iniciar() {
-		pack();
-		//setLocationRelativeTo(null);
-		setLocation(400, 200);
-		setVisible(true);
-	}
-
-	@Override
 	public Movimientos anadirTransferencia() {
 		Cuentas cuentaOrigen = (Cuentas) comboBoxCuentaOrigen.getSelectedItem();
 		Cuentas cuentaDestino = (Cuentas) comboBoxCuentaDestino.getSelectedItem();
@@ -171,40 +166,46 @@ public class VentanaTransferencias extends JDialog implements InterfazTransferen
 		Date fecha = dateChooser.getDate();
 		String comentario = textFieldComentario.getText();
 
-		Movimientos movimiento = new Movimientos(cuentaOrigen,cuentaDestino, etiqueta, listaDeTipos.get(2), valor, fecha, comentario);
+		Movimientos movimiento = new Movimientos(cuentaOrigen, cuentaDestino, etiqueta, listaDeTipos.get(2), valor,
+				fecha, comentario);
 		this.limpiarCampos();
 		return movimiento;
 	}
-	
+
 	@Override
-	public void limpiarCampos(){
+	public void limpiarCampos() {
 		textFieldValor.setText("");
 		dateChooser.setDate(new Date());
 		textFieldComentario.setText("");
-		JOptionPane.showMessageDialog(null, "Transferencia realizada correctamente", "Transferencia realizada", JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(null, "Transferencia realizada correctamente", "Transferencia realizada",
+				JOptionPane.INFORMATION_MESSAGE);
 	}
-	
+
 	@Override
-	public boolean comprobarCampos(){
-		if(textFieldValor.getText().isEmpty()&& dateChooser.getDate()==null){
-			JOptionPane.showMessageDialog(null, "El valor de la transferencia y la fecha no son correctos", "Error campos", JOptionPane.ERROR_MESSAGE);
+	public boolean comprobarCampos() {
+		if (textFieldValor.getText().isEmpty() && dateChooser.getDate() == null) {
+			JOptionPane.showMessageDialog(null, "El valor de la transferencia y la fecha no son correctos",
+					"Error campos", JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
-		if(textFieldValor.getText().isEmpty()){
-			JOptionPane.showMessageDialog(null, "El valor del gasto no es correcto", "Error campos", JOptionPane.ERROR_MESSAGE);
+		if (textFieldValor.getText().isEmpty()) {
+			JOptionPane.showMessageDialog(null, "El valor del gasto no es correcto", "Error campos",
+					JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
-		if(dateChooser.getDate()==null){
-			JOptionPane.showMessageDialog(null, "La fecha introducida no es correcta", "Error campos", JOptionPane.ERROR_MESSAGE);
+		if (dateChooser.getDate() == null) {
+			JOptionPane.showMessageDialog(null, "La fecha introducida no es correcta", "Error campos",
+					JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
 		return true;
-		
+
 	}
-	
+
 	@Override
-	public void cerrarVentana(){
-		this.dispose();
+	public void iniciar() {
+		pack();
+		setLocation(400, 200);
+		setVisible(true);
 	}
-	
 }

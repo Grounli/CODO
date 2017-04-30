@@ -58,7 +58,7 @@ public class PrevisionesDAO {
 		try {
 			transaction = manager.getTransaction();
 			transaction.begin();
-			manager.remove(prevision);
+			manager.remove(manager.merge(prevision));
 			transaction.commit();
 		} catch (Exception ex) {
 			if (transaction != null) {

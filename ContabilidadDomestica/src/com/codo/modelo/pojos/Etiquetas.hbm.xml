@@ -10,7 +10,7 @@
    <generator class="identity"/>
   </id>
   <many-to-one class="com.codo.modelo.pojos.Tipos" fetch="select"
-   lazy="false" name="tipos">
+   lazy="false" name="tipos" not-null="true">
    <column name="idTipo" not-null="true"/>
   </many-to-one>
   <property generated="never" lazy="false" name="nombre" type="string">
