@@ -2,9 +2,12 @@ package com.codo.vista.transferencias;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.SystemColor;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Date;
@@ -18,6 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import com.codo.controlador.ControladorTransferencias;
@@ -30,131 +34,166 @@ import com.toedter.calendar.JDateChooser;
 
 public class VentanaTransferencias extends JDialog implements InterfazTransferencias {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	private static final int SET_LOCATION_X = 385;
+	private static final int SET_LOCATION_Y = 150;
+	private static final int ANCHURA_MINIMA_VENTANA = 400;
+	private static final int ALTURA_MINIMA_VENTANA = 400;
 	private final JPanel contentPanel = new JPanel();
-	private JFormattedTextField textFieldValor;
-	private JTextField textFieldComentario;
+	private JPanel panelCentral;
+	private JPanel panelIzquierdo;
+	private JPanel panelDerecho;
+	private JPanel buttonPane;
 	private JComboBox<Cuentas> comboBoxCuentaOrigen;
 	private JComboBox<Cuentas> comboBoxCuentaDestino;
-	private JDateChooser dateChooser;
 	private JComboBox<Etiquetas> comboBoxEtiquetas;
-	private JButton okButton;
+	private JFormattedTextField textFieldValor;
+	private JTextField textFieldComentario;
+	private JDateChooser dateChooser;
+	private JButton btnAnadirTransferencia;
+	private JButton btnCancelar;
 	private List<Tipos> listaDeTipos;
-	private JButton cancelButton;
 
 	public VentanaTransferencias(List<Cuentas> listaDeCuentas, List<Etiquetas> listaDeEtiquetaDeTransferencias,
 			List<Tipos> listaDeTipos) {
+
 		this.listaDeTipos = listaDeTipos;
 
-		setMaximumSize(new Dimension(400, 400));
-		setMinimumSize(new Dimension(400, 400));
-		setTitle(" PanelTransferencias");
+		// CONFIGURACIÓN BASICA DE LA VENTANA
+		setTitle("Transferencias - Añadir");
+		setResizable(false);
 		setModalityType(ModalityType.APPLICATION_MODAL);
-		setBounds(100, 100, 400, 400);
-		setPreferredSize(new Dimension(400, 400));
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		setPreferredSize(new Dimension(ANCHURA_MINIMA_VENTANA, ALTURA_MINIMA_VENTANA));
+		setMinimumSize(new Dimension(ANCHURA_MINIMA_VENTANA, ALTURA_MINIMA_VENTANA));
+		setBackground(Color.LIGHT_GRAY);
 		getContentPane().setLayout(new BorderLayout());
+
+		// CONFIGURACIÓN DE CONTENTPANEL
+
+		contentPanel.setBackground(SystemColor.menu);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPanel.setLayout(new BorderLayout(0, 0));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		contentPanel.setLayout(null);
-		{
-			JLabel lblNewLabel = new JLabel("Cuenta origen:");
-			lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
-			lblNewLabel.setBounds(71, 69, 92, 32);
-			contentPanel.add(lblNewLabel);
-		}
 
-		JLabel lblCuentaDestino = new JLabel("Cuenta destino:");
-		lblCuentaDestino.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblCuentaDestino.setBounds(71, 106, 92, 22);
-		contentPanel.add(lblCuentaDestino);
+		panelCentral = new JPanel();
+		panelCentral.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 30));
+		contentPanel.add(panelCentral, BorderLayout.CENTER);
 
-		JLabel lblValor = new JLabel("Valor: *");
+		panelIzquierdo = new JPanel();
+		panelIzquierdo.setPreferredSize(new Dimension(130, 220));
+		panelIzquierdo.setLayout(new GridLayout(0, 1, 0, 20));
+		panelCentral.add(panelIzquierdo);
+
+		panelDerecho = new JPanel();
+		panelDerecho.setPreferredSize(new Dimension(100, 220));
+		panelDerecho.setLayout(new GridLayout(0, 1, 0, 20));
+		panelCentral.add(panelDerecho);
+
+		// LABELS
+
+		JLabel lblVentanaDeTransferencias = new JLabel("Ventana de Transferencias");
+		lblVentanaDeTransferencias.setPreferredSize(new Dimension(100, 50));
+		lblVentanaDeTransferencias.setAlignmentX(Component.CENTER_ALIGNMENT);
+		lblVentanaDeTransferencias.setHorizontalTextPosition(SwingConstants.CENTER);
+		lblVentanaDeTransferencias.setHorizontalAlignment(SwingConstants.CENTER);
+		lblVentanaDeTransferencias.setForeground(Color.BLUE);
+		lblVentanaDeTransferencias.setFont(new Font("Tahoma", Font.BOLD, 16));
+		contentPanel.add(lblVentanaDeTransferencias, BorderLayout.NORTH);
+
+		JLabel lblCuentaDeOrigen = new JLabel("Cuenta de Origen:");
+		lblCuentaDeOrigen.setHorizontalAlignment(SwingConstants.LEFT);
+		lblCuentaDeOrigen.setHorizontalTextPosition(SwingConstants.LEFT);
+		lblCuentaDeOrigen.setFont(new Font("Tahoma", Font.BOLD, 11));
+		panelIzquierdo.add(lblCuentaDeOrigen);
+
+		JLabel lblCuentaDeDestino = new JLabel("Cuenta de Destino:");
+		lblCuentaDeDestino.setHorizontalAlignment(SwingConstants.LEFT);
+		lblCuentaDeDestino.setHorizontalTextPosition(SwingConstants.LEFT);
+		lblCuentaDeDestino.setFont(new Font("Tahoma", Font.BOLD, 11));
+		panelIzquierdo.add(lblCuentaDeDestino);
+
+		JLabel lblEtiquetas = new JLabel("Etiquetas:");
+		lblEtiquetas.setHorizontalTextPosition(SwingConstants.LEFT);
+		lblEtiquetas.setHorizontalAlignment(SwingConstants.LEFT);
+		lblEtiquetas.setFont(new Font("Tahoma", Font.BOLD, 11));
+		panelIzquierdo.add(lblEtiquetas);
+
+		JLabel lblValor = new JLabel("*Valor: ");
+		lblValor.setHorizontalTextPosition(SwingConstants.LEFT);
+		lblValor.setHorizontalAlignment(SwingConstants.LEFT);
 		lblValor.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblValor.setBounds(71, 178, 92, 14);
-		contentPanel.add(lblValor);
+		panelIzquierdo.add(lblValor);
 
-		JLabel lblFecha = new JLabel("Fecha: *");
+		JLabel lblFecha = new JLabel("*Fecha: ");
+		lblFecha.setHorizontalTextPosition(SwingConstants.LEFT);
+		lblFecha.setHorizontalAlignment(SwingConstants.LEFT);
 		lblFecha.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblFecha.setBounds(71, 206, 92, 14);
-		contentPanel.add(lblFecha);
+		panelIzquierdo.add(lblFecha);
 
 		JLabel lblComentario = new JLabel("Comentario:");
+		lblComentario.setHorizontalTextPosition(SwingConstants.LEFT);
+		lblComentario.setHorizontalAlignment(SwingConstants.LEFT);
 		lblComentario.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblComentario.setBounds(71, 237, 92, 22);
-		contentPanel.add(lblComentario);
+		panelIzquierdo.add(lblComentario);
+
+		// COMFIGURACIÓN DE CAMPOS
 
 		comboBoxCuentaOrigen = new JComboBox<Cuentas>();
-		comboBoxCuentaOrigen.setBounds(200, 76, 83, 20);
 		for (Cuentas cuenta : listaDeCuentas) {
 			comboBoxCuentaOrigen.addItem(cuenta);
 		}
-		contentPanel.add(comboBoxCuentaOrigen);
+		panelDerecho.add(comboBoxCuentaOrigen);
 
 		comboBoxCuentaDestino = new JComboBox<Cuentas>();
-		comboBoxCuentaDestino.setBounds(200, 108, 83, 20);
 		for (Cuentas cuenta : listaDeCuentas) {
 			comboBoxCuentaDestino.addItem(cuenta);
 		}
-		contentPanel.add(comboBoxCuentaDestino);
+		panelDerecho.add(comboBoxCuentaDestino);
+
+		comboBoxEtiquetas = new JComboBox<Etiquetas>();
+		for (Etiquetas etiqueta : listaDeEtiquetaDeTransferencias) {
+			comboBoxEtiquetas.addItem(etiqueta);
+		}
+		panelDerecho.add(comboBoxEtiquetas);
 
 		NumberFormat formatValor = new DecimalFormat("#0.00");
 		textFieldValor = new JFormattedTextField(formatValor);
-		textFieldValor.setBounds(197, 176, 86, 20);
-		contentPanel.add(textFieldValor);
 		textFieldValor.setColumns(10);
+		panelDerecho.add(textFieldValor);
 
 		dateChooser = new JDateChooser();
 		dateChooser.setDate(new Date());
-		dateChooser.setBounds(197, 207, 95, 20);
-		contentPanel.add(dateChooser);
+		panelDerecho.add(dateChooser);
 
 		textFieldComentario = new JTextField();
-		textFieldComentario.setBounds(197, 239, 86, 20);
-		contentPanel.add(textFieldComentario);
 		textFieldComentario.setColumns(10);
+		panelDerecho.add(textFieldComentario);
 
-		JLabel lblEtiquetas = new JLabel("Etiquetas:");
-		lblEtiquetas.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblEtiquetas.setBounds(71, 145, 92, 14);
-		contentPanel.add(lblEtiquetas);
+		// BOTONES
 
-		JLabel lblVentanaDeTransferencias = new JLabel("Ventana de transferencias:");
-		lblVentanaDeTransferencias.setForeground(Color.BLUE);
-		lblVentanaDeTransferencias.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblVentanaDeTransferencias.setBounds(85, 36, 230, 29);
-		contentPanel.add(lblVentanaDeTransferencias);
-
-		comboBoxEtiquetas = new JComboBox<Etiquetas>();
-		comboBoxEtiquetas.setBounds(200, 145, 83, 20);
-		for (Etiquetas etiquetas : listaDeEtiquetaDeTransferencias) {
-			comboBoxEtiquetas.addItem(etiquetas);
-		}
-		contentPanel.add(comboBoxEtiquetas);
 		{
-			JPanel buttonPane = new JPanel();
+			buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				okButton = new JButton("Aceptar");
-				okButton.setActionCommand(BOTON_ANADIR_TRANSFERENCIA);
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
+				btnAnadirTransferencia = new JButton("Añadir Transferencia");
+				btnAnadirTransferencia.setActionCommand(BOTON_ANADIR_TRANSFERENCIA);
+				buttonPane.add(btnAnadirTransferencia);
+				getRootPane().setDefaultButton(btnAnadirTransferencia);
 			}
 			{
-				cancelButton = new JButton("Cancelar");
-				cancelButton.setActionCommand(BOTON_CANCELAR_TRANSFERENCIA);
-				buttonPane.add(cancelButton);
+				btnCancelar = new JButton("Cancelar");
+				btnCancelar.setActionCommand(BOTON_CANCELAR_TRANSFERENCIA);
+				buttonPane.add(btnCancelar);
 			}
 		}
 	}
 
 	@Override
 	public void asignarControlador(ControladorTransferencias control) {
-		okButton.addActionListener(control);
-		cancelButton.addActionListener(control);
+		btnAnadirTransferencia.addActionListener(control);
+		btnCancelar.addActionListener(control);
 	}
 
 	@Override
@@ -165,7 +204,6 @@ public class VentanaTransferencias extends JDialog implements InterfazTransferen
 		Double valor = Double.valueOf(textFieldValor.getText().replace(",", "."));
 		Date fecha = dateChooser.getDate();
 		String comentario = textFieldComentario.getText();
-
 		Movimientos movimiento = new Movimientos(cuentaOrigen, cuentaDestino, etiqueta, listaDeTipos.get(2), valor,
 				fecha, comentario);
 		this.limpiarCampos();
@@ -199,13 +237,12 @@ public class VentanaTransferencias extends JDialog implements InterfazTransferen
 			return false;
 		}
 		return true;
-
 	}
 
 	@Override
 	public void iniciar() {
 		pack();
-		setLocation(400, 200);
+		setLocation(SET_LOCATION_X, SET_LOCATION_Y);
 		setVisible(true);
 	}
 }

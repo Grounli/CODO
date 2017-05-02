@@ -20,8 +20,8 @@ import com.codo.vista.interfaces.InterfazPrincipal;
 public class VentanaPrincipal extends JFrame implements InterfazPrincipal {
 
 	private static final long serialVersionUID = 1L;
-	private static final int SET_LOCATION_X=170;
-	private static final int SET_LOCATION_Y=200;
+	private static final int SET_LOCATION_X=150;
+	private static final int SET_LOCATION_Y=150;
 	private static final int ANCHURA_MINIMA_VENTANA = 220;
 	private static final int ALTURA_MINIMA_VENTANA = 240;
 	private final JPanel contentPanel = new JPanel();

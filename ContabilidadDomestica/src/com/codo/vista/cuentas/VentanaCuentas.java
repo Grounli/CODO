@@ -11,7 +11,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
 
 import com.codo.controlador.ControladorCuentas;
 import com.codo.modelo.pojos.Cuentas;
@@ -21,10 +20,10 @@ import com.codo.vista.interfaces.cuentas.InterfazCuentas;
 public class VentanaCuentas extends JDialog implements InterfazCuentas {
 
 	private static final long serialVersionUID = 1L;
-	private static final int POSICION_HORIZONTAL = 100;
-	private static final int POSICION_VERTICAL = 100;
-	private static final int ANCHURA_MAXIMA = 450;
-	private static final int ALTURA_MAXIMA = 300;
+	private static final int SET_LOCATION_X = 380;
+	private static final int SET_LOCATION_Y = 150;
+	private static final int ANCHURA_MINIMA_VENTANA = 450;
+	private static final int ALTURA_MINIMA_VENTANA = 300;
 	private final JPanel contentPanel = new JPanel();
 	private JTable tablaCuentas;
 	private JScrollPane panelDesplazamiento;
@@ -37,9 +36,11 @@ public class VentanaCuentas extends JDialog implements InterfazCuentas {
 		setTitle("Cuentas");
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setBounds(POSICION_HORIZONTAL, POSICION_VERTICAL, ANCHURA_MAXIMA, ALTURA_MAXIMA);
-		setPreferredSize(new Dimension(ANCHURA_MAXIMA, ALTURA_MAXIMA));
+		setPreferredSize(new Dimension(ANCHURA_MINIMA_VENTANA, ALTURA_MINIMA_VENTANA));
+		setMinimumSize(new Dimension(ANCHURA_MINIMA_VENTANA, ALTURA_MINIMA_VENTANA));
 		getContentPane().setLayout(new BorderLayout());
+
+		// CONFIGURACIÓN DE CONTENTPANEL
 		contentPanel.setLayout(null);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -98,12 +99,11 @@ public class VentanaCuentas extends JDialog implements InterfazCuentas {
 	public Cuentas obtenerCuentaSeleccionada() {
 		return mtc.obtenerObjeto(tablaCuentas.getSelectedRow());
 	}
-	
+
 	@Override
 	public void iniciar() {
 		pack();
-		//setLocationRelativeTo(null);
-		setLocation(400, 200);
+		setLocation(SET_LOCATION_X, SET_LOCATION_Y);
 		setVisible(true);
 	}
 }

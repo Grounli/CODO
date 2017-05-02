@@ -2,9 +2,11 @@ package com.codo.vista.ingresos;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.SystemColor;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -19,6 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import com.codo.controlador.ControladorIngresos;
@@ -32,117 +35,152 @@ import com.toedter.calendar.JDateChooser;
 public class VentanaIngresos extends JDialog implements InterfazIngresos {
 
 	private static final long serialVersionUID = 1L;
+	private static final int SET_LOCATION_X = 385;
+	private static final int SET_LOCATION_Y = 150;
+	private static final int ANCHURA_MINIMA_VENTANA = 400;
+	private static final int ALTURA_MINIMA_VENTANA = 400;
 	private final JPanel contentPanel = new JPanel();
-	private JTextField textFieldValor;
-	private JTextField textFieldComentario;
+	private JPanel panelCentral;
+	private JPanel panelIzquierdo;
+	private JPanel panelDerecho;
+	private JPanel buttonPane;
 	private JComboBox<Cuentas> comboBoxCuenta;
 	private JComboBox<Etiquetas> comboBoxEtiquetas;
+	private JFormattedTextField textFieldValor;
+	private JTextField textFieldComentario;
 	private JDateChooser dateChooser;
-	private JButton okButton;
-	private JButton cancelButton;
+	private JButton btnAnadirIngreso;
+	private JButton btnCancelar;
 	private List<Tipos> listaDeTipos;
 
 	public VentanaIngresos(List<Cuentas> listaDeCuentas, List<Etiquetas> listaDeEtiquetaDeIngresos,
 			List<Tipos> listaDeTipos) {
+
 		this.listaDeTipos = listaDeTipos;
 
-		setMaximumSize(new Dimension(400, 400));
-		setMinimumSize(new Dimension(400, 400));
-		setTitle("Ingresos");
+		// CONFIGURACIÓN BASICA DE LA VENTANA
+		setTitle("Ingresos - Añadir");
+		setResizable(false);
 		setModalityType(ModalityType.APPLICATION_MODAL);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		setPreferredSize(new Dimension(ANCHURA_MINIMA_VENTANA, ALTURA_MINIMA_VENTANA));
+		setMinimumSize(new Dimension(ANCHURA_MINIMA_VENTANA, ALTURA_MINIMA_VENTANA));
 		setBackground(Color.LIGHT_GRAY);
-		this.listaDeTipos = listaDeTipos;
-		setPreferredSize(new Dimension(400, 400));
-		setTitle("Panel Ingresos");
-		setBounds(100, 100, 400, 400);
 		getContentPane().setLayout(new BorderLayout());
+
+		// CONFIGURACIÓN DE CONTENTPANEL
+		
 		contentPanel.setBackground(SystemColor.menu);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPanel.setLayout(new BorderLayout(0, 0));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		contentPanel.setLayout(null);
 
-		NumberFormat formatValor = new DecimalFormat("#0.00");
-		textFieldValor = new JFormattedTextField(formatValor);
-		textFieldValor.setBounds(199, 182, 86, 20);
-		contentPanel.add(textFieldValor);
-		textFieldValor.setColumns(10);
+		panelCentral = new JPanel();
+		panelCentral.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 30));
+		contentPanel.add(panelCentral, BorderLayout.CENTER);
 
-		textFieldComentario = new JTextField();
-		textFieldComentario.setBounds(199, 268, 86, 20);
-		contentPanel.add(textFieldComentario);
-		textFieldComentario.setColumns(10);
+		panelIzquierdo = new JPanel();
+		panelIzquierdo.setPreferredSize(new Dimension(100, 200));
+		panelIzquierdo.setLayout(new GridLayout(0, 1, 0, 20));
+		panelCentral.add(panelIzquierdo);
+
+		panelDerecho = new JPanel();
+		panelDerecho.setPreferredSize(new Dimension(100, 200));
+		panelDerecho.setLayout(new GridLayout(0, 1, 0, 20));
+		panelCentral.add(panelDerecho);
+
+		// LABELS
+
+		JLabel lblVentanaDeIngresos = new JLabel("Ventana de Ingresos");
+		lblVentanaDeIngresos.setPreferredSize(new Dimension(100, 50));
+		lblVentanaDeIngresos.setAlignmentX(Component.CENTER_ALIGNMENT);
+		lblVentanaDeIngresos.setHorizontalTextPosition(SwingConstants.CENTER);
+		lblVentanaDeIngresos.setHorizontalAlignment(SwingConstants.CENTER);
+		lblVentanaDeIngresos.setForeground(Color.BLUE);
+		lblVentanaDeIngresos.setFont(new Font("Tahoma", Font.BOLD, 16));
+		contentPanel.add(lblVentanaDeIngresos, BorderLayout.NORTH);
+
+		JLabel lblCuenta = new JLabel("Cuenta:");
+		lblCuenta.setHorizontalAlignment(SwingConstants.LEFT);
+		lblCuenta.setHorizontalTextPosition(SwingConstants.LEFT);
+		lblCuenta.setFont(new Font("Tahoma", Font.BOLD, 11));
+		panelIzquierdo.add(lblCuenta);
+
+		JLabel lblEtiquetas = new JLabel("Etiquetas:");
+		lblEtiquetas.setHorizontalTextPosition(SwingConstants.LEFT);
+		lblEtiquetas.setHorizontalAlignment(SwingConstants.LEFT);
+		lblEtiquetas.setFont(new Font("Tahoma", Font.BOLD, 11));
+		panelIzquierdo.add(lblEtiquetas);
+
+		JLabel lblValor = new JLabel("*Valor: ");
+		lblValor.setHorizontalTextPosition(SwingConstants.LEFT);
+		lblValor.setHorizontalAlignment(SwingConstants.LEFT);
+		lblValor.setFont(new Font("Tahoma", Font.BOLD, 11));
+		panelIzquierdo.add(lblValor);
+
+		JLabel lblFecha = new JLabel("*Fecha: ");
+		lblFecha.setHorizontalTextPosition(SwingConstants.LEFT);
+		lblFecha.setHorizontalAlignment(SwingConstants.LEFT);
+		lblFecha.setFont(new Font("Tahoma", Font.BOLD, 11));
+		panelIzquierdo.add(lblFecha);
+
+		JLabel lblComentario = new JLabel("Comentario:");
+		lblComentario.setHorizontalTextPosition(SwingConstants.LEFT);
+		lblComentario.setHorizontalAlignment(SwingConstants.LEFT);
+		lblComentario.setFont(new Font("Tahoma", Font.BOLD, 11));
+		panelIzquierdo.add(lblComentario);
+
+		// COMFIGURACIÓN DE CAMPOS
 
 		comboBoxCuenta = new JComboBox<Cuentas>();
-		comboBoxCuenta.setBounds(199, 92, 95, 20);
 		for (Cuentas cuenta : listaDeCuentas) {
 			comboBoxCuenta.addItem(cuenta);
 		}
-		contentPanel.add(comboBoxCuenta);
+		panelDerecho.add(comboBoxCuenta);
 
 		comboBoxEtiquetas = new JComboBox<Etiquetas>();
-		comboBoxEtiquetas.setBounds(199, 136, 95, 20);
 		for (Etiquetas etiqueta : listaDeEtiquetaDeIngresos) {
 			comboBoxEtiquetas.addItem(etiqueta);
 		}
-		contentPanel.add(comboBoxEtiquetas);
+		panelDerecho.add(comboBoxEtiquetas);
 
-		JLabel lblCuenta = new JLabel("Cuenta:");
-		lblCuenta.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblCuenta.setBounds(72, 95, 46, 14);
-		contentPanel.add(lblCuenta);
-
-		JLabel lblNewLabel = new JLabel("Etiquetas:");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblNewLabel.setBounds(72, 139, 78, 14);
-		contentPanel.add(lblNewLabel);
-
-		JLabel lblValor = new JLabel("Valor: *");
-		lblValor.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblValor.setBounds(72, 188, 46, 14);
-		contentPanel.add(lblValor);
-
-		JLabel lblComentario = new JLabel("Comentario");
-		lblComentario.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblComentario.setBounds(72, 271, 78, 14);
-		contentPanel.add(lblComentario);
+		NumberFormat formatValor = new DecimalFormat("#0.00");
+		textFieldValor = new JFormattedTextField(formatValor);
+		textFieldValor.setColumns(10);
+		panelDerecho.add(textFieldValor);
 
 		dateChooser = new JDateChooser();
-		dateChooser.setBounds(199, 227, 95, 20);
 		dateChooser.setDate(new Date());
-		contentPanel.add(dateChooser);
+		panelDerecho.add(dateChooser);
 
-		JLabel lblFecha = new JLabel("Fecha: *");
-		lblFecha.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblFecha.setBounds(72, 227, 56, 14);
-		contentPanel.add(lblFecha);
+		textFieldComentario = new JTextField();
+		textFieldComentario.setColumns(10);
+		panelDerecho.add(textFieldComentario);
 
-		JLabel lblVentanaDeGastos = new JLabel("Ventana de ingresos:");
-		lblVentanaDeGastos.setForeground(Color.BLUE);
-		lblVentanaDeGastos.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblVentanaDeGastos.setBounds(119, 33, 175, 29);
-		contentPanel.add(lblVentanaDeGastos);
+		// BOTONES
+		
 		{
-			JPanel buttonPane = new JPanel();
+			buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				okButton = new JButton("Añadir Ingreso");
-				okButton.setActionCommand(BOTON_ANADIR_INGRESO);
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
+				btnAnadirIngreso = new JButton("Añadir Ingreso");
+				btnAnadirIngreso.setActionCommand(BOTON_ANADIR_INGRESO);
+				buttonPane.add(btnAnadirIngreso);
+				getRootPane().setDefaultButton(btnAnadirIngreso);
 			}
 			{
-				cancelButton = new JButton("Cancelar");
-				cancelButton.setActionCommand(BOTON_CANCELAR_INGRESO);
-				buttonPane.add(cancelButton);
+				btnCancelar = new JButton("Cancelar");
+				btnCancelar.setActionCommand(BOTON_CANCELAR_INGRESO);
+				buttonPane.add(btnCancelar);
 			}
 		}
 	}
 
 	@Override
 	public void asignarControlador(ControladorIngresos control) {
-		okButton.addActionListener(control);
-		cancelButton.addActionListener(control);
+		btnAnadirIngreso.addActionListener(control);
+		btnCancelar.addActionListener(control);
 	}
 
 	@Override
@@ -164,7 +202,6 @@ public class VentanaIngresos extends JDialog implements InterfazIngresos {
 		textFieldComentario.setText("");
 		JOptionPane.showMessageDialog(null, "Ingreso realizado correctamente", "Ingreso realizado",
 				JOptionPane.INFORMATION_MESSAGE);
-
 	}
 
 	public boolean comprobarCampos() {
@@ -181,6 +218,7 @@ public class VentanaIngresos extends JDialog implements InterfazIngresos {
 					JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
+
 		if (dateChooser.getDate() == null) {
 			JOptionPane.showMessageDialog(null, "La fecha introducida no es correcta.", "Error campos",
 					JOptionPane.ERROR_MESSAGE);
@@ -194,7 +232,7 @@ public class VentanaIngresos extends JDialog implements InterfazIngresos {
 	@Override
 	public void iniciar() {
 		pack();
-		setLocation(400, 200);
+		setLocation(SET_LOCATION_X, SET_LOCATION_Y);
 		setVisible(true);
 	}
 }
