@@ -11,21 +11,21 @@ public interface InterfazMovimientos extends InterfazComun {
 
 	String BOTON_CONSULTAR_MOVIMIENTOS = "Consultar Movimientos";
 	String BOTON_REVERTIR_MOVIMIENTO = "Revertir Movimiento";
-	String BOTON_SALIR_MOVIMIENTOS= "Boton Salir de Movimientos";
+	String BOTON_SALIR_MOVIMIENTOS = "Boton Salir de Movimientos";
 	String ACCION_CAJA_TIPO_MOVIMIENTOS = "selección cambiada caja tipo movimientos";
 
 	void asignarControlador(ControladorMovimientos control);
 
 	void asignarDatosTablaMovimientos(List<Movimientos> listaDeMovimientos);
-	
+
 	void refrescarCajaEtiquetas(List<Etiquetas> lista);
-	
+
 	void dispose();
 
 	Movimientos obtenerMovimientoSeleccionado();
 
 	String obtenerFiltro();
-	
-	String itemSeleccionadoCajaTipo ();
+
+	String itemSeleccionadoCajaTipo();
 
 }

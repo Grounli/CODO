@@ -5,6 +5,6 @@ import com.codo.controlador.ControladorPrevisiones;
 public interface InterfazComunPrevision {
 
 	void asignarControlador(ControladorPrevisiones control);
-	
+
 	void iniciar(InterfazPrevisiones vistaPrevision);
 }

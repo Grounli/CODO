@@ -14,8 +14,8 @@ public interface InterfazIngresos extends InterfazComun {
 	void limpiarCampos();
 
 	void dispose();
-	
+
 	boolean comprobarCampos();
-	
+
 	Movimientos anadirIngreso();
 }

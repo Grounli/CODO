@@ -69,7 +69,7 @@ public class VentanaIngresos extends JDialog implements InterfazIngresos {
 		getContentPane().setLayout(new BorderLayout());
 
 		// CONFIGURACIÓN DE CONTENTPANEL
-		
+
 		contentPanel.setBackground(SystemColor.menu);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPanel.setLayout(new BorderLayout(0, 0));
@@ -158,7 +158,7 @@ public class VentanaIngresos extends JDialog implements InterfazIngresos {
 		panelDerecho.add(textFieldComentario);
 
 		// BOTONES
-		
+
 		{
 			buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));

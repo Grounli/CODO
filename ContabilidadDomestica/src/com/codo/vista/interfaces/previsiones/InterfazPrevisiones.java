@@ -19,7 +19,7 @@ public interface InterfazPrevisiones extends InterfazComun {
 	void asignarDatosTablaPrevisiones(List<Previsiones> listaDePrevisiones);
 
 	void dispose();
-	
+
 	Previsiones obtenerPrevisionSeleccionada();
 
 }
