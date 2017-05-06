@@ -8,12 +8,11 @@ import com.codo.modelo.ModeloCD;
 import com.codo.vista.VentanaPrincipal;
 import com.codo.vista.interfaces.InterfazPrincipal;
 
-
 public class Principal {
 
 	public static void main(String[] args) {
 		Logger.getLogger("org.hibernate").setLevel(Level.SEVERE);
-		
+
 		// generamos el modelo
 		ModeloCD modelo = new ModeloCD();
 		// generamos la vista
@@ -25,5 +24,4 @@ public class Principal {
 		// iniciamos la vista
 		vista.iniciar();
 	}
-
 }

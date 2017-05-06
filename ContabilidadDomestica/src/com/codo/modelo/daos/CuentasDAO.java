@@ -2,8 +2,8 @@ package com.codo.modelo.daos;
 
 import java.util.List;
 
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 
 import com.codo.modelo.pojos.Cuentas;
@@ -12,11 +12,11 @@ public class CuentasDAO {
 
 	private final EntityManagerFactory EM_FACTORY;
 
-	public CuentasDAO (EntityManagerFactory emFactory) {
+	public CuentasDAO(EntityManagerFactory emFactory) {
 		this.EM_FACTORY = emFactory;
 	}
 
-	public void crear (Cuentas cuenta) {
+	public void crear(Cuentas cuenta) {
 		EntityManager manager = EM_FACTORY.createEntityManager();
 		EntityTransaction transaction = null;
 		try {
@@ -34,7 +34,7 @@ public class CuentasDAO {
 		}
 	}
 
-	public void actualizar (Cuentas cuenta) {
+	public void actualizar(Cuentas cuenta) {
 		EntityManager manager = EM_FACTORY.createEntityManager();
 		EntityTransaction transaction = null;
 		try {
@@ -52,7 +52,7 @@ public class CuentasDAO {
 		}
 	}
 
-	public void borrar (Cuentas cuenta) {
+	public void borrar(Cuentas cuenta) {
 		EntityManager manager = EM_FACTORY.createEntityManager();
 		EntityTransaction transaction = null;
 		try {
@@ -70,7 +70,7 @@ public class CuentasDAO {
 		}
 	}
 
-	public List<Cuentas> leerCuentas () {
+	public List<Cuentas> leerCuentas() {
 		EntityManager manager = EM_FACTORY.createEntityManager();
 		EntityTransaction transaction = null;
 		List<Cuentas> lst = null;
@@ -90,5 +90,4 @@ public class CuentasDAO {
 		}
 		return lst;
 	}
-	
 }

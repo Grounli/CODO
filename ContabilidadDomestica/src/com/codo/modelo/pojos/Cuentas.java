@@ -13,9 +13,6 @@ import javax.persistence.OneToMany;
  */
 public class Cuentas implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -35,9 +32,13 @@ public class Cuentas implements java.io.Serializable {
 	@Column(name = "descripcion", nullable = true)
 	private String descripcion;
 
+	@SuppressWarnings("rawtypes")
 	private Set movimientosesForIdCuentaDestino = new HashSet(0);
+	@SuppressWarnings("rawtypes")
 	private Set movimientosesForIdCuentaOrigen = new HashSet(0);
+	@SuppressWarnings("rawtypes")
 	private Set previsionesesForIdCuentaOrigen = new HashSet(0);
+	@SuppressWarnings("rawtypes")
 	private Set previsionesesForIdCuentaDestino = new HashSet(0);
 
 	public Cuentas() {
@@ -46,10 +47,11 @@ public class Cuentas implements java.io.Serializable {
 	public Cuentas(Monedas monedas, String nombre, Double saldo, String descripcion) {
 		this.monedas = monedas;
 		this.nombre = nombre;
-		this.saldo=saldo;
-		this.descripcion=descripcion;
+		this.saldo = saldo;
+		this.descripcion = descripcion;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Cuentas(Monedas monedas, String nombre, Double saldo, String descripcion,
 			Set movimientosesForIdCuentaDestino, Set movimientosesForIdCuentaOrigen, Set previsionesesForIdCuentaOrigen,
 			Set previsionesesForIdCuentaDestino) {
@@ -103,40 +105,48 @@ public class Cuentas implements java.io.Serializable {
 		this.descripcion = descripcion;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Set getMovimientosesForIdCuentaDestino() {
 		return this.movimientosesForIdCuentaDestino;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void setMovimientosesForIdCuentaDestino(Set movimientosesForIdCuentaDestino) {
 		this.movimientosesForIdCuentaDestino = movimientosesForIdCuentaDestino;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Set getMovimientosesForIdCuentaOrigen() {
 		return this.movimientosesForIdCuentaOrigen;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void setMovimientosesForIdCuentaOrigen(Set movimientosesForIdCuentaOrigen) {
 		this.movimientosesForIdCuentaOrigen = movimientosesForIdCuentaOrigen;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Set getPrevisionesesForIdCuentaOrigen() {
 		return this.previsionesesForIdCuentaOrigen;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void setPrevisionesesForIdCuentaOrigen(Set previsionesesForIdCuentaOrigen) {
 		this.previsionesesForIdCuentaOrigen = previsionesesForIdCuentaOrigen;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Set getPrevisionesesForIdCuentaDestino() {
 		return this.previsionesesForIdCuentaDestino;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void setPrevisionesesForIdCuentaDestino(Set previsionesesForIdCuentaDestino) {
 		this.previsionesesForIdCuentaDestino = previsionesesForIdCuentaDestino;
 	}
-	
+
 	@Override
-	public String toString(){
+	public String toString() {
 		return this.nombre;
 	}
 

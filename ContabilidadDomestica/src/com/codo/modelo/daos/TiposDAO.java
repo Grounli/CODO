@@ -2,8 +2,8 @@ package com.codo.modelo.daos;
 
 import java.util.List;
 
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 
 import com.codo.modelo.pojos.Tipos;
@@ -12,11 +12,11 @@ public class TiposDAO {
 
 	private final EntityManagerFactory EM_FACTORY;
 
-	public TiposDAO (EntityManagerFactory emFactory) {
+	public TiposDAO(EntityManagerFactory emFactory) {
 		this.EM_FACTORY = emFactory;
 	}
 
-	public void crear (Tipos tipo) {
+	public void crear(Tipos tipo) {
 		EntityManager manager = EM_FACTORY.createEntityManager();
 		EntityTransaction transaction = null;
 		try {
@@ -34,7 +34,7 @@ public class TiposDAO {
 		}
 	}
 
-	public void actualizar (Tipos tipo) {
+	public void actualizar(Tipos tipo) {
 		EntityManager manager = EM_FACTORY.createEntityManager();
 		EntityTransaction transaction = null;
 		try {
@@ -52,7 +52,7 @@ public class TiposDAO {
 		}
 	}
 
-	public void borrar (Tipos tipo) {
+	public void borrar(Tipos tipo) {
 		EntityManager manager = EM_FACTORY.createEntityManager();
 		EntityTransaction transaction = null;
 		try {
@@ -70,7 +70,7 @@ public class TiposDAO {
 		}
 	}
 
-	public List<Tipos> leerTipos () {
+	public List<Tipos> leerTipos() {
 		EntityManager manager = EM_FACTORY.createEntityManager();
 		EntityTransaction transaction = null;
 		List<Tipos> lst = null;
@@ -90,5 +90,4 @@ public class TiposDAO {
 		}
 		return lst;
 	}
-	
 }

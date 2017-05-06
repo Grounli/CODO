@@ -1,23 +1,16 @@
 package com.codo.vista.interfaces.cuentas;
 
-import com.codo.controlador.ControladorCuentas;
 import com.codo.modelo.pojos.Cuentas;
-import com.codo.vista.interfaces.InterfazComun;
 
-public interface InterfazVentanaAnadirCuenta extends InterfazComun {
+public interface InterfazVentanaAnadirCuenta extends InterfazComunCuentas {
 
-	String BOTON_CONFIRMAR_ANADIR_CUENTA = "Confirmar Añadir Cuenta";
-	String BOTON_REGRESAR_ANADIR_CUENTA = "Regresar Añadir Cuenta";
-
-	void asignarControlador(ControladorCuentas control);
+	String BOTON_ACEPTAR_ANADIR_CUENTA = "Boton Aceptar Añadir Cuenta";
+	String BOTON_CANCELAR_ANADIR_CUENTA = "Boton Cancelar Añadir Cuenta";
 
 	Cuentas leerCamposAnadirCuenta();
-
-	void dispose();
 
 	void limpiarCampos();
 
 	boolean comprobarCampos();
 
-	void cerrarVentana();
 }

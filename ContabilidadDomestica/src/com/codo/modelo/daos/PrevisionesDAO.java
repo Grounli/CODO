@@ -2,8 +2,8 @@ package com.codo.modelo.daos;
 
 import java.util.List;
 
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 
 import com.codo.modelo.pojos.Previsiones;
@@ -12,11 +12,11 @@ public class PrevisionesDAO {
 
 	private final EntityManagerFactory EM_FACTORY;
 
-	public PrevisionesDAO (EntityManagerFactory emFactory) {
+	public PrevisionesDAO(EntityManagerFactory emFactory) {
 		this.EM_FACTORY = emFactory;
 	}
 
-	public void crear (Previsiones prevision) {
+	public void crear(Previsiones prevision) {
 		EntityManager manager = EM_FACTORY.createEntityManager();
 		EntityTransaction transaction = null;
 		try {
@@ -34,7 +34,7 @@ public class PrevisionesDAO {
 		}
 	}
 
-	public void actualizar (Previsiones prevision) {
+	public void actualizar(Previsiones prevision) {
 		EntityManager manager = EM_FACTORY.createEntityManager();
 		EntityTransaction transaction = null;
 		try {
@@ -52,7 +52,7 @@ public class PrevisionesDAO {
 		}
 	}
 
-	public void borrar (Previsiones prevision) {
+	public void borrar(Previsiones prevision) {
 		EntityManager manager = EM_FACTORY.createEntityManager();
 		EntityTransaction transaction = null;
 		try {
@@ -70,7 +70,7 @@ public class PrevisionesDAO {
 		}
 	}
 
-	public List<Previsiones> leerPrevisiones () {
+	public List<Previsiones> leerPrevisiones() {
 		EntityManager manager = EM_FACTORY.createEntityManager();
 		EntityTransaction transaction = null;
 		List<Previsiones> lst = null;
@@ -90,5 +90,4 @@ public class PrevisionesDAO {
 		}
 		return lst;
 	}
-	
 }

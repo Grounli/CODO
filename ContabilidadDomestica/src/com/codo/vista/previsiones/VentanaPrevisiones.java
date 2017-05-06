@@ -23,7 +23,7 @@ public class VentanaPrevisiones extends JDialog implements InterfazPrevisiones {
 	private static final long serialVersionUID = 1L;
 	private static final int SET_LOCATION_X = 380;
 	private static final int SET_LOCATION_Y = 150;
-	private static final int ANCHURA_MINIMA_VENTANA = 500;
+	private static final int ANCHURA_MINIMA_VENTANA = 700;
 	private static final int ALTURA_MINIMA_VENTANA = 300;
 	private final JPanel contentPanel = new JPanel();
 	private JPanel panelComponentes;

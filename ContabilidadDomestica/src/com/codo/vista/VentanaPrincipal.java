@@ -20,10 +20,10 @@ import com.codo.vista.interfaces.InterfazPrincipal;
 public class VentanaPrincipal extends JFrame implements InterfazPrincipal {
 
 	private static final long serialVersionUID = 1L;
-	private static final int SET_LOCATION_X=150;
-	private static final int SET_LOCATION_Y=150;
+	private static final int SET_LOCATION_X = 150;
+	private static final int SET_LOCATION_Y = 150;
 	private static final int ANCHURA_MINIMA_VENTANA = 220;
-	private static final int ALTURA_MINIMA_VENTANA = 240;
+	private static final int ALTURA_MINIMA_VENTANA = 300;
 	private final JPanel contentPanel = new JPanel();
 	private JPanel panelBotones;
 	private JButton btnCuentas;
@@ -64,7 +64,7 @@ public class VentanaPrincipal extends JFrame implements InterfazPrincipal {
 		menuEtiquetas = new JMenuItem("Etiquetas");
 		menuEtiquetas.setActionCommand(BOTON_ETIQUETAS);
 		menuAnadir.add(menuEtiquetas);
-		
+
 		panelBotones = new JPanel();
 		contentPanel.add(panelBotones, BorderLayout.CENTER);
 		GridBagLayout gbl_panelBotones = new GridBagLayout();
@@ -76,7 +76,7 @@ public class VentanaPrincipal extends JFrame implements InterfazPrincipal {
 
 		btnCuentas = new JButton("Cuentas");
 		GridBagConstraints gbc_btnCuentas = new GridBagConstraints();
-		gbc_btnCuentas.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnCuentas.fill = GridBagConstraints.BOTH;
 		gbc_btnCuentas.insets = new Insets(0, 0, 5, 0);
 		gbc_btnCuentas.gridx = 0;
 		gbc_btnCuentas.gridy = 0;
@@ -85,7 +85,7 @@ public class VentanaPrincipal extends JFrame implements InterfazPrincipal {
 
 		btnIngresos = new JButton("Ingresos");
 		GridBagConstraints gbc_btnIngresos = new GridBagConstraints();
-		gbc_btnIngresos.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnIngresos.fill = GridBagConstraints.BOTH;
 		gbc_btnIngresos.insets = new Insets(0, 0, 5, 0);
 		gbc_btnIngresos.gridx = 0;
 		gbc_btnIngresos.gridy = 1;
@@ -94,7 +94,7 @@ public class VentanaPrincipal extends JFrame implements InterfazPrincipal {
 
 		btnGastos = new JButton("Gastos");
 		GridBagConstraints gbc_btnGastos = new GridBagConstraints();
-		gbc_btnGastos.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnGastos.fill = GridBagConstraints.BOTH;
 		gbc_btnGastos.insets = new Insets(0, 0, 5, 0);
 		gbc_btnGastos.gridx = 0;
 		gbc_btnGastos.gridy = 2;
@@ -103,7 +103,7 @@ public class VentanaPrincipal extends JFrame implements InterfazPrincipal {
 
 		btnTransferencias = new JButton("Transferencias");
 		GridBagConstraints gbc_btnTransferencias = new GridBagConstraints();
-		gbc_btnTransferencias.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnTransferencias.fill = GridBagConstraints.BOTH;
 		gbc_btnTransferencias.insets = new Insets(0, 0, 5, 0);
 		gbc_btnTransferencias.gridx = 0;
 		gbc_btnTransferencias.gridy = 3;
@@ -112,7 +112,7 @@ public class VentanaPrincipal extends JFrame implements InterfazPrincipal {
 
 		btnMovimientos = new JButton("Movimientos");
 		GridBagConstraints gbc_btnMovimientos = new GridBagConstraints();
-		gbc_btnMovimientos.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnMovimientos.fill = GridBagConstraints.BOTH;
 		gbc_btnMovimientos.insets = new Insets(0, 0, 5, 0);
 		gbc_btnMovimientos.gridx = 0;
 		gbc_btnMovimientos.gridy = 4;
@@ -121,7 +121,7 @@ public class VentanaPrincipal extends JFrame implements InterfazPrincipal {
 
 		btnPrevisiones = new JButton("Previsiones");
 		GridBagConstraints gbc_btnPrevisiones = new GridBagConstraints();
-		gbc_btnPrevisiones.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnPrevisiones.fill = GridBagConstraints.BOTH;
 		gbc_btnPrevisiones.gridx = 0;
 		gbc_btnPrevisiones.gridy = 5;
 		panelBotones.add(btnPrevisiones, gbc_btnPrevisiones);

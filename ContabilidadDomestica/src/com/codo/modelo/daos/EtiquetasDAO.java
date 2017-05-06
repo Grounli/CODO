@@ -2,8 +2,8 @@ package com.codo.modelo.daos;
 
 import java.util.List;
 
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 
 import com.codo.modelo.pojos.Etiquetas;
@@ -12,11 +12,11 @@ public class EtiquetasDAO {
 
 	private final EntityManagerFactory EM_FACTORY;
 
-	public EtiquetasDAO (EntityManagerFactory emFactory) {
+	public EtiquetasDAO(EntityManagerFactory emFactory) {
 		this.EM_FACTORY = emFactory;
 	}
 
-	public void crear (Etiquetas etiqueta) {
+	public void crear(Etiquetas etiqueta) {
 		EntityManager manager = EM_FACTORY.createEntityManager();
 		EntityTransaction transaction = null;
 		try {
@@ -34,7 +34,7 @@ public class EtiquetasDAO {
 		}
 	}
 
-	public void actualizar (Etiquetas etiqueta) {
+	public void actualizar(Etiquetas etiqueta) {
 		EntityManager manager = EM_FACTORY.createEntityManager();
 		EntityTransaction transaction = null;
 		try {
@@ -52,7 +52,7 @@ public class EtiquetasDAO {
 		}
 	}
 
-	public void borrar (Etiquetas etiqueta) {
+	public void borrar(Etiquetas etiqueta) {
 		EntityManager manager = EM_FACTORY.createEntityManager();
 		EntityTransaction transaction = null;
 		try {
@@ -70,7 +70,7 @@ public class EtiquetasDAO {
 		}
 	}
 
-	public List<Etiquetas> leerEtiquetas () {
+	public List<Etiquetas> leerEtiquetas() {
 		EntityManager manager = EM_FACTORY.createEntityManager();
 		EntityTransaction transaction = null;
 		List<Etiquetas> lst = null;
@@ -90,8 +90,8 @@ public class EtiquetasDAO {
 		}
 		return lst;
 	}
-	
-	public List<Etiquetas> leerEtiquetasFiltro (String sentenciaSQL) {
+
+	public List<Etiquetas> leerEtiquetasFiltro(String sentenciaSQL) {
 		EntityManager manager = EM_FACTORY.createEntityManager();
 		EntityTransaction transaction = null;
 		List<Etiquetas> lst = null;

@@ -2,8 +2,8 @@ package com.codo.modelo.daos;
 
 import java.util.List;
 
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 
 import com.codo.modelo.pojos.Monedas;
@@ -12,11 +12,11 @@ public class MonedasDAO {
 
 	private final EntityManagerFactory EM_FACTORY;
 
-	public MonedasDAO (EntityManagerFactory emFactory) {
+	public MonedasDAO(EntityManagerFactory emFactory) {
 		this.EM_FACTORY = emFactory;
 	}
 
-	public void crear (Monedas moneda) {
+	public void crear(Monedas moneda) {
 		EntityManager manager = EM_FACTORY.createEntityManager();
 		EntityTransaction transaction = null;
 		try {
@@ -34,7 +34,7 @@ public class MonedasDAO {
 		}
 	}
 
-	public void actualizar (Monedas moneda) {
+	public void actualizar(Monedas moneda) {
 		EntityManager manager = EM_FACTORY.createEntityManager();
 		EntityTransaction transaction = null;
 		try {
@@ -52,7 +52,7 @@ public class MonedasDAO {
 		}
 	}
 
-	public void borrar (Monedas moneda) {
+	public void borrar(Monedas moneda) {
 		EntityManager manager = EM_FACTORY.createEntityManager();
 		EntityTransaction transaction = null;
 		try {
@@ -70,7 +70,7 @@ public class MonedasDAO {
 		}
 	}
 
-	public List<Monedas> leerMonedas () {
+	public List<Monedas> leerMonedas() {
 		EntityManager manager = EM_FACTORY.createEntityManager();
 		EntityTransaction transaction = null;
 		List<Monedas> lst = null;
@@ -90,5 +90,4 @@ public class MonedasDAO {
 		}
 		return lst;
 	}
-	
 }

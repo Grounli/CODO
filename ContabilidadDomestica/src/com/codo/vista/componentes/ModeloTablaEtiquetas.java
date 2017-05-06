@@ -41,7 +41,6 @@ public class ModeloTablaEtiquetas extends DefaultTableModel {
 	public Object getValueAt(int indiceDeFila, int indiceDeColumna) {
 		if (indiceDeFila <= getRowCount()) {
 			Etiquetas etiqueta = listaDeEtiquetas.get(indiceDeFila);
-
 			if (etiqueta != null) {
 				switch (indiceDeColumna) {
 				case 0:
@@ -58,14 +57,11 @@ public class ModeloTablaEtiquetas extends DefaultTableModel {
 		if (indiceDeFila != -1) {
 			if (indiceDeFila <= getRowCount()) {
 				Etiquetas etiqueta = listaDeEtiquetas.get(indiceDeFila);
-
 				if (etiqueta != null) {
-
 					return etiqueta;
 				}
 			}
 		}
-
 		return null;
 	}
 }

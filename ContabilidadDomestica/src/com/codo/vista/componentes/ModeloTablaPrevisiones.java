@@ -42,7 +42,6 @@ public class ModeloTablaPrevisiones extends DefaultTableModel {
 	public Object getValueAt(int indiceDeFila, int indiceDeColumna) {
 		if (indiceDeFila <= getRowCount()) {
 			Previsiones prevision = listaDePrevisiones.get(indiceDeFila);
-
 			if (prevision != null) {
 				switch (indiceDeColumna) {
 				case 0:
@@ -69,15 +68,11 @@ public class ModeloTablaPrevisiones extends DefaultTableModel {
 		if (indiceDeFila != -1) {
 			if (indiceDeFila <= getRowCount()) {
 				Previsiones prevision = listaDePrevisiones.get(indiceDeFila);
-
 				if (prevision != null) {
-
 					return prevision;
 				}
 			}
 		}
-
 		return null;
 	}
-
 }

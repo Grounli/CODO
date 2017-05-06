@@ -21,15 +21,11 @@ public class ControladorIngresos implements ActionListener {
 		if (evento.getActionCommand().equals(InterfazIngresos.BOTON_ANADIR_INGRESO)) {
 			if (vistaIngresos.comprobarCampos()) {
 				modelo.crearMovimiento(vistaIngresos.anadirIngreso());
-				System.out.println("----INGRESO AÑADIDO EN LA BD----");
 			}
-
 		}
+
 		if (evento.getActionCommand().equals(InterfazIngresos.BOTON_CANCELAR_INGRESO)) {
-
 			vistaIngresos.dispose();
-
 		}
 	}
-
 }

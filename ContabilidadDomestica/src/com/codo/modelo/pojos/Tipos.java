@@ -12,20 +12,20 @@ import javax.persistence.Id;
  */
 public class Tipos implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name= "idTipo", unique= true, nullable = false)
+	@Column(name = "idTipo", unique = true, nullable = false)
 	private Integer idTipo;
-	
-	@Column(name= "nombre", nullable = false)
+
+	@Column(name = "nombre", nullable = false)
 	private String nombre;
-	
+
+	@SuppressWarnings("rawtypes")
 	private Set movimientoses = new HashSet(0);
+	@SuppressWarnings("rawtypes")
 	private Set etiquetases = new HashSet(0);
+	@SuppressWarnings("rawtypes")
 	private Set previsioneses = new HashSet(0);
 
 	public Tipos() {
@@ -35,6 +35,7 @@ public class Tipos implements java.io.Serializable {
 		this.nombre = nombre;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Tipos(String nombre, Set movimientoses, Set etiquetases, Set previsioneses) {
 		this.nombre = nombre;
 		this.movimientoses = movimientoses;
@@ -58,33 +59,38 @@ public class Tipos implements java.io.Serializable {
 		this.nombre = nombre;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Set getMovimientoses() {
 		return this.movimientoses;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void setMovimientoses(Set movimientoses) {
 		this.movimientoses = movimientoses;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Set getEtiquetases() {
 		return this.etiquetases;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void setEtiquetases(Set etiquetases) {
 		this.etiquetases = etiquetases;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Set getPrevisioneses() {
 		return this.previsioneses;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void setPrevisioneses(Set previsioneses) {
 		this.previsioneses = previsioneses;
 	}
 
 	@Override
-	public String toString(){
+	public String toString() {
 		return this.nombre;
 	}
-	
 }

@@ -29,6 +29,7 @@ import com.codo.vista.transferencias.VentanaTransferencias;
 
 public class ControladorPrincipal implements ActionListener {
 
+	@SuppressWarnings("unused")
 	private InterfazPrincipal vista;
 	private ModeloCD modelo;
 
@@ -53,11 +54,12 @@ public class ControladorPrincipal implements ActionListener {
 			// GENERAMOS LAS LISTAS NECESARIAS
 			List<Etiquetas> listaDeEtiquetas = modelo.listaDeEtiquetas();
 			// GENERAMOS LA VISTA DE ETIQUETAS
-			InterfazEtiquetas vistaEtiquetas = new VentanaEtiquetas(listaDeEtiquetas);
+			InterfazEtiquetas vistaEtiquetas = new VentanaEtiquetas();
 			// GENERAMOS EL CONTROLADOR DE ETIQUETAS
 			ControladorEtiquetas controladorEtiquetas = new ControladorEtiquetas(vistaEtiquetas, modelo);
 			// CONFIGURAMOS LA VISTA DE ETIQUETAS
 			vistaEtiquetas.asignarControlador(controladorEtiquetas);
+			vistaEtiquetas.asignarDatosTablaEtiquetas(listaDeEtiquetas);
 			// INICIAMOS LA VISTA DE ETIQUETAS
 			vistaEtiquetas.iniciar();
 		}

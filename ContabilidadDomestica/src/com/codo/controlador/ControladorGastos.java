@@ -21,15 +21,14 @@ public class ControladorGastos implements ActionListener {
 		if (evento.getActionCommand().equals(InterfazGastos.BOTON_ANADIR_GASTO)) {
 			if (vistaGastos.comprobarCampos()) {
 				modelo.crearMovimiento(vistaGastos.anadirGasto());
-				System.out.println("----GASTO AÑADIDO EN LA BD----");
 			}
 
 		}
+
 		if (evento.getActionCommand().equals(InterfazGastos.BOTON_CANCELAR_GASTO)) {
 
 			vistaGastos.dispose();
 
 		}
 	}
-
 }

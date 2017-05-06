@@ -64,17 +64,17 @@ public class ModeloCD {
 	public List<Etiquetas> listaDeEtiquetas() {
 		return etiquetas.leerEtiquetas();
 	}
-	
+
 	public List<Etiquetas> listaDeEtiquetasDeIngresos() {
 		String sentenciaSQL = "SELECT s FROM Etiquetas s where idTipo=1 OR idTipo=null";
 		return etiquetas.leerEtiquetasFiltro(sentenciaSQL);
 	}
-	
+
 	public List<Etiquetas> listaDeEtiquetasDeGastos() {
 		String sentenciaSQL = "SELECT s FROM Etiquetas s where idTipo=2 OR idTipo=null";
 		return etiquetas.leerEtiquetasFiltro(sentenciaSQL);
 	}
-	
+
 	public List<Etiquetas> listaDeEtiquetasDeTransferencias() {
 		String sentenciaSQL = "SELECT s FROM Etiquetas s where idTipo=3 OR idTipo=null";
 		return etiquetas.leerEtiquetasFiltro(sentenciaSQL);
@@ -117,11 +117,9 @@ public class ModeloCD {
 	}
 
 	public List<Movimientos> listaDeMovimientosFiltros(String sentenciaSQL) {
-		return movimientos.leerMovimientosFiltro (sentenciaSQL);
+		return movimientos.leerMovimientosFiltro(sentenciaSQL);
 	}
-	
-	
-	
+
 	// --------- PREVISIONES --------- //
 
 	public void crearPrevision(Previsiones prevision) {

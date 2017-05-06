@@ -75,7 +75,6 @@ public class MovimientosDAO {
 		EntityTransaction transaction = null;
 		List<Movimientos> lst = null;
 		try {
-
 			transaction = manager.getTransaction();
 			transaction.begin();
 			String qry = "SELECT s FROM Movimientos s";
@@ -112,5 +111,4 @@ public class MovimientosDAO {
 		}
 		return lst;
 	}
-
 }

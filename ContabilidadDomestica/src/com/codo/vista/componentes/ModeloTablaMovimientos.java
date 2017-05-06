@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.swing.table.DefaultTableModel;
 
-import com.codo.modelo.pojos.Cuentas;
 import com.codo.modelo.pojos.Movimientos;
 
 public class ModeloTablaMovimientos extends DefaultTableModel {
@@ -43,7 +42,6 @@ public class ModeloTablaMovimientos extends DefaultTableModel {
 	public Object getValueAt(int indiceDeFila, int indiceDeColumna) {
 		if (indiceDeFila <= getRowCount()) {
 			Movimientos movimiento = listaDeMovimientos.get(indiceDeFila);
-			
 			if (movimiento != null) {
 				switch (indiceDeColumna) {
 				case 0:
@@ -55,7 +53,8 @@ public class ModeloTablaMovimientos extends DefaultTableModel {
 				case 3:
 					return movimiento.getEtiquetas();
 				case 4:
-					return movimiento.getValor()+ " " +movimiento.getCuentasByIdCuentaOrigen().getMonedas().getNombre();
+					return movimiento.getValor() + " "
+							+ movimiento.getCuentasByIdCuentaOrigen().getMonedas().getNombre();
 				case 5:
 					return movimiento.getFecha();
 				case 6:
@@ -70,20 +69,11 @@ public class ModeloTablaMovimientos extends DefaultTableModel {
 		if (indiceDeFila != -1) {
 			if (indiceDeFila <= getRowCount()) {
 				Movimientos movimiento = listaDeMovimientos.get(indiceDeFila);
-
 				if (movimiento != null) {
-
 					return movimiento;
 				}
 			}
 		}
-
 		return null;
 	}
-	
-	
-	
-	
-	
-
 }

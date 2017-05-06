@@ -227,7 +227,7 @@ public class VentanaTransferencias extends JDialog implements InterfazTransferen
 			return false;
 		}
 		if (textFieldValor.getText().isEmpty()) {
-			JOptionPane.showMessageDialog(null, "El valor del gasto no es correcto", "Error campos",
+			JOptionPane.showMessageDialog(null, "El valor de la transferencia no es correcto", "Error campos",
 					JOptionPane.ERROR_MESSAGE);
 			return false;
 		}

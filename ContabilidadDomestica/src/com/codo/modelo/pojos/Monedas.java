@@ -12,9 +12,6 @@ import javax.persistence.Id;
  */
 public class Monedas implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -24,6 +21,7 @@ public class Monedas implements java.io.Serializable {
 	@Column(name = "nombre", nullable = false)
 	private String nombre;
 
+	@SuppressWarnings("rawtypes")
 	private Set cuentases = new HashSet(0);
 
 	public Monedas() {
@@ -32,7 +30,8 @@ public class Monedas implements java.io.Serializable {
 	public Monedas(String nombre) {
 		this.nombre = nombre;
 	}
-	
+
+	@SuppressWarnings("rawtypes")
 	public Monedas(String nombre, Set cuentases) {
 		this.nombre = nombre;
 		this.cuentases = cuentases;
@@ -54,17 +53,18 @@ public class Monedas implements java.io.Serializable {
 		this.nombre = nombre;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Set getCuentases() {
 		return this.cuentases;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void setCuentases(Set cuentases) {
 		this.cuentases = cuentases;
 	}
 
 	@Override
-	public String toString(){
+	public String toString() {
 		return this.nombre;
 	}
-	
 }

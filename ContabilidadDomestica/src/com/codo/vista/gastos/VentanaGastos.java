@@ -196,7 +196,6 @@ public class VentanaGastos extends JDialog implements InterfazGastos {
 		textFieldComentario.setText("");
 		JOptionPane.showMessageDialog(null, "Gasto realizado correctamente", "Gasto realizado",
 				JOptionPane.INFORMATION_MESSAGE);
-
 	}
 
 	public boolean comprobarCampos() {
@@ -213,6 +212,7 @@ public class VentanaGastos extends JDialog implements InterfazGastos {
 					JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
+		
 		if (dateChooser.getDate() == null) {
 			JOptionPane.showMessageDialog(null, "La fecha introducida no es correcta.", "Error campos",
 					JOptionPane.ERROR_MESSAGE);

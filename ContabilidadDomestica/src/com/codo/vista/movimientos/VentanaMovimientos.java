@@ -32,9 +32,9 @@ import com.toedter.calendar.JDateChooser;
 public class VentanaMovimientos extends JDialog implements InterfazMovimientos {
 
 	private static final long serialVersionUID = 1L;
-	private static final int SET_LOCATION_X = 400;
-	private static final int SET_LOCATION_Y = 200;
-	private static final int ANCHURA_MINIMA_VENTANA = 500;
+	private static final int SET_LOCATION_X = 380;
+	private static final int SET_LOCATION_Y = 150;
+	private static final int ANCHURA_MINIMA_VENTANA = 700;
 	private static final int ALTURA_MINIMA_VENTANA = 450;
 	private final JPanel contentPanel = new JPanel();
 	private JPanel panelCentral;
@@ -72,7 +72,6 @@ public class VentanaMovimientos extends JDialog implements InterfazMovimientos {
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setPreferredSize(new Dimension(ANCHURA_MINIMA_VENTANA, ALTURA_MINIMA_VENTANA));
 		setMinimumSize(new Dimension(ANCHURA_MINIMA_VENTANA, ALTURA_MINIMA_VENTANA));
-		setResizable(false);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 
 		// CONFIGURACION DE CONTENTPANEL

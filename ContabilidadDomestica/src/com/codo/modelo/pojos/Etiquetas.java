@@ -13,9 +13,6 @@ import javax.persistence.OneToMany;
  */
 public class Etiquetas implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -29,7 +26,9 @@ public class Etiquetas implements java.io.Serializable {
 	@Column(name = "nombre", nullable = false)
 	private String nombre;
 
+	@SuppressWarnings("rawtypes")
 	private Set previsioneses = new HashSet(0);
+	@SuppressWarnings("rawtypes")
 	private Set movimientoses = new HashSet(0);
 
 	public Etiquetas() {
@@ -39,7 +38,8 @@ public class Etiquetas implements java.io.Serializable {
 		this.tipos = tipo;
 		this.nombre = nombre;
 	}
-	
+
+	@SuppressWarnings("rawtypes")
 	public Etiquetas(Tipos tipos, String nombre, Set previsioneses, Set movimientoses) {
 		this.tipos = tipos;
 		this.nombre = nombre;
@@ -71,25 +71,28 @@ public class Etiquetas implements java.io.Serializable {
 		this.nombre = nombre;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Set getPrevisioneses() {
 		return this.previsioneses;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void setPrevisioneses(Set previsioneses) {
 		this.previsioneses = previsioneses;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Set getMovimientoses() {
 		return this.movimientoses;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void setMovimientoses(Set movimientoses) {
 		this.movimientoses = movimientoses;
 	}
-	
+
 	@Override
-	public String toString(){
+	public String toString() {
 		return this.nombre;
 	}
-	
 }
