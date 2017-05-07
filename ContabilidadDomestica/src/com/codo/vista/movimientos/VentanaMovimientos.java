@@ -271,4 +271,20 @@ public class VentanaMovimientos extends JDialog implements InterfazMovimientos {
 		setLocation(SET_LOCATION_X, SET_LOCATION_Y);
 		setVisible(true);
 	}
+
+	@Override
+	public boolean comprovarFechas() {
+		if(fechaDesde.getDate().after(fechaHasta.getDate())){
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public boolean comprovarFechaVacia() {
+		if(fechaDesde.getDate()==null || fechaHasta.getDate()==null ){
+			return false;
+		}
+		return true;
+	}
 }

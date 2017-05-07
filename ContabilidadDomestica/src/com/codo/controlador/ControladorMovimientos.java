@@ -23,8 +23,20 @@ public class ControladorMovimientos implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent evento) {
 		if (evento.getActionCommand().equals(InterfazMovimientos.BOTON_CONSULTAR_MOVIMIENTOS)) {
-			vistaMovimientos
-					.asignarDatosTablaMovimientos(modelo.listaDeMovimientosFiltros(vistaMovimientos.obtenerFiltro()));
+
+			if (vistaMovimientos.comprovarFechaVacia()) {
+
+				if (vistaMovimientos.comprovarFechas()) {
+					vistaMovimientos.asignarDatosTablaMovimientos(
+							modelo.listaDeMovimientosFiltros(vistaMovimientos.obtenerFiltro()));
+				} else {
+					JOptionPane.showMessageDialog(null, "La fecha desde debe ser anterior a la fecha hasta", "Aviso",
+							JOptionPane.INFORMATION_MESSAGE);
+				}
+			} else {
+				JOptionPane.showMessageDialog(null, "Debe seleccionar una fecha", "Aviso",
+						JOptionPane.INFORMATION_MESSAGE);
+			}
 		}
 
 		if (evento.getActionCommand().equals(InterfazMovimientos.BOTON_REVERTIR_MOVIMIENTO)) {
