@@ -4,58 +4,56 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.util.Date;
+import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFormattedTextField;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import com.codo.controlador.ControladorPrevisiones;
+import com.codo.modelo.pojos.Cuentas;
+import com.codo.modelo.pojos.Etiquetas;
+import com.codo.modelo.pojos.Previsiones;
+import com.codo.modelo.pojos.Tipos;
 import com.codo.vista.interfaces.previsiones.InterfazPrevisiones;
 import com.codo.vista.interfaces.previsiones.InterfazVentanaAnadirPrevision;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JLabel;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JComboBox;
-import javax.swing.JFormattedTextField;
 import com.toedter.calendar.JDateChooser;
-import javax.swing.JTextField;
-import java.awt.GridBagLayout;
-import javax.swing.BoxLayout;
-import java.awt.GridBagConstraints;
-import javax.swing.JSplitPane;
-import javax.swing.SwingConstants;
-import java.awt.GridLayout;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.util.Calendar;
 
-public class VentanaAnadirPrevision extends JDialog implements InterfazVentanaAnadirPrevision{
+public class VentanaAnadirPrevision extends JDialog implements InterfazVentanaAnadirPrevision {
 
 	private static final long serialVersionUID = 1L;
-	private static final int ANCHURA_MINIMA_VENTANA =450;
+	private static final int ANCHURA_MINIMA_VENTANA = 450;
 	private static final int ALTURA_MINIMA_VENTANA = 300;
 	private final JPanel contentPanel = new JPanel();
 	private JPanel buttonPane;
 	private JButton btnAceptar;
 	private JButton btnCancelar;
 	private JPanel panelComponentes;
-	private JLabel lblaCuentaDeOrigen;
+	private JLabel lblCuentaDeOrigen;
 	private JLabel lblCuentaDeDestino;
 	private JLabel lblEtiqueta;
 	private JLabel lblValor;
 	private JLabel lblFecha;
 	private JLabel lblDescripcion;
-	private JComboBox comboBox;
-	private JComboBox comboBox_1;
-	private JComboBox comboBox_2;
-	private JComboBox comboBox_3;
-	private JFormattedTextField formattedTextField;
-	private JDateChooser dateChooser;
-	private JTextField textField;
+	private JComboBox<Tipos> cajaTipos;
+	private JComboBox<Cuentas> cajaCuentaDeOrigen;
+	private JComboBox<Cuentas> cajaCuentaDeDestino;
+	private JComboBox<Etiquetas> cajaEtiquetas;
+	private JFormattedTextField campoValor;
+	private JDateChooser campoFecha;
+	private JTextField campoDescripcion;
 
-	public VentanaAnadirPrevision() {
+	public VentanaAnadirPrevision(List<Tipos> listaDeTipos, List<Cuentas> listaDeCuentas,
+			List<Etiquetas> listaDeEtiquetasDeIngresos) {
 
 		// CONFIGURACIÓN BASICA DE LA VENTANA
 		setTitle("Previsiones - Añadir");
@@ -73,23 +71,23 @@ public class VentanaAnadirPrevision extends JDialog implements InterfazVentanaAn
 			panelComponentes.setPreferredSize(new Dimension(0, 0));
 			contentPanel.add(panelComponentes, BorderLayout.CENTER);
 			panelComponentes.setLayout(null);
-			
+
 			JPanel panelIzquierdo = new JPanel();
 			panelIzquierdo.setBounds(61, 11, 126, 189);
 			panelIzquierdo.setOpaque(false);
 			panelIzquierdo.setPreferredSize(new Dimension(100, 150));
 			panelComponentes.add(panelIzquierdo);
 			panelIzquierdo.setLayout(new GridLayout(7, 1, 0, 5));
-			
+
 			JLabel lblTipo = new JLabel("Tipo:");
 			lblTipo.setHorizontalAlignment(SwingConstants.RIGHT);
 			lblTipo.setHorizontalTextPosition(SwingConstants.RIGHT);
 			panelIzquierdo.add(lblTipo);
 			{
-				lblaCuentaDeOrigen = new JLabel("Cuenta de Origen:");
-				lblaCuentaDeOrigen.setHorizontalAlignment(SwingConstants.RIGHT);
-				lblaCuentaDeOrigen.setHorizontalTextPosition(SwingConstants.RIGHT);
-				panelIzquierdo.add(lblaCuentaDeOrigen);
+				lblCuentaDeOrigen = new JLabel("Cuenta de Origen:");
+				lblCuentaDeOrigen.setHorizontalAlignment(SwingConstants.RIGHT);
+				lblCuentaDeOrigen.setHorizontalTextPosition(SwingConstants.RIGHT);
+				panelIzquierdo.add(lblCuentaDeOrigen);
 			}
 			{
 				lblCuentaDeDestino = new JLabel("Cuenta de Destino:");
@@ -104,13 +102,13 @@ public class VentanaAnadirPrevision extends JDialog implements InterfazVentanaAn
 				panelIzquierdo.add(lblEtiqueta);
 			}
 			{
-				lblValor = new JLabel("Valor:");
+				lblValor = new JLabel("*Valor:");
 				lblValor.setHorizontalAlignment(SwingConstants.RIGHT);
 				lblValor.setHorizontalTextPosition(SwingConstants.RIGHT);
 				panelIzquierdo.add(lblValor);
 			}
 			{
-				lblFecha = new JLabel("Fecha:");
+				lblFecha = new JLabel("*Fecha:");
 				lblFecha.setHorizontalAlignment(SwingConstants.RIGHT);
 				lblFecha.setHorizontalTextPosition(SwingConstants.RIGHT);
 				panelIzquierdo.add(lblFecha);
@@ -121,7 +119,7 @@ public class VentanaAnadirPrevision extends JDialog implements InterfazVentanaAn
 				lblDescripcion.setHorizontalTextPosition(SwingConstants.RIGHT);
 				panelIzquierdo.add(lblDescripcion);
 			}
-			
+
 			JPanel panelDerecho = new JPanel();
 			panelDerecho.setBounds(197, 11, 100, 189);
 			panelDerecho.setMinimumSize(new Dimension(0, 0));
@@ -129,64 +127,154 @@ public class VentanaAnadirPrevision extends JDialog implements InterfazVentanaAn
 			panelComponentes.add(panelDerecho);
 			panelDerecho.setLayout(new GridLayout(7, 1, 0, 5));
 			{
-				comboBox = new JComboBox();
-				panelDerecho.add(comboBox);
+				cajaTipos = new JComboBox<Tipos>();
+				cajaTipos.setActionCommand(ACCION_CAJA_TIPO_VENTANA_ANADIR_PREVISION);
+				for (Tipos tipo : listaDeTipos) {
+					cajaTipos.addItem(tipo);
+				}
+				panelDerecho.add(cajaTipos);
 			}
 			{
-				comboBox_1 = new JComboBox();
-				panelDerecho.add(comboBox_1);
+				cajaCuentaDeOrigen = new JComboBox<Cuentas>();
+				for (Cuentas cuenta : listaDeCuentas) {
+					cajaCuentaDeOrigen.addItem(cuenta);
+				}
+				panelDerecho.add(cajaCuentaDeOrigen);
 			}
 			{
-				comboBox_2 = new JComboBox();
-				panelDerecho.add(comboBox_2);
+				cajaCuentaDeDestino = new JComboBox<Cuentas>();
+				cajaCuentaDeDestino.setEnabled(false);
+				panelDerecho.add(cajaCuentaDeDestino);
 			}
 			{
-				comboBox_3 = new JComboBox();
-				panelDerecho.add(comboBox_3);
+				cajaEtiquetas = new JComboBox<Etiquetas>();
+				for (Etiquetas etiqueta : listaDeEtiquetasDeIngresos) {
+					cajaEtiquetas.addItem(etiqueta);
+				}
+				panelDerecho.add(cajaEtiquetas);
 			}
 			{
-				formattedTextField = new JFormattedTextField();
-				panelDerecho.add(formattedTextField);
+				campoValor = new JFormattedTextField();
+				panelDerecho.add(campoValor);
 			}
 			{
-				dateChooser = new JDateChooser();
-				panelDerecho.add(dateChooser);
+				campoFecha = new JDateChooser();
+				campoFecha.setDate(new Date());
+				panelDerecho.add(campoFecha);
 			}
 			{
-				textField = new JTextField();
-				panelDerecho.add(textField);
-				textField.setColumns(10);
+				campoDescripcion = new JTextField();
+				panelDerecho.add(campoDescripcion);
 			}
 		}
-		
+
 		{
 			buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				btnAceptar = new JButton("Aceptar");
-				btnAceptar.setActionCommand("OK");
+				btnAceptar.setActionCommand(InterfazVentanaAnadirPrevision.BOTON_ACEPTAR_VENTANA_ANADIR_PREVISION);
 				buttonPane.add(btnAceptar);
 				getRootPane().setDefaultButton(btnAceptar);
 			}
 			{
 				btnCancelar = new JButton("Cancelar");
-				btnCancelar.setActionCommand("Cancel");
+				btnCancelar.setActionCommand(InterfazVentanaAnadirPrevision.BOTON_CANCELAR_VENTANA_ANADIR_PREVISION);
 				buttonPane.add(btnCancelar);
 			}
 		}
 	}
 
 	@Override
+	public void refrescarCajaEtiquetas(List<Etiquetas> lista) {
+		cajaEtiquetas.removeAllItems();
+		for (Etiquetas etiqueta : lista) {
+			cajaEtiquetas.addItem(etiqueta);
+		}
+	}
+
+	@Override
+	public String itemSeleccionadoCajaTipo() {
+		return this.cajaTipos.getSelectedItem().toString();
+	}
+
+	@Override
+	public void llenarCajaCuentasDeDestino(List<Cuentas> listaDeCuentas) {
+		for (Cuentas cuenta : listaDeCuentas) {
+			cajaCuentaDeDestino.addItem(cuenta);
+		}
+	}
+
+	@Override
+	public Previsiones anadirPrevision() {
+		Tipos tipo = (Tipos) cajaTipos.getSelectedItem();
+		Cuentas cuentaDeOrigen = (Cuentas) cajaCuentaDeOrigen.getSelectedItem();
+		Cuentas cuentaDeDestino = (Cuentas) cajaCuentaDeDestino.getSelectedItem();
+		Etiquetas etiqueta = (Etiquetas) cajaEtiquetas.getSelectedItem();
+		Double valor = Double.valueOf(campoValor.getText().replace(",", "."));
+		Date fecha = campoFecha.getDate();
+		String descripcion = campoDescripcion.getText();
+		Previsiones prevision = new Previsiones(cuentaDeOrigen, cuentaDeDestino, etiqueta, tipo, valor, fecha,
+				descripcion);
+		return prevision;
+	}
+
+	@Override
+	public boolean comprobarCampos() {
+
+		if (campoValor.getText().isEmpty() && campoFecha.getDate() == null) {
+			JOptionPane.showMessageDialog(this, "El valor y la fecha no son correctos.", "Error campos",
+					JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+
+		if (campoValor.getText().isEmpty()) {
+			JOptionPane.showMessageDialog(this, "El valor no es correcto.", "Error campos", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+
+		if (campoFecha.getDate() == null) {
+			JOptionPane.showMessageDialog(this, "La fecha introducida no es correcta.", "Error campos",
+					JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+
+		if (cajaTipos.getSelectedItem().toString().equals("Transferencia")) {
+			if (cajaCuentaDeOrigen.getSelectedItem().toString()
+					.equals(cajaCuentaDeDestino.getSelectedItem().toString())) {
+				JOptionPane.showMessageDialog(this, "Cuenta de Origen debe ser diferente a Cuenta de Destino",
+						"Error campos", JOptionPane.ERROR_MESSAGE);
+				return false;
+			}
+			return true;
+		}
+
+		else
+			return true;
+	}
+
+	@Override
 	public void asignarControlador(ControladorPrevisiones control) {
 		btnAceptar.addActionListener(control);
 		btnCancelar.addActionListener(control);
+		cajaTipos.addActionListener(control);
 	}
-	
+
 	@Override
 	public void iniciar(InterfazPrevisiones vistaPrevision) {
 		pack();
 		setLocationRelativeTo((Component) vistaPrevision);
 		setVisible(true);
+	}
+
+	@Override
+	public JComboBox<Cuentas> getCajaCuentaDeDestino() {
+		return cajaCuentaDeDestino;
+	}
+
+	@Override
+	public void setCajaCuentaDeDestino(JComboBox<Cuentas> cajaCuentaDeDestino) {
+		this.cajaCuentaDeDestino = cajaCuentaDeDestino;
 	}
 }

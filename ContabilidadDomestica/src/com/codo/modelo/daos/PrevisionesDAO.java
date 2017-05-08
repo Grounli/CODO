@@ -90,4 +90,25 @@ public class PrevisionesDAO {
 		}
 		return lst;
 	}
+	
+	public List<Previsiones> leerPrevisionesFiltro(String sentenciaSQL) {
+		EntityManager manager = EM_FACTORY.createEntityManager();
+		EntityTransaction transaction = null;
+		List<Previsiones> lst = null;
+		try {
+			transaction = manager.getTransaction();
+			transaction.begin();
+			String qry = sentenciaSQL;
+			lst = manager.createQuery(qry, Previsiones.class).getResultList();
+			transaction.commit();
+		} catch (Exception ex) {
+			if (transaction != null) {
+				transaction.rollback();
+			}
+			ex.printStackTrace();
+		} finally {
+			manager.close();
+		}
+		return lst;
+	}
 }

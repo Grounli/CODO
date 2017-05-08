@@ -25,10 +25,9 @@ public interface InterfazMovimientos extends InterfazComun {
 	Movimientos obtenerMovimientoSeleccionado();
 
 	boolean comprovarFechas();
-	
 
 	boolean comprovarFechaVacia();
-	
+
 	String obtenerFiltro();
 
 	String itemSeleccionadoCajaTipo();

@@ -7,4 +7,6 @@ public interface InterfazComunPrevision {
 	void asignarControlador(ControladorPrevisiones control);
 
 	void iniciar(InterfazPrevisiones vistaPrevision);
+	
+	void dispose();
 }

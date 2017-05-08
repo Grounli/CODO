@@ -64,7 +64,6 @@ public class ControladorMovimientos implements ActionListener {
 
 		if (evento.getActionCommand().equals(InterfazMovimientos.ACCION_CAJA_TIPO_MOVIMIENTOS)) {
 			String seleccion = vistaMovimientos.itemSeleccionadoCajaTipo();
-			System.out.println(seleccion);
 			if (seleccion.equals("Ingreso")) {
 				List<Etiquetas> lista = modelo.listaDeEtiquetasDeIngresos();
 				vistaMovimientos.refrescarCajaEtiquetas(lista);

@@ -1,6 +1,9 @@
 package com.codo.modelo;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -136,6 +139,16 @@ public class ModeloCD {
 
 	public List<Previsiones> listaDePrevisiones() {
 		return previsiones.leerPrevisiones();
+	}
+	
+	public List<Previsiones> listaDePrevisionesFiltro(Cuentas cuenta, Date fechaDePrevision) {
+		SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+		String fechaActual = formatoFecha.format(new Date());
+		String fechaFutura = formatoFecha.format(fechaDePrevision);
+		String sentenciaSQL = "SELECT s FROM Previsiones s where  ";
+		sentenciaSQL = sentenciaSQL + "(idCuentaOrigen=" + cuenta.getIdCuenta() +")";
+		sentenciaSQL = sentenciaSQL + " AND fecha BETWEEN '" + fechaActual + "' AND '" + fechaFutura+ "'";
+		return previsiones.leerPrevisionesFiltro(sentenciaSQL);
 	}
 
 	// --------- TIPOS --------- //

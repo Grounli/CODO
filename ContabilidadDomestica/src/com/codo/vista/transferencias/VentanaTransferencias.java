@@ -226,16 +226,26 @@ public class VentanaTransferencias extends JDialog implements InterfazTransferen
 					"Error campos", JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
+		
 		if (textFieldValor.getText().isEmpty()) {
 			JOptionPane.showMessageDialog(null, "El valor de la transferencia no es correcto", "Error campos",
 					JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
+		
 		if (dateChooser.getDate() == null) {
 			JOptionPane.showMessageDialog(null, "La fecha introducida no es correcta", "Error campos",
 					JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
+		
+		if (comboBoxCuentaOrigen.getSelectedItem().toString()
+				.equals(comboBoxCuentaDestino.getSelectedItem().toString())) {
+			JOptionPane.showMessageDialog(this, "Cuenta de Origen debe ser diferente a Cuenta de Destino",
+					"Error campos", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		
 		return true;
 	}
 
