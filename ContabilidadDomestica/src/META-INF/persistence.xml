@@ -15,7 +15,7 @@
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/db_contabilidad_domestica" />
 			<property name="javax.persistence.jdbc.user" value="root" />
-			<property name="javax.persistence.jdbc.password" value="Lenovo1" />
+			<property name="javax.persistence.jdbc.password" value="Gregory1" />
 		</properties>
 	</persistence-unit>
 </persistence>
